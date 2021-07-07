@@ -3,20 +3,19 @@ import styled from "styled-components";
 
 export const Nav = styled.nav`
   background-color: #f5f4f4;
+  border-top: 2px solid #7065e4;
   width: 100%;
   height: 65px;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
   z-index: 1;
-  border-top: 2px solid #7065e4;
 `;
 
 export const NavMenu = styled.div`
   height: 100%;
   display: flex;
-  flex-wrap: nowrap;
   justify-content: space-around;
   align-items: center;
 `;
