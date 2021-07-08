@@ -2,8 +2,8 @@ import { NavLink as Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const Nav = styled.nav`
-  background-color: #f5f4f4;
-  border-top: 2px solid #7065e4;
+  background-color: var(--branco-fundo-body);
+  border-top: 2px solid var(--roxo-tema-principal);
   width: 100%;
   height: 65px;
   position: fixed;
@@ -23,7 +23,7 @@ export const NavMenu = styled.div`
 export const NavLink = styled(Link)`
   text-decoration: none;
   font-size: 1.2rem;
-  color: #a8a8a8;
+  color: var(--cinza-claro);
   width: 80px;
   display: flex;
   flex-direction: column;
@@ -36,10 +36,10 @@ export const NavLink = styled(Link)`
   }
 
   &.isActive {
-    color: #7065e4;
+    color: var(--roxo-tema-principal);
   }
 
   &:hover {
-    color: #7065e4;
+    color: var(--roxo-tema-principal);
   }
 `;
