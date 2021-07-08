@@ -37,7 +37,35 @@ interface DecodedToken {
   sub: string;
 }
 
-interface UserDataMoreInfo {
+interface UserEmployerDataMoreInfo {
+  moreInfo: {
+    categories: [];
+    description: string;
+    telephone: string;
+  };
+}
+
+interface UserWorkerDataMoreInfo {
+  moreInfo: {
+    categories: string[];
+    description: string;
+    telephone: string;
+  };
+}
+
+interface UserEmployerDataEdit {
+  email: string;
+  name: string;
+  moreInfo: {
+    categories: [];
+    description: string;
+    telephone: string;
+  };
+}
+
+interface UserWorkerDataEdit {
+  email: string;
+  name: string;
   moreInfo: {
     categories: string[];
     description: string;
@@ -54,7 +82,12 @@ interface AuthProviderData {
   userLoggedInfo: {};
   getInfoFromASpecificUser: (userWantedId: string) => void;
   userWantedInfo: {};
-  addMoreInfoUser: (userDataMoreInfo: UserDataMoreInfo) => void;
+  addMoreInfoUserEmployer: (userDataMoreInfo: UserEmployerDataMoreInfo) => void;
+  addMoreInfoUserWorker: (
+    userWorkerDataMoreInfo: UserWorkerDataMoreInfo
+  ) => void;
+  editUserEmployer: (userEmployerDataEdit: UserEmployerDataEdit) => void;
+  editUserWorker: (userWorkerDataEdit: UserWorkerDataEdit) => void;
 }
 
 interface AuthProviderProps {
@@ -151,9 +184,55 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       .catch((err) => console.log(err));
   };
 
-  const addMoreInfoUser = (userDataMoreInfo: UserDataMoreInfo) => {
+  const addMoreInfoUserEmployer = (
+    userEmployerDataMoreInfo: UserEmployerDataMoreInfo
+  ) => {
     api
-      .patch(`/users/${userLoggedId}`, userDataMoreInfo, {
+      .patch(`/users/${userLoggedId}`, userEmployerDataMoreInfo, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        //Show Toast
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const addMoreInfoUserWorker = (
+    userWorkerDataMoreInfo: UserWorkerDataMoreInfo
+  ) => {
+    api
+      .patch(`/users/${userLoggedId}`, userWorkerDataMoreInfo, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        //Show Toast
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const editUserEmployer = (userEmployerDataEdit: UserEmployerDataEdit) => {
+    api
+      .patch(`/users/${userLoggedId}`, userEmployerDataEdit, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        //Show Toast
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const editUserWorker = (userWorkerDataEdit: UserWorkerDataEdit) => {
+    api
+      .patch(`/users/${userLoggedId}`, userWorkerDataEdit, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -176,7 +255,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         userLoggedInfo,
         getInfoFromASpecificUser,
         userWantedInfo,
-        addMoreInfoUser,
+        addMoreInfoUserEmployer,
+        addMoreInfoUserWorker,
+        editUserEmployer,
+        editUserWorker,
       }}
     >
       {children}
