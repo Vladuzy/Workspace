@@ -3,8 +3,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../providers/AuthProvider";
-import {InputContainer, FormContainer, Container, FooterContainer, FooterContainerLink, SelectContainer, ButtonContainer, SpanFormContainer} from "./style"
-
+import {InputContainer, FormContainer, Container, FooterContainer, FooterContainerLink, SelectContainer, ButtonContainer, SpanFormContainer, HeaderContainer} from "./style"
+import imgIcone from "../../assets/img/Icone.svg";
 interface Data{
   name: string;
   type: string;
@@ -66,9 +66,9 @@ const Register = () => {
 
   return (
     <Container>
-      <header>
-        <h3>imagem logo aqui</h3>
-      </header>
+      <HeaderContainer>
+      <img src={imgIcone} alt="Icone da workspace" />
+      </HeaderContainer>
 
     <FormContainer onSubmit={handleSubmit(handleForm)}>
       <SpanFormContainer>{errors.name?.message}</SpanFormContainer>

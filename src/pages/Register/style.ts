@@ -48,3 +48,7 @@ export const SelectContainer = styled.select`
 Width: 274px;
 Height: 56px;
 `
+
+export const HeaderContainer = styled.header`
+    height: 43px;
+`
