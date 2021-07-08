@@ -1,3 +1,4 @@
+// Irem
 import {
   createContext,
   Dispatch,
@@ -75,6 +76,7 @@ interface UserWorkerDataEdit {
 
 interface AuthProviderData {
   token: string;
+  isAuthenticated: boolean;
   userLoggedId: string;
   handleRegister: (userDataRegister: UserDataRegister) => void;
   handleLogin: (userDataLogin: UserDataLogin) => void;
@@ -111,10 +113,14 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const [userWantedInfo, setUserWantedInfo] = useState({});
 
-  // useEffect(() => {
-  //   getUserInfo();
-  //   handleAuth();
-  // }, [token]);
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    token !== "" ? true : false
+  );
+
+  useEffect(() => {
+    getUserLoggedInfo();
+    handleAuth();
+  }, [token]);
 
   const handleRegister = (userDataRegister: UserDataRegister) => {
     api
@@ -146,6 +152,14 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         );
       })
       .catch((err) => console.log(err));
+  };
+
+  const handleAuth = () => {
+    if (token !== "") {
+      setIsAuthenticated(true);
+    } else {
+      setIsAuthenticated(false);
+    }
   };
 
   const getUserLoggedInfo = () => {
@@ -248,6 +262,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     <AuthContext.Provider
       value={{
         token,
+        isAuthenticated,
         userLoggedId,
         handleRegister,
         handleLogin,
