@@ -37,19 +37,13 @@ interface DecodedToken {
   sub: string;
 }
 
-// interface UserLoggedInfo {
-//   id: number;
-//   name: string;
-//   type: string;
-//   email: string;
-//   password: string;
-//   rating: string;
-//   moreInfo: {
-//     categories: [];
-//     description: string;
-//     telephone: string;
-//   };
-// }
+interface UserDataMoreInfo {
+  moreInfo: {
+    categories: string[];
+    description: string;
+    telephone: string;
+  };
+}
 
 interface AuthProviderData {
   token: string;
@@ -58,6 +52,9 @@ interface AuthProviderData {
   handleLogin: (userDataLogin: UserDataLogin) => void;
   getUserLoggedInfo: () => void;
   userLoggedInfo: {};
+  getInfoFromASpecificUser: (userWantedId: string) => void;
+  userWantedInfo: {};
+  addMoreInfoUser: (userDataMoreInfo: UserDataMoreInfo) => void;
 }
 
 interface AuthProviderProps {
@@ -75,7 +72,11 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     () => localStorage.getItem("@WorkSpace:userLoggedId") || ""
   );
 
-  const [userLoggedInfo, setUserLoggedInfo] = useState({});
+  const [userLoggedInfo, setUserLoggedInfo] = useState(
+    () => localStorage.getItem("@WorkSpace:userLoggedInfo") || {}
+  );
+
+  const [userWantedInfo, setUserWantedInfo] = useState({});
 
   // useEffect(() => {
   //   getUserInfo();
@@ -123,7 +124,42 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       })
       .then((response) => {
         console.log(response.data);
+        localStorage.setItem(
+          "@WorkSpace:userLoggedInfo",
+          JSON.stringify(response.data)
+        );
         setUserLoggedInfo(response.data);
+        console.log(userLoggedInfo);
+        //Show Toast
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const getInfoFromASpecificUser = (userWantedId: string) => {
+    api
+      .get(`/users/${userWantedId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+        setUserWantedInfo(response.data);
+        console.log(userWantedInfo);
+        //Show Toast
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const addMoreInfoUser = (userDataMoreInfo: UserDataMoreInfo) => {
+    api
+      .patch(`/users/${userLoggedId}`, userDataMoreInfo, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
         //Show Toast
       })
       .catch((err) => console.log(err));
@@ -138,6 +174,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         handleLogin,
         getUserLoggedInfo,
         userLoggedInfo,
+        getInfoFromASpecificUser,
+        userWantedInfo,
+        addMoreInfoUser,
       }}
     >
       {children}

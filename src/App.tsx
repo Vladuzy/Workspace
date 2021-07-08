@@ -1,7 +1,14 @@
 import { useAuth } from "./providers/AuthProvider";
 
 function App() {
-  const { token, handleRegister, handleLogin, getUserLoggedInfo } = useAuth();
+  const {
+    token,
+    handleRegister,
+    handleLogin,
+    getUserLoggedInfo,
+    getInfoFromASpecificUser,
+    addMoreInfoUser,
+  } = useAuth();
   console.log(token);
   return (
     <>
@@ -24,11 +31,24 @@ function App() {
       >
         Register
       </button>
+      <button
+        onClick={() =>
+          addMoreInfoUser({
+            moreInfo: {
+              categories: ["pintura", "arte"],
+              description: "",
+              telephone: "9123912938",
+            },
+          })
+        }
+      >
+        Add more info
+      </button>
 
       <button
         onClick={() =>
           handleLogin({
-            email: "leandro@mail.com",
+            email: "leandro@gmail.com",
             password: "123456",
           })
         }
@@ -37,6 +57,10 @@ function App() {
       </button>
 
       <button onClick={() => getUserLoggedInfo()}>UserInfo</button>
+
+      <button onClick={() => getInfoFromASpecificUser("3")}>
+        Search user 3
+      </button>
     </>
   );
 }
