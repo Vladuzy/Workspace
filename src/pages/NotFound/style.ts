@@ -17,13 +17,13 @@ export const Content = styled.div`
   bottom: 0;
   border-top-left-radius: 50px;
   border-top-right-radius: 50px;
-  box-shadow: 0 20px 80px 10px #393739;
-  background-color: #393739;
-  color: #fef9f1;
+  box-shadow: 0 20px 80px 10px var(--preto-cafe);
+  background-color: var(--preto-cafe);
+  color: var(--branco-fundo-body);
   font-size: 25px;
 
   h2 {
-    color: #7065e4;
+    color: var(--roxo-tema-principal);
     text-transform: uppercase;
     line-height: 1.4em;
     padding: 30px 0;
