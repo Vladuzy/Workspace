@@ -30,8 +30,16 @@ interface UserDataLogin {
   password: string;
 }
 
+interface DecodedToken {
+  email: string;
+  exp: number;
+  iat: number;
+  sub: string;
+}
+
 interface AuthProviderData {
   token: string;
+  userId: string;
   handleRegister: (userDataRegister: UserDataRegister) => void;
   handleLogin: (userDataLogin: UserDataLogin) => void;
 }
@@ -69,19 +77,20 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         localStorage.setItem("@WorkSpace:token", response.data.accessToken);
         setToken(response.data.accessToken);
 
-        const decodedToken = decoder(access);
+        const decodedToken: DecodedToken = jwt_decode(
+          response.data.accessToken
+        );
         console.log(decodedToken);
-        // setUserId(decodedToken.user_id);
-        // localStorage.setItem(
-        //   "@DevelopingHabitus:user",
-        //   `${decodedToken.user_id}`
-        // );
+        setUserId(decodedToken.sub);
+        localStorage.setItem("@WorkSpace:token:userId", `${decodedToken.sub}`);
       })
       .catch((err) => console.log(err));
   };
 
   return (
-    <AuthContext.Provider value={{ token, handleRegister, handleLogin }}>
+    <AuthContext.Provider
+      value={{ token, userId, handleRegister, handleLogin }}
+    >
       {children}
     </AuthContext.Provider>
   );
