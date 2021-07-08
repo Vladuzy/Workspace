@@ -1,3 +1,4 @@
+// Irem
 import {
   createContext,
   Dispatch,
@@ -37,7 +38,35 @@ interface DecodedToken {
   sub: string;
 }
 
-interface UserDataMoreInfo {
+interface UserEmployerDataMoreInfo {
+  moreInfo: {
+    categories: [];
+    description: string;
+    telephone: string;
+  };
+}
+
+interface UserWorkerDataMoreInfo {
+  moreInfo: {
+    categories: string[];
+    description: string;
+    telephone: string;
+  };
+}
+
+interface UserEmployerDataEdit {
+  email: string;
+  name: string;
+  moreInfo: {
+    categories: [];
+    description: string;
+    telephone: string;
+  };
+}
+
+interface UserWorkerDataEdit {
+  email: string;
+  name: string;
   moreInfo: {
     categories: string[];
     description: string;
@@ -47,6 +76,7 @@ interface UserDataMoreInfo {
 
 interface AuthProviderData {
   token: string;
+  isAuthenticated: boolean;
   userLoggedId: string;
   handleRegister: (userDataRegister: UserDataRegister) => void;
   handleLogin: (userDataLogin: UserDataLogin) => void;
@@ -54,7 +84,12 @@ interface AuthProviderData {
   userLoggedInfo: {};
   getInfoFromASpecificUser: (userWantedId: string) => void;
   userWantedInfo: {};
-  addMoreInfoUser: (userDataMoreInfo: UserDataMoreInfo) => void;
+  addMoreInfoUserEmployer: (userDataMoreInfo: UserEmployerDataMoreInfo) => void;
+  addMoreInfoUserWorker: (
+    userWorkerDataMoreInfo: UserWorkerDataMoreInfo
+  ) => void;
+  editUserEmployer: (userEmployerDataEdit: UserEmployerDataEdit) => void;
+  editUserWorker: (userWorkerDataEdit: UserWorkerDataEdit) => void;
 }
 
 interface AuthProviderProps {
@@ -78,10 +113,14 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const [userWantedInfo, setUserWantedInfo] = useState({});
 
-  // useEffect(() => {
-  //   getUserInfo();
-  //   handleAuth();
-  // }, [token]);
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    token !== "" ? true : false
+  );
+
+  useEffect(() => {
+    getUserLoggedInfo();
+    handleAuth();
+  }, [token]);
 
   const handleRegister = (userDataRegister: UserDataRegister) => {
     api
@@ -113,6 +152,14 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         );
       })
       .catch((err) => console.log(err));
+  };
+
+  const handleAuth = () => {
+    if (token !== "") {
+      setIsAuthenticated(true);
+    } else {
+      setIsAuthenticated(false);
+    }
   };
 
   const getUserLoggedInfo = () => {
@@ -151,9 +198,55 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       .catch((err) => console.log(err));
   };
 
-  const addMoreInfoUser = (userDataMoreInfo: UserDataMoreInfo) => {
+  const addMoreInfoUserEmployer = (
+    userEmployerDataMoreInfo: UserEmployerDataMoreInfo
+  ) => {
     api
-      .patch(`/users/${userLoggedId}`, userDataMoreInfo, {
+      .patch(`/users/${userLoggedId}`, userEmployerDataMoreInfo, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        //Show Toast
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const addMoreInfoUserWorker = (
+    userWorkerDataMoreInfo: UserWorkerDataMoreInfo
+  ) => {
+    api
+      .patch(`/users/${userLoggedId}`, userWorkerDataMoreInfo, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        //Show Toast
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const editUserEmployer = (userEmployerDataEdit: UserEmployerDataEdit) => {
+    api
+      .patch(`/users/${userLoggedId}`, userEmployerDataEdit, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        //Show Toast
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const editUserWorker = (userWorkerDataEdit: UserWorkerDataEdit) => {
+    api
+      .patch(`/users/${userLoggedId}`, userWorkerDataEdit, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -169,6 +262,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     <AuthContext.Provider
       value={{
         token,
+        isAuthenticated,
         userLoggedId,
         handleRegister,
         handleLogin,
@@ -176,7 +270,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         userLoggedInfo,
         getInfoFromASpecificUser,
         userWantedInfo,
-        addMoreInfoUser,
+        addMoreInfoUserEmployer,
+        addMoreInfoUserWorker,
+        editUserEmployer,
+        editUserWorker,
       }}
     >
       {children}
