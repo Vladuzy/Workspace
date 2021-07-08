@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 interface CategoryProps {
-  color: string
+  color: string;
 }
 
 export const CardContainer = styled.div`
@@ -46,15 +46,6 @@ export const CardHeader = styled.div`
       margin-bottom: 5px;
     }
   }
-
-  /* img {
-    margin: 5px;
-    height: 50px;
-    width: 50px;
-    left: 11px;
-    top: 219px;
-    border-radius: 8px;
-  } */
 `;
 
 export const CardFooter = styled.div`
@@ -64,7 +55,6 @@ export const CardFooter = styled.div`
 
   div {
     margin: 10px 0;
-
     display: flex;
     align-items: center;
 
@@ -73,15 +63,15 @@ export const CardFooter = styled.div`
       height: 20px;
     }
   }
-  
+
   & div:nth-child(2) {
     margin-left: 10px;
   }
 `;
 
 export const Category = styled.div<CategoryProps>`
-  color: ${(props) => props.color };
-  border: 1px solid ${(props) => props.color };
+  color: ${({ color }) => color};
+  border: 1px solid ${({ color }) => color};
   box-sizing: border-box;
   border-radius: 10px;
   font-size: 15px;

@@ -1,8 +1,8 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 export const HeaderContainer = styled.header`
   min-height: 60px;
-`
+`;
 
 export const FilterContainer = styled.section`
   height: 50px;
@@ -10,7 +10,7 @@ export const FilterContainer = styled.section`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-`
+`;
 
 export const IconContainer = styled.div`
   width: 40px;
@@ -24,7 +24,7 @@ export const IconContainer = styled.div`
 
   transition: filter 0.2s ease-in-out;
 
-  &:hover{
+  &:hover {
     filter: brightness(0.8);
     transition: filter 0.2s ease-in-out;
   }
@@ -34,7 +34,7 @@ export const IconContainer = styled.div`
     width: 20px;
     height: 20px;
   }
-`
+`;
 export const MainContainer = styled.main`
   height: 80vh;
   border-top-left-radius: 20px;

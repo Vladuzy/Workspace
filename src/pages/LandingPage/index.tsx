@@ -17,26 +17,9 @@ const LandingPage = () => {
         <p>Praticidade e segurança ao contratar um freelancer</p>
       </div>
       <div>
-        <Button
-          text="Entrar"
-          width="274px"
-          heigth="45px"
-          borderRadius="8px"
-          backColor="#7065E4"
-          border="initial"
-          color="#F5F4F5"
-          fontSize="15px"
-          handleClick={() => redirectToPage("login")}
-        />
+        <Button text="Entrar" handleClick={() => redirectToPage("login")} />
         <Button
           text="Cadastrar"
-          width="274px"
-          heigth="45px"
-          borderRadius="8px"
-          backColor="#7065E4"
-          border="initial"
-          color="#F5F4F5"
-          fontSize="15px"
           handleClick={() => redirectToPage("register")}
         />
       </div>
