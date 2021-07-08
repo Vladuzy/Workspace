@@ -42,15 +42,6 @@ export const CardHeader = styled.div`
       margin-bottom: 5px;
     }
   }
-
-  /* img {
-    margin: 5px;
-    height: 50px;
-    width: 50px;
-    left: 11px;
-    top: 219px;
-    border-radius: 8px;
-  } */
 `;
 
 export const CardFooter = styled.div`
@@ -60,7 +51,6 @@ export const CardFooter = styled.div`
 
   div {
     margin: 10px 0;
-
     display: flex;
     align-items: center;
 
@@ -69,7 +59,7 @@ export const CardFooter = styled.div`
       height: 20px;
     }
   }
-  
+
   & div:nth-child(2) {
     margin-left: 10px;
   }

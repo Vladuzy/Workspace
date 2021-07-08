@@ -32,5 +32,9 @@ export const Content = styled.div`
   > div {
     height: 70%;
     padding: 0 50px;
+
+    > p {
+      font-size: 23px;
+    }
   }
 `;

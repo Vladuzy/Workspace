@@ -11,15 +11,15 @@ interface input {
 }
 
 export const InputStyled = styled.input<input>`
-  width: ${(props) => props.width};
-  height: ${(props) => props.heigth};
-  color: var(--cinza-claro);
-  background-color: ${(props) => props.backColor};
-  border-radius: ${(props) => props.borderRadius};
-  border: ${(props) => props.border};
+  width: ${({ width }) => width};
+  height: ${({ heigth }) => heigth};
+  color: ${({ color }) => color};
+  background-color: ${({ backColor }) => backColor};
+  border-radius: ${({ borderRadius }) => borderRadius};
+  border: ${({ border }) => border};
 
   &::placeholder {
-    color: ${(props) => props.color};
-    font-size: ${(props) => props.fontSize};
+    color: ${({ color }) => color};
+    font-size: ${({ fontSize }) => fontSize};
   }
 `;

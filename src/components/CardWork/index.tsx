@@ -11,15 +11,15 @@ interface CardWorkProps {
     img?: string;
     category: string;
     local: string;
-    valorOferecido: string
+    valorOferecido: string;
   };
 }
-//
+
 const CardWork = ({ work }: CardWorkProps) => {
   const { nameWork, category, valorOferecido, local } = work;
 
   return (
-    <CardContainer >
+    <CardContainer>
       <div>
         <CardHeader>
           <FaUserCircle />
@@ -31,7 +31,7 @@ const CardWork = ({ work }: CardWorkProps) => {
 
         <CardFooter>
           <div>
-            <GiPositionMarker /> 
+            <GiPositionMarker />
             <span>{local}</span>
           </div>
           <div>
