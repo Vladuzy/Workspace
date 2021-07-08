@@ -1,9 +1,5 @@
 import styled from "styled-components";
 
-interface CategoryProps {
-  color: string;
-}
-
 export const CardContainer = styled.div`
   display: flex;
   align-items: center;
@@ -67,14 +63,4 @@ export const CardFooter = styled.div`
   & div:nth-child(2) {
     margin-left: 10px;
   }
-`;
-
-export const Category = styled.div<CategoryProps>`
-  color: ${({ color }) => color};
-  border: 1px solid ${({ color }) => color};
-  box-sizing: border-box;
-  border-radius: 10px;
-  font-size: 15px;
-  display: inline;
-  padding: 2px 10px;
 `;

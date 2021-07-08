@@ -1,9 +1,9 @@
 import { GiPositionMarker } from "react-icons/gi";
-import { CgDollar } from "react-icons/cg";
+import { FaDollarSign } from 'react-icons/fa'
 import { IoIosArrowForward } from "react-icons/io";
-import { FaUserCircle } from "react-icons/fa";
-import { CardContainer, CardHeader, CardFooter, Category } from "./style";
-import { useState } from "react";
+import { FaUserCircle } from 'react-icons/fa'
+import { CardContainer, CardHeader, CardFooter } from "./style";
+import CategoryTag from "../CategoryTag";
 
 interface CardWorkProps {
   work: {
@@ -17,27 +17,6 @@ interface CardWorkProps {
 
 const CardWork = ({ work }: CardWorkProps) => {
   const { nameWork, category, valorOferecido, local } = work;
-  const [color] = useState<string>((): string => {
-    switch (category) {
-      case "Limpeza":
-        return "var(--vermelho)";
-
-      case "Pintura":
-        return "var(--amarelo)";
-
-      case "Eletricista":
-        return "var(--azul)";
-
-      case "Encanador":
-        return "var(--roxo-categoria)";
-
-      case "Gerais":
-        return "var(--verde)";
-
-      default:
-        return "";
-    }
-  });
 
   return (
     <CardContainer>
@@ -46,7 +25,7 @@ const CardWork = ({ work }: CardWorkProps) => {
           <FaUserCircle />
           <div>
             <h2>{nameWork}</h2>
-            <Category color={color}>{category}</Category>
+            <CategoryTag category={category}/>
           </div>
         </CardHeader>
 
@@ -56,7 +35,7 @@ const CardWork = ({ work }: CardWorkProps) => {
             <span>{local}</span>
           </div>
           <div>
-            <CgDollar />
+            <FaDollarSign /> 
             <span>{valorOferecido}</span>
           </div>
         </CardFooter>
