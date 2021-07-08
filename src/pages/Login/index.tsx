@@ -47,7 +47,10 @@ const Login = () => {
             placeholder="E-mail"
             width="274px"
             heigth="56px"
+
             register={register}
+            
+
           />
           <span> {errors && errors.email?.message}</span>
         </StyleInput>
@@ -60,7 +63,9 @@ const Login = () => {
             placeholder="password"
             width="274px"
             heigth="56px"
+
             register={register}
+
           />
           <span>{errors && errors.email?.message}</span>
         </StyleInput>

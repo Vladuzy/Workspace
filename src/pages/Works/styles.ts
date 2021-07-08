@@ -40,4 +40,14 @@ export const MainContainer = styled.main`
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   background-color: var(--cinza-ultra-claro-main);
-`;
+`
+
+export const Input = styled.input`
+  width='235px';
+  heigth='30px'; 
+  color='var(--cinza-claro)';
+  backColor='#ECEAEA';
+  borderRadius='15px';
+  border='none';
+  fontSize='17px'
+`
