@@ -37,11 +37,27 @@ interface DecodedToken {
   sub: string;
 }
 
+// interface UserLoggedInfo {
+//   id: number;
+//   name: string;
+//   type: string;
+//   email: string;
+//   password: string;
+//   rating: string;
+//   moreInfo: {
+//     categories: [];
+//     description: string;
+//     telephone: string;
+//   };
+// }
+
 interface AuthProviderData {
   token: string;
-  userId: string;
+  userLoggedId: string;
   handleRegister: (userDataRegister: UserDataRegister) => void;
   handleLogin: (userDataLogin: UserDataLogin) => void;
+  getUserLoggedInfo: () => void;
+  userLoggedInfo: {};
 }
 
 interface AuthProviderProps {
@@ -55,9 +71,16 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     () => localStorage.getItem("@WorkSpace:token") || ""
   );
 
-  const [userId, setUserId] = useState(
-    () => localStorage.getItem("@WorkSpace:userId") || ""
+  const [userLoggedId, setUserLoggedId] = useState(
+    () => localStorage.getItem("@WorkSpace:userLoggedId") || ""
   );
+
+  const [userLoggedInfo, setUserLoggedInfo] = useState({});
+
+  // useEffect(() => {
+  //   getUserInfo();
+  //   handleAuth();
+  // }, [token]);
 
   const handleRegister = (userDataRegister: UserDataRegister) => {
     api
@@ -80,16 +103,42 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         const decodedToken: DecodedToken = jwt_decode(
           response.data.accessToken
         );
+
         console.log(decodedToken);
-        setUserId(decodedToken.sub);
-        localStorage.setItem("@WorkSpace:token:userId", `${decodedToken.sub}`);
+        setUserLoggedId(decodedToken.sub);
+        localStorage.setItem(
+          "@WorkSpace:token:userLoggedId",
+          `${decodedToken.sub}`
+        );
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const getUserLoggedInfo = () => {
+    api
+      .get(`/users/${userLoggedId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+        setUserLoggedInfo(response.data);
+        //Show Toast
       })
       .catch((err) => console.log(err));
   };
 
   return (
     <AuthContext.Provider
-      value={{ token, userId, handleRegister, handleLogin }}
+      value={{
+        token,
+        userLoggedId,
+        handleRegister,
+        handleLogin,
+        getUserLoggedInfo,
+        userLoggedInfo,
+      }}
     >
       {children}
     </AuthContext.Provider>

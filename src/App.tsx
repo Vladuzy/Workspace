@@ -1,7 +1,7 @@
 import { useAuth } from "./providers/AuthProvider";
 
 function App() {
-  const { token, handleRegister, handleLogin } = useAuth();
+  const { token, handleRegister, handleLogin, getUserLoggedInfo } = useAuth();
   console.log(token);
   return (
     <>
@@ -35,6 +35,8 @@ function App() {
       >
         Login
       </button>
+
+      <button onClick={() => getUserLoggedInfo()}>UserInfo</button>
     </>
   );
 }
