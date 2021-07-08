@@ -1,4 +1,5 @@
-// Irem
+// Os imports de Dispatch e SeStateAction, podem deixar, pois talvez iremos
+// precisar mais para frente quando for setar os states.
 import {
   createContext,
   Dispatch,
@@ -139,12 +140,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         console.log(response.data.accessToken);
         localStorage.setItem("@WorkSpace:token", response.data.accessToken);
         setToken(response.data.accessToken);
-
         const decodedToken: DecodedToken = jwt_decode(
           response.data.accessToken
         );
 
-        console.log(decodedToken);
         setUserLoggedId(decodedToken.sub);
         localStorage.setItem(
           "@WorkSpace:token:userLoggedId",
