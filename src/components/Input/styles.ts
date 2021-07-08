@@ -13,7 +13,7 @@ interface input {
 export const InputStyled = styled.input<input>`
   width: ${(props) => props.width};
   height: ${(props) => props.heigth};
-  color: var(--cinza-claro);
+  color: ${(props) => props.color};
   background-color: ${(props) => props.backColor};
   border-radius: ${(props) => props.borderRadius};
   border: ${(props) => props.border};
