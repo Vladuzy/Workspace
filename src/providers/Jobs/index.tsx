@@ -21,8 +21,16 @@ interface JobCreationData {
   date: string;
 }
 
+interface JobEditData {
+  title: string;
+  description: string;
+  valueOffered: number;
+  date: string;
+}
+
 interface JobsProviderData {
-  createJob: (jobCreationData: JobCreationData) => void;
+  userEmployerCreateJob: (jobCreationData: JobCreationData) => void;
+  userEmployerEditJob: (jobEditData: JobEditData, jobId: string) => void;
 }
 
 interface JobsProviderProps {
@@ -34,7 +42,11 @@ const JobsContext = createContext<JobsProviderData>({} as JobsProviderData);
 export const JobsProvider = ({ children }: JobsProviderProps) => {
   const { token, userLoggedId } = useAuth();
 
-  const createJob = (jobCreationData: JobCreationData) => {
+  // const { currentJobId, setCurrentJobId } = useState("");
+
+  // const { currentJob, setCurrentJob } = useState({});
+
+  const userEmployerCreateJob = (jobCreationData: JobCreationData) => {
     const { title, category, description, location, valueOffered, date } =
       jobCreationData;
 
@@ -66,8 +78,49 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
       .catch((err) => console.log(err));
   };
 
+  // const getASpecificJob = (jobId) => {};
+
+  const userEmployerEditJob = (jobEditData: JobEditData, jobId: string) => {
+    api
+      .patch(`/jobs/${jobId}`, jobEditData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        //Show Toast
+      })
+      .catch((err) => console.log(err));
+  };
+
+  // const userEmployerAcceptCandidate = (
+  //   appliedCandidateId: string,
+  //   jobId: string
+  // ) => {
+  //   const acceptCandidateData = {
+  //     status: "isProgress",
+  //     appliedCandidateId: "",
+  //     acceptedCandidateId: appliedCandidateId,
+  //   };
+
+  //   api
+  //     .patch(`/jobs/${jobId}`, acceptCandidateData, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     })
+  //     .then((response) => {
+  //       console.log(response);
+  //       //Show Toast
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
+
   return (
-    <JobsContext.Provider value={{ createJob }}>
+    <JobsContext.Provider
+      value={{ userEmployerCreateJob, userEmployerEditJob }}
+    >
       {children}
     </JobsContext.Provider>
   );

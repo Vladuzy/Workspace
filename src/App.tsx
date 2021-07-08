@@ -16,7 +16,7 @@ function App() {
     editUserWorker,
   } = useAuth();
 
-  const { createJob } = useJobs();
+  const { userEmployerCreateJob, userEmployerEditJob } = useJobs();
 
   return (
     <>
@@ -117,7 +117,7 @@ function App() {
 
       <button
         onClick={() =>
-          createJob({
+          userEmployerCreateJob({
             title: "Morar casa",
             category: ["Gerais"],
             description: "Morar casa",
@@ -128,6 +128,21 @@ function App() {
         }
       >
         Create job
+      </button>
+      <button
+        onClick={() =>
+          userEmployerEditJob(
+            {
+              title: "Morar so casa",
+              description: "Morar so casa",
+              valueOffered: 1500,
+              date: "10/05/2021 - 10:00h",
+            },
+            "1"
+          )
+        }
+      >
+        Edit Job
       </button>
     </>
   );
