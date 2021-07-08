@@ -1,7 +1,27 @@
+import { InputStyled } from "./styles";
 
-const Input = () => {
+interface inputProps {
+  width: string,
+  heigth: string,
+  color: string,
+  backColor: string,
+  borderRadius: string,
+  border: string,
+  fontSize: string,
+}
+
+const Input = ({width, heigth, color, backColor, borderRadius, border, fontSize}:inputProps, {...rest}) => {
   return (
-    <input/>
+    <InputStyled 
+      width={width} 
+      heigth={heigth} 
+      color={color} 
+      backColor={backColor} 
+      borderRadius={borderRadius} 
+      border={border} 
+      fontSize={fontSize}
+      {...rest}
+    />
   );
 };
 
