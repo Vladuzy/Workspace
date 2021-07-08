@@ -33,14 +33,4 @@ export const Content = styled.div`
     height: 70%;
     padding: 0 50px;
   }
-
-  //Só para testes!!!
-  > button {
-    background-color: #7065e4;
-    width: 230px;
-    height: 40px;
-    color: #fef9f1;
-    font-size: 17px;
-    border-radius: 50px;
-  }
 `;

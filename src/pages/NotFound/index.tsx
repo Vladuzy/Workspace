@@ -1,20 +1,14 @@
-//import { useHistory } from "react-router-dom";
-//import Button from "../../components/Button";
-//import { useAuth } from "../../contexts/Auth";
+import { useHistory } from "react-router-dom";
 import { Container, Content } from "./style";
 import imgNotFound from "../../assets/img/NotFound.svg";
+import Button from "../../components/Button";
 
 const NotFound = () => {
-  //const history = useHistory();
-  //const { isAuthenticated } = useAuth();
+  const history = useHistory();
 
-  /*   const redirectToHome = () => {
-    if (isAuthenticated) {
-      history.push("/profile");
-    } else {
-      history.push("/");
-    }
-  }; */
+  const redirectToHome = () => {
+    history.push("/");
+  };
 
   return (
     <Container>
@@ -25,7 +19,17 @@ const NotFound = () => {
           <p>Não conseguimos encontrar essa página!! Retorne para o inicio.</p>
         </div>
 
-        <button>Voltar ao início</button>
+        <Button
+          text="Voltar ao início"
+          width="274px"
+          heigth="45px"
+          borderRadius="8px"
+          backColor="#7065E4"
+          border="initial"
+          color="#F5F4F5"
+          fontSize="15px"
+          handleClick={redirectToHome}
+        />
       </Content>
     </Container>
   );
