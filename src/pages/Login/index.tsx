@@ -4,7 +4,7 @@ import api from "../../service/api"
 import { Link } from "react-router-dom";
 import {useForm} from "react-hook-form"
 import * as yup from "yup";
-// import { yupResolver } from "@hookform/resolvers/yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 import {Container, StyleForm, StyleInput} from "./style"
 import { useAuth } from "../../providers/AuthProvider";
@@ -18,16 +18,16 @@ const Login = () => {
   const {handleLogin}=useAuth()
 
   const schema = yup.object().shape({
-    email: yup.string().required('Required field!'),
-    password: yup.string().required('Required field!'),
+    email: yup.string().required('Campo obrigatorio!'),
+    password: yup.string().required('Campo obrigatorio!'),
   })
 
   const { register, handleSubmit, formState: {errors} } = useForm<FormLogin>({
-    // resolver:yupResolver(schema)
+    resolver:yupResolver(schema)
   });
 
   const onSubmit =(data:FormLogin )=>{
-    console.log("data", data)
+    // console.log("data", data)
     handleLogin(data)
   }
   return (
@@ -64,7 +64,7 @@ const Login = () => {
             register= {register}
 
           />
-          <span></span>
+          <span>{errors && errors.email?.message}</span>
         </StyleInput>
         
 
