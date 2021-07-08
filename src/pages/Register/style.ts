@@ -17,6 +17,9 @@ margin: 0 auto;
 export const InputContainer = styled.input`
 Width: 274px;
 Height: 56px;
+border-radius: 8px;
+border-style: none;
+background-color: #E5E5E5;
 `
 
 export const FooterContainer = styled.div`
@@ -38,6 +41,7 @@ export const ButtonContainer = styled.button`
     border-style: none;
     margin-top: 20px;
     color: #F5F4F4;
+    border-radius: 8px;
 `
 
 export const SpanFormContainer = styled.span`
@@ -48,6 +52,9 @@ export const SpanFormContainer = styled.span`
 export const SelectContainer = styled.select`
 Width: 274px;
 Height: 56px;
+border-radius: 8px;
+background-color: #E5E5E5;
+border-style: none;
 `
 
 export const HeaderContainer = styled.header`
