@@ -26,7 +26,8 @@ justify-content: center;
 `
 
 export const FooterContainerLink = styled.p`
-    color: #7065E4
+    color: #7065E4;
+    padding-left: 7px;
 `
 
 export const ButtonContainer = styled.button`
