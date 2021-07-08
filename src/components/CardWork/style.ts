@@ -1,15 +1,23 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+interface CategoryProps {
+  color: string
+}
+
+export const CardContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
-  background-color: var(--cinza-claro);
   width: 100%;
 
   a {
     color: var(--roxo-tema-principal);
     font-weight: bold;
+
+    svg {
+      width: 35px;
+      height: 35px;
+    }
   }
 
   border-bottom: 1px solid var(--roxo-tema-principal);
@@ -25,30 +33,55 @@ export const CardHeader = styled.div`
     margin: 0 5px;
   }
 
-  img {
+  svg {
+    width: 55px;
+    height: 55px;
+  }
+
+  & > div {
+    height: 55px;
+    margin-left: 10px;
+
+    & > h2 {
+      margin-bottom: 5px;
+    }
+  }
+
+  /* img {
     margin: 5px;
     height: 50px;
     width: 50px;
     left: 11px;
     top: 219px;
     border-radius: 8px;
-  }
+  } */
 `;
 
 export const CardFooter = styled.div`
   display: flex;
   color: var(--cinza-claro);
   font-size: 15px;
-  justify-content: space-around;
 
   div {
-    margin: 5px 10px;
+    margin: 10px 0;
+
+    display: flex;
+    align-items: center;
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+  
+  & div:nth-child(2) {
+    margin-left: 10px;
   }
 `;
 
-export const Category = styled.div`
-  color: var(--vermelho);
-  border: 1px solid var(--vermelho);
+export const Category = styled.div<CategoryProps>`
+  color: ${(props) => props.color };
+  border: 1px solid ${(props) => props.color };
   box-sizing: border-box;
   border-radius: 10px;
   font-size: 15px;

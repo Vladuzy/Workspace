@@ -1,45 +1,71 @@
 import { GiPositionMarker } from "react-icons/gi";
 import { CgDollar } from "react-icons/cg";
 import { IoIosArrowForward } from "react-icons/io";
-import { Container, CardHeader, CardFooter, Category } from "./style";
+import { FaUserCircle } from 'react-icons/fa'
+import { CardContainer, CardHeader, CardFooter, Category } from "./style";
+import { useState } from "react";
 
 interface CardWorkProps {
   work: {
     nameWork: string;
-    img: string;
+    img?: string;
     category: string;
+    local: string;
+    valorOferecido: string
   };
-  key: string;
 }
 //
-const CardWork = ({ work, key }: CardWorkProps) => {
-  const { nameWork, img, category } = work;
+const CardWork = ({ work }: CardWorkProps) => {
+  const { nameWork, category, valorOferecido, local } = work;
+  const [color] = useState<string>((): string => {
+    switch (category) {
+      case 'Limpeza':
+        return 'var(--vermelho)'
+
+      case 'Pintura':
+        return 'var(--amarelo)'
+
+      case 'Eletricista':
+        return 'var(--azul)'
+
+      case 'Encanador':
+        return 'var(--roxo-categoria)'
+
+      case 'Gerais':
+        return 'var(--verde)'
+
+      default:
+        return ''
+    }
+  })
+  
+
   return (
-    <Container key={key}>
+    <CardContainer >
       <div>
         <CardHeader>
-          <img src={img} alt="Imagem identificando o trabalho" />
+          <FaUserCircle />
           <div>
             <h2>{nameWork}</h2>
-            <Category>{category}</Category>
+            <Category color={color}>{category}</Category>
           </div>
         </CardHeader>
 
         <CardFooter>
           <div>
-            {" "}
-            <GiPositionMarker /> lugar
+            <GiPositionMarker /> 
+            <span>{local}</span>
           </div>
           <div>
-            {" "}
-            <CgDollar /> valor ofertado
+            <CgDollar /> 
+            <span>{valorOferecido}</span>
           </div>
         </CardFooter>
       </div>
       <a href="/works/description">
         <IoIosArrowForward />
       </a>
-    </Container>
+    </CardContainer>
   );
 };
 
