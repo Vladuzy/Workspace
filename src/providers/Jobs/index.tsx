@@ -14,7 +14,7 @@ import { useAuth } from "../AuthProvider/index";
 
 interface Job {
   title: string;
-  category: string[];
+  category: string;
   description: string;
   location: string;
   status: string;
@@ -30,7 +30,7 @@ interface Job {
 
 interface CurrentJob {
   title: string;
-  category: string[];
+  category: string;
   description: string;
   location: string;
   status: string;
@@ -492,23 +492,6 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
       })
       .catch((err) => console.log(err));
   };
-  useEffect(() => {
-        getListAllJobs();
-        getListWaitingJobsWithoutCandidates();
-        getListUserEmployerJobs();
-        getListUserWorkerJobs();
-       
-        getListUserEmployerCompletedJobs();
-        getListUserWorkerCompletedJobs();
-       
-        getListUserEmployerCurrentJobs();
-     
-        getListUserEmployerActiveJobs();
-   
-        getListUserWorkerAppliedJobs();
-     
-        getListUserWorkerActiveJobs();
-  }, [])
 
   return (
     <JobsContext.Provider
