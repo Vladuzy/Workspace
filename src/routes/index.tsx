@@ -29,7 +29,7 @@ const Routes = () => {
       <Route exact path="/works">
         <Works />
       </Route>
-      <Route path="/works/description">
+      <Route path="/works/:id">
         <WorksDescription />
       </Route>
       <Route path="*">

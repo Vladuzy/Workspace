@@ -16,6 +16,7 @@ export default createGlobalStyle`
         --roxo-tema-principal: #7065E4;
         --roxo-claro-tema-principal: rgba(112, 101, 228, 0.4);
         --preto-cafe: #31292E;
+        --cinza-escuro: #ECEAEA;
         --cinza-claro: #A8A8A8;
         --cinza-ultra-claro-main: rgba(168, 168, 168, 0.2);
 
@@ -33,6 +34,7 @@ export default createGlobalStyle`
     }
 
     body {
+        font-family: 'Roboto Slab', serif;
         background: var(--branco-fundo-body);
         color: var(--preto-cafe)
     }
