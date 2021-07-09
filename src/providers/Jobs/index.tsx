@@ -63,7 +63,7 @@ interface JobsProviderData {
   getListAllJobs: () => void;
   listAllJobs: Job[];
   getListWaitingJobsWithoutCandidates: () => void;
-  listWaitingJobs: Job[];
+  listWaitingJobsWithoutCandidates: Job[];
   getListUserEmployerJobs: () => void;
   getListUserWorkerJobs: () => void;
   listUserJobs: Job[];
@@ -97,7 +97,10 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
 
   const [listAllJobs, setListAllJobs] = useState<Job[]>([] as Job[]);
 
-  const [listWaitingJobs, setListWaitingJobs] = useState<Job[]>([] as Job[]);
+  const [
+    listWaitingJobsWithoutCandidates,
+    setListWaitingJobsWithoutCandidates,
+  ] = useState<Job[]>([] as Job[]);
 
   const [listUserJobs, setListUserJobs] = useState<Job[]>([] as Job[]);
 
@@ -315,9 +318,9 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
         },
       })
       .then((response) => {
-        setListWaitingJobs(response.data);
+        setListWaitingJobsWithoutCandidates(response.data);
         localStorage.setItem(
-          "@WorkSpace:listWaitingJobs",
+          "@WorkSpace:listWaitingJobsWithoutCandidates",
           JSON.stringify(response.data)
         );
         console.log(response);
@@ -490,7 +493,7 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
         getListAllJobs,
         listAllJobs,
         getListWaitingJobsWithoutCandidates,
-        listWaitingJobs,
+        listWaitingJobsWithoutCandidates,
         getListUserEmployerJobs,
         getListUserWorkerJobs,
         listUserJobs,
