@@ -6,6 +6,13 @@ interface TabMobile{
     onClick?:()=>void,
 }
 
+export const MobileConteiner = styled.div`
+
+`
+export const DesktopConteiner = styled.div`
+
+`
+
 export const ListContainer = styled.div`
   height: 80vh;
   

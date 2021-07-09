@@ -1,5 +1,5 @@
 import Footer from "../../components/Footer"
-import {ListContainer, TabStyleMobile, Header} from "./style"
+import {ListContainer, TabStyleMobile, Header, MobileConteiner, DesktopConteiner} from "./style"
 import CardWork from "../../components/CardWork"
 import { useEffect, useState } from "react";
 import { useJobs } from "../../providers/Jobs";
@@ -32,7 +32,7 @@ const Home = () => {
 
   return (
     <>
-    <div>
+    <MobileConteiner>
       <Header>
         
         <span>Total ganho:</span>
@@ -48,7 +48,7 @@ const Home = () => {
       {
         current==="ativos" ?(
           <ListContainer>
-            <CardWork
+            {/* <CardWork
               key="1"
               work={{
               nameWork: "Remoção de vespas",
@@ -56,14 +56,14 @@ const Home = () => {
               valorOferecido: "400,00",
               local: "Rua dos Mineiros",
             }}
-            />
+            /> */}
             {/* {listApplied.map(job => ({
               <CardWork work={job} key={job.id}/>
             }))} */}
           </ListContainer>
         ):(
           <ListContainer>
-            <CardWork
+            {/* <CardWork
               key="1"
               work={{
               nameWork: "Remoção de abelhas",
@@ -71,7 +71,7 @@ const Home = () => {
               valorOferecido: "300,00",
               local: "Rua dos Mineiros",
             }}
-            />
+            /> */}
             {/* {listActive.map(job => ({
               <CardWork work={job} key={job.id}/>
             }))} */}
@@ -80,7 +80,11 @@ const Home = () => {
       }
       
       <Footer isHome />
-    </div>
+    </MobileConteiner>
+
+    <DesktopConteiner>
+
+    </DesktopConteiner>
     </>
   );
 };
