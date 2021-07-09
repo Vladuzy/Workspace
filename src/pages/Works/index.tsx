@@ -1,8 +1,17 @@
 import { HeaderContainer, FilterContainer, IconContainer, MainContainer, Input } from './styles'
 import { GoSettings } from 'react-icons/go'
 import CardWork from '../../components/CardWork';
+import { useJobs } from '../../providers/Jobs';
+import { useEffect } from 'react';
+import Footer from '../../components/Footer';
 
 const Works = () => {
+  const { getListWaitingJobsWithoutCandidates, listWaitingJobsWithoutCandidates } = useJobs()
+
+  useEffect(() => {
+    getListWaitingJobsWithoutCandidates()
+  }, [])
+
   return (
     <>
       <HeaderContainer>
@@ -14,19 +23,11 @@ const Works = () => {
         </FilterContainer>
       </HeaderContainer>
       <MainContainer>
-        <CardWork
-          key="1"
-          work={{
-            nameWork: "Remoção de vespas",
-            category: "Gerais",
-            valorOferecido: "400,00",
-            local: "Rua dos Mineiros",
-          }}
-        />
-        {/* {Providers.map(elem => ({
-          <CardWork work={elem} key={elem.id}/>
-        }))} */}
+        {listWaitingJobsWithoutCandidates.map(elem => (
+          <CardWork job={elem} key={elem.id}/>
+        ))}
       </MainContainer>
+      <Footer />
     </>
   );
 };

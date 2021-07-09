@@ -6,17 +6,25 @@ import { CardContainer, CardHeader, CardFooter } from "./style";
 import CategoryTag from "../CategoryTag";
 
 interface CardWorkProps {
-  work: {
-    nameWork: string;
-    img?: string;
+  job: {
+    title: string;
     category: string;
-    local: string;
-    valorOferecido: string;
-  };
+    description: string;
+    location: string;
+    status: string;
+    rating: string;
+    valueOffered: number;
+    date: string;
+    appliedCandidateId: string;
+    acceptedCandidateId: string;
+    rejectedCandidatesIds: string[];
+    userId: string;
+    id: string
+  }
 }
 
-const CardWork = ({ work }: CardWorkProps) => {
-  const { nameWork, category, valorOferecido, local } = work;
+const CardWork = ({ job }: CardWorkProps) => {
+  const { title, category, valueOffered, location, id } = job;
 
   return (
     <CardContainer>
@@ -24,7 +32,7 @@ const CardWork = ({ work }: CardWorkProps) => {
         <CardHeader>
           <FaUserCircle />
           <div>
-            <h2>{nameWork}</h2>
+            <h2>{title}</h2>
             <CategoryTag category={category}/>
           </div>
         </CardHeader>
@@ -32,15 +40,15 @@ const CardWork = ({ work }: CardWorkProps) => {
         <CardFooter>
           <div>
             <GiPositionMarker />
-            <span>{local}</span>
+            <span>{location}</span>
           </div>
           <div>
             <FaDollarSign /> 
-            <span>{valorOferecido}</span>
+            <span>{valueOffered}</span>
           </div>
         </CardFooter>
       </div>
-      <a href="/works/description">
+      <a href={`/works/${id}`}>
         <IoIosArrowForward />
       </a>
     </CardContainer>

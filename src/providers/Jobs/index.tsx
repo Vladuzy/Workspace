@@ -14,7 +14,7 @@ import { useAuth } from "../AuthProvider/index";
 
 interface Job {
   title: string;
-  category: string[];
+  category: string;
   description: string;
   location: string;
   status: string;
@@ -30,7 +30,7 @@ interface Job {
 
 interface CurrentJob {
   title: string;
-  category: string[];
+  category: string;
   description: string;
   location: string;
   status: string;
