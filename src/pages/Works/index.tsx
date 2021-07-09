@@ -6,8 +6,7 @@ import { useEffect } from 'react';
 import Footer from '../../components/Footer';
 
 const Works = () => {
-  const { getListWaitingJobsWithoutCandidates, listWaitingJobs } = useJobs()
-  console.log(listWaitingJobs)
+  const { getListWaitingJobsWithoutCandidates, listWaitingJobsWithoutCandidates } = useJobs()
 
   useEffect(() => {
     getListWaitingJobsWithoutCandidates()
@@ -24,7 +23,7 @@ const Works = () => {
         </FilterContainer>
       </HeaderContainer>
       <MainContainer>
-        {listWaitingJobs.map(elem => (
+        {listWaitingJobsWithoutCandidates.map(elem => (
           <CardWork job={elem} key={elem.id}/>
         ))}
       </MainContainer>

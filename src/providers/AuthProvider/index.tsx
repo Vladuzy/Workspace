@@ -27,6 +27,34 @@ interface UserDataRegister {
   };
 }
 
+interface UserLoggedInfo {
+  name: string;
+  type: string;
+  email: string;
+  password: string;
+  rating: string;
+  moreInfo: {
+    categories: string[];
+    description: string;
+    telephone: string;
+  };
+  id: string;
+}
+
+interface UserWantedInfo {
+  name: string;
+  type: string;
+  email: string;
+  password: string;
+  rating: string;
+  moreInfo: {
+    categories: string[];
+    description: string;
+    telephone: string;
+  };
+  id: string;
+}
+
 interface UserDataLogin {
   email: string;
   password: string;
@@ -79,12 +107,14 @@ interface AuthProviderData {
   token: string;
   isAuthenticated: boolean;
   userLoggedId: string;
+
+
   handleRegister: (userDataRegister: UserDataRegister) => void;
   handleLogin: (userDataLogin: UserDataLogin) => void;
   getUserLoggedInfo: () => void;
-  userLoggedInfo: Object;
+  userLoggedInfo: UserLoggedInfo;
   getInfoFromASpecificUser: (userWantedId: string) => void;
-  userWantedInfo: Object;
+  userWantedInfo: UserWantedInfo;
   addMoreInfoUserEmployer: (userDataMoreInfo: UserEmployerDataMoreInfo) => void;
   addMoreInfoUserWorker: (
     userWorkerDataMoreInfo: UserWorkerDataMoreInfo
@@ -108,11 +138,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     () => localStorage.getItem("@WorkSpace:userLoggedId") || ""
   );
 
-  const [userLoggedInfo, setUserLoggedInfo] = useState(
-    () => localStorage.getItem("@WorkSpace:userLoggedInfo") || {}
-  );
+  const [userLoggedInfo, setUserLoggedInfo] = useState<UserLoggedInfo>({} as UserLoggedInfo);
 
-  const [userWantedInfo, setUserWantedInfo] = useState({});
+  const [userWantedInfo, setUserWantedInfo] = useState<UserWantedInfo>({} as UserWantedInfo);
 
   const [isAuthenticated, setIsAuthenticated] = useState(
     token !== "" ? true : false
@@ -149,7 +177,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       })
       .catch((err) => console.log(err));
   };
-
   const handleAuth = () => {
     if (token !== "") {
       setIsAuthenticated(true);
