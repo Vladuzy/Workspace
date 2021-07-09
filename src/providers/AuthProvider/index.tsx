@@ -153,7 +153,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       })
       .catch((err) => console.log(err));
   };
-
   const handleAuth = () => {
     if (token !== "") {
       setIsAuthenticated(true);
