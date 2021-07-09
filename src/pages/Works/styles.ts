@@ -43,11 +43,11 @@ export const MainContainer = styled.main`
 `
 
 export const Input = styled.input`
-  width='235px';
-  heigth='30px'; 
-  color='var(--cinza-claro)';
-  backColor='#ECEAEA';
-  borderRadius='15px';
-  border='none';
-  fontSize='17px'
+  width:'235px';
+  heigth:'30px'; 
+  color:'var(--cinza-claro)';
+  backColor:'#ECEAEA';
+  borderRadius:'15px';
+  border:'none';
+  fontSize:'17px'
 `
