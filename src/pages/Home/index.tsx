@@ -57,9 +57,9 @@ const Home = () => {
               local: "Rua dos Mineiros",
             }}
             /> */}
-            {/* {listApplied.map(job => ({
-              <CardWork work={job} key={job.id}/>
-            }))} */}
+            {listApplied.map(job => (
+              <CardWork job={job} key={job.id}/>
+            ))}
           </ListContainer>
         ):(
           <ListContainer>
@@ -72,9 +72,9 @@ const Home = () => {
               local: "Rua dos Mineiros",
             }}
             /> */}
-            {/* {listActive.map(job => ({
-              <CardWork work={job} key={job.id}/>
-            }))} */}
+            {listActive.map(job => (
+              <CardWork job={job} key={job.id}/>
+            ))}
           </ListContainer>
         )
       }

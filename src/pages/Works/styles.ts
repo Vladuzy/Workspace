@@ -43,15 +43,6 @@ export const MainContainer = styled.main`
 `
 
 export const Input = styled.input`
-<<<<<<< HEAD
-  width:'235px';
-  heigth:'30px'; 
-  color:'var(--cinza-claro)';
-  backColor:'#ECEAEA';
-  borderRadius:'15px';
-  border:'none';
-  fontSize:'17px'
-=======
   width: 235px;
   height: 30px;
   padding-left: 15px;
@@ -60,5 +51,4 @@ export const Input = styled.input`
   border-radius:15px;
   border: none;
   font-size: 17px;
->>>>>>> developer
 `
