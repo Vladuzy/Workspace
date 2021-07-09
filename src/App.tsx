@@ -16,7 +16,16 @@ function App() {
     editUserWorker,
   } = useAuth();
 
-  const { userEmployerCreateJob, userEmployerEditJob } = useJobs();
+  const {
+    userEmployerCreateJob,
+    userEmployerEditJob,
+    getASpecificJob,
+    userEmployerAcceptCandidate,
+    userEmployerRejectCandidate,
+    userEmployerCompleteJob,
+    userEmployerRatingJob,
+    userWorkerApplyToJob,
+  } = useJobs();
 
   return (
     <>
@@ -129,6 +138,7 @@ function App() {
       >
         Create job
       </button>
+      <button onClick={() => getASpecificJob("2")}>Get a job</button>
       <button
         onClick={() =>
           userEmployerEditJob(
@@ -144,6 +154,17 @@ function App() {
       >
         Edit Job
       </button>
+      <button onClick={() => userEmployerAcceptCandidate("3", "2")}>
+        Aceitar Candidato
+      </button>
+      <button onClick={() => userEmployerRejectCandidate("4", ["1"], "2")}>
+        Rejeitar Candidato
+      </button>
+      <button onClick={() => userEmployerCompleteJob("2")}>Complete Job</button>
+      <button onClick={() => userEmployerRatingJob("5", "2")}>
+        Rating Job
+      </button>
+      <button onClick={() => userWorkerApplyToJob("2")}>Apply to Job</button>
     </>
   );
 }
