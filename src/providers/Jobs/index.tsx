@@ -492,23 +492,6 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
       })
       .catch((err) => console.log(err));
   };
-  useEffect(() => {
-        getListAllJobs();
-        getListWaitingJobsWithoutCandidates();
-        getListUserEmployerJobs();
-        getListUserWorkerJobs();
-       
-        getListUserEmployerCompletedJobs();
-        getListUserWorkerCompletedJobs();
-       
-        getListUserEmployerCurrentJobs();
-     
-        getListUserEmployerActiveJobs();
-   
-        getListUserWorkerAppliedJobs();
-     
-        getListUserWorkerActiveJobs();
-  }, [])
 
   return (
     <JobsContext.Provider
