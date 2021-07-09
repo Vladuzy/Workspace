@@ -1,4 +1,5 @@
-// Irem
+// Os imports de Dispatch e SeStateAction, podem deixar, pois talvez iremos
+// precisar mais para frente quando for setar os states.
 import {
   createContext,
   Dispatch,
@@ -81,9 +82,9 @@ interface AuthProviderData {
   handleRegister: (userDataRegister: UserDataRegister) => void;
   handleLogin: (userDataLogin: UserDataLogin) => void;
   getUserLoggedInfo: () => void;
-  userLoggedInfo: {};
+  userLoggedInfo: Object;
   getInfoFromASpecificUser: (userWantedId: string) => void;
-  userWantedInfo: {};
+  userWantedInfo: Object;
   addMoreInfoUserEmployer: (userDataMoreInfo: UserEmployerDataMoreInfo) => void;
   addMoreInfoUserWorker: (
     userWorkerDataMoreInfo: UserWorkerDataMoreInfo
@@ -120,7 +121,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   useEffect(() => {
     getUserLoggedInfo();
     handleAuth();
-  }, [token]);
+  }, []);
 
   const handleRegister = (userDataRegister: UserDataRegister) => {
     api
@@ -139,17 +140,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         console.log(response.data.accessToken);
         localStorage.setItem("@WorkSpace:token", response.data.accessToken);
         setToken(response.data.accessToken);
-
         const decodedToken: DecodedToken = jwt_decode(
           response.data.accessToken
         );
 
-        console.log(decodedToken);
         setUserLoggedId(decodedToken.sub);
-        localStorage.setItem(
-          "@WorkSpace:token:userLoggedId",
-          `${decodedToken.sub}`
-        );
+        localStorage.setItem("@WorkSpace:userLoggedId", `${decodedToken.sub}`);
       })
       .catch((err) => console.log(err));
   };
@@ -176,7 +172,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
           JSON.stringify(response.data)
         );
         setUserLoggedInfo(response.data);
-        console.log(userLoggedInfo);
         //Show Toast
       })
       .catch((err) => console.log(err));
