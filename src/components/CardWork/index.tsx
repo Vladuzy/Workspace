@@ -4,6 +4,7 @@ import { IoIosArrowForward } from "react-icons/io";
 import { FaUserCircle } from 'react-icons/fa'
 import { CardContainer, CardHeader, CardFooter } from "./style";
 import CategoryTag from "../CategoryTag";
+import { useHistory } from 'react-router-dom'
 
 interface CardWorkProps {
   job: {
@@ -24,6 +25,7 @@ interface CardWorkProps {
 }
 
 const CardWork = ({ job }: CardWorkProps) => {
+  const history = useHistory()
   const { title, category, valueOffered, location, id } = job;
 
   return (
@@ -48,9 +50,8 @@ const CardWork = ({ job }: CardWorkProps) => {
           </div>
         </CardFooter>
       </div>
-      <a href={`/works/${id}`}>
-        <IoIosArrowForward />
-      </a>
+      <IoIosArrowForward onClick={() => history.push(`/works/${id}`)}/>
+      
     </CardContainer>
   );
 };
