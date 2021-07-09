@@ -14,7 +14,7 @@ import { useAuth } from "../AuthProvider/index";
 
 interface Job {
   title: string;
-  category: string[];
+  category: string;
   description: string;
   location: string;
   status: string;
@@ -25,6 +25,23 @@ interface Job {
   acceptedCandidateId: string;
   rejectedCandidatesIds: string[];
   userId: string;
+  id: string;
+}
+
+interface CurrentJob {
+  title: string;
+  category: string;
+  description: string;
+  location: string;
+  status: string;
+  rating: string;
+  valueOffered: number;
+  date: string;
+  appliedCandidateId: string;
+  acceptedCandidateId: string;
+  rejectedCandidatesIds: string[];
+  userId: string;
+  id: string;
 }
 
 interface JobCreationData {
@@ -46,7 +63,7 @@ interface JobEditData {
 interface JobsProviderData {
   userEmployerCreateJob: (jobCreationData: JobCreationData) => void;
   getASpecificJob: (jobId: string) => void;
-  currentJob: Object;
+  currentJob: CurrentJob;
   userEmployerEditJob: (jobEditData: JobEditData, jobId: string) => void;
   userEmployerAcceptCandidate: (
     appliedCandidateId: string,
@@ -63,7 +80,7 @@ interface JobsProviderData {
   getListAllJobs: () => void;
   listAllJobs: Job[];
   getListWaitingJobsWithoutCandidates: () => void;
-  listWaitingJobs: Job[];
+  listWaitingJobsWithoutCandidates: Job[];
   getListUserEmployerJobs: () => void;
   getListUserWorkerJobs: () => void;
   listUserJobs: Job[];
@@ -91,13 +108,14 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
 
   // const [ currentJobId, setCurrentJobId ] = useState("");
 
-  const [currentJob, setCurrentJob] = useState(
-    () => localStorage.getItem("@WorkSpace:currentJob") || {}
-  );
+  const [currentJob, setCurrentJob] = useState<CurrentJob>({} as CurrentJob)
 
   const [listAllJobs, setListAllJobs] = useState<Job[]>([] as Job[]);
 
-  const [listWaitingJobs, setListWaitingJobs] = useState<Job[]>([] as Job[]);
+  const [
+    listWaitingJobsWithoutCandidates,
+    setListWaitingJobsWithoutCandidates,
+  ] = useState<Job[]>([] as Job[]);
 
   const [listUserJobs, setListUserJobs] = useState<Job[]>([] as Job[]);
 
@@ -315,9 +333,9 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
         },
       })
       .then((response) => {
-        setListWaitingJobs(response.data);
+        setListWaitingJobsWithoutCandidates(response.data);
         localStorage.setItem(
-          "@WorkSpace:listWaitingJobs",
+          "@WorkSpace:listWaitingJobsWithoutCandidates",
           JSON.stringify(response.data)
         );
         console.log(response);
@@ -490,7 +508,7 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
         getListAllJobs,
         listAllJobs,
         getListWaitingJobsWithoutCandidates,
-        listWaitingJobs,
+        listWaitingJobsWithoutCandidates,
         getListUserEmployerJobs,
         getListUserWorkerJobs,
         listUserJobs,
