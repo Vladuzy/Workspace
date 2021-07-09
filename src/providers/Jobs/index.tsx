@@ -25,6 +25,23 @@ interface Job {
   acceptedCandidateId: string;
   rejectedCandidatesIds: string[];
   userId: string;
+  id: string;
+}
+
+interface CurrentJob {
+  title: string;
+  category: string[];
+  description: string;
+  location: string;
+  status: string;
+  rating: string;
+  valueOffered: number;
+  date: string;
+  appliedCandidateId: string;
+  acceptedCandidateId: string;
+  rejectedCandidatesIds: string[];
+  userId: string;
+  id: string;
 }
 
 interface JobCreationData {
@@ -46,7 +63,7 @@ interface JobEditData {
 interface JobsProviderData {
   userEmployerCreateJob: (jobCreationData: JobCreationData) => void;
   getASpecificJob: (jobId: string) => void;
-  currentJob: Object;
+  currentJob: CurrentJob;
   userEmployerEditJob: (jobEditData: JobEditData, jobId: string) => void;
   userEmployerAcceptCandidate: (
     appliedCandidateId: string,
@@ -91,9 +108,7 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
 
   // const [ currentJobId, setCurrentJobId ] = useState("");
 
-  const [currentJob, setCurrentJob] = useState(
-    () => localStorage.getItem("@WorkSpace:currentJob") || {}
-  );
+  const [currentJob, setCurrentJob] = useState<CurrentJob>({} as CurrentJob)
 
   const [listAllJobs, setListAllJobs] = useState<Job[]>([] as Job[]);
 
@@ -477,6 +492,23 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
       })
       .catch((err) => console.log(err));
   };
+  useEffect(() => {
+        getListAllJobs();
+        getListWaitingJobsWithoutCandidates();
+        getListUserEmployerJobs();
+        getListUserWorkerJobs();
+       
+        getListUserEmployerCompletedJobs();
+        getListUserWorkerCompletedJobs();
+       
+        getListUserEmployerCurrentJobs();
+     
+        getListUserEmployerActiveJobs();
+   
+        getListUserWorkerAppliedJobs();
+     
+        getListUserWorkerActiveJobs();
+  }, [])
 
   return (
     <JobsContext.Provider
