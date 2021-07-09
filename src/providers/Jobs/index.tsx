@@ -17,10 +17,10 @@ interface Job {
   category: string[];
   description: string;
   location: string;
-  valueOffered: number;
-  date: string;
   status: string;
   rating: string;
+  valueOffered: number;
+  date: string;
   appliedCandidateId: string;
   acceptedCandidateId: string;
   rejectedCandidatesIds: string[];
@@ -44,9 +44,9 @@ interface JobEditData {
 }
 
 interface JobsProviderData {
-  currentJob: Object;
   userEmployerCreateJob: (jobCreationData: JobCreationData) => void;
   getASpecificJob: (jobId: string) => void;
+  currentJob: Object;
   userEmployerEditJob: (jobEditData: JobEditData, jobId: string) => void;
   userEmployerAcceptCandidate: (
     appliedCandidateId: string,
@@ -60,6 +60,24 @@ interface JobsProviderData {
   userEmployerCompleteJob: (jobId: string) => void;
   userEmployerRatingJob: (ratingJob: string, jobId: string) => void;
   userWorkerApplyToJob: (jobId: string) => void;
+  getListAllJobs: () => void;
+  listAllJobs: Job[];
+  getListWaitingJobsWithoutCandidates: () => void;
+  listWaitingJobs: Job[];
+  getListUserEmployerJobs: () => void;
+  getListUserWorkerJobs: () => void;
+  listUserJobs: Job[];
+  getListUserEmployerCompletedJobs: () => void;
+  getListUserWorkerCompletedJobs: () => void;
+  listCompletedJobs: Job[];
+  getListUserEmployerCurrentJobs: () => void;
+  listuserEmployerCurrentJobs: Job[];
+  getListUserEmployerActiveJobs: () => void;
+  listUserEmployerActiveJobs: Job[];
+  getListUserWorkerAppliedJobs: () => void;
+  listUserWorkerAppliedJobs: Job[];
+  getListUserWorkerActiveJobs: () => void;
+  listUserWorkerActiveJobs: Job[];
 }
 
 interface JobsProviderProps {
@@ -74,8 +92,33 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
   // const [ currentJobId, setCurrentJobId ] = useState("");
 
   const [currentJob, setCurrentJob] = useState(
-    () => localStorage.getItem("@WorkSpace:currentJob") || []
+    () => localStorage.getItem("@WorkSpace:currentJob") || {}
   );
+
+  const [listAllJobs, setListAllJobs] = useState<Job[]>([] as Job[]);
+
+  const [listWaitingJobs, setListWaitingJobs] = useState<Job[]>([] as Job[]);
+
+  const [listUserJobs, setListUserJobs] = useState<Job[]>([] as Job[]);
+
+  const [listCompletedJobs, setListCompletedJobs] = useState<Job[]>(
+    [] as Job[]
+  );
+  const [listuserEmployerCurrentJobs, setListUserEmployerCurrentJobs] =
+    useState<Job[]>([] as Job[]);
+
+  const [listUserEmployerActiveJobs, setListUserEmployerActiveJobs] = useState<
+    Job[]
+  >([] as Job[]);
+
+  const [listUserWorkerAppliedJobs, setListUserWorkerAppliedJobs] = useState<
+    Job[]
+  >([] as Job[]);
+
+  const [listUserWorkerActiveJobs, setListUserWorkerActiveJobs] = useState<
+    Job[]
+  >([] as Job[]);
+
   const userEmployerCreateJob = (jobCreationData: JobCreationData) => {
     const { title, category, description, location, valueOffered, date } =
       jobCreationData;
@@ -89,7 +132,7 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
       date,
       status: "",
       rating: "",
-      appliedCandidateId: "",
+      appliedCandidateId: "Sem Candidatos",
       acceptedCandidateId: "",
       rejectedCandidatesIds: [],
       userId: userLoggedId,
@@ -173,7 +216,8 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
 
     const rejectCandidateData = {
       status: "isWaiting",
-      appliedCandidateId: "",
+      appliedCandidateId: "Sem Candidatos",
+      acceptedCandidateId: "",
       rejectedCandidatesIds: [rejectedCandidates],
     };
 
@@ -244,18 +288,223 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
       .catch((err) => console.log(err));
   };
 
+  const getListAllJobs = () => {
+    api
+      .get("/jobs", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        setListAllJobs(response.data);
+        localStorage.setItem(
+          "@WorkSpace:listAllJobs",
+          JSON.stringify(response.data)
+        );
+        //Show Toast
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const getListWaitingJobsWithoutCandidates = () => {
+    api
+      .get("/jobs?status=isWaiting&appliedCandidateId=Sem%20Candidatos", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setListWaitingJobs(response.data);
+        localStorage.setItem(
+          "@WorkSpace:listWaitingJobs",
+          JSON.stringify(response.data)
+        );
+        console.log(response);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const getListUserEmployerJobs = () => {
+    api
+      .get(`jobs?userId=${userLoggedId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setListUserJobs(response.data);
+        localStorage.setItem(
+          "@WorkSpace:listUserJobs",
+          JSON.stringify(response.data)
+        );
+        console.log(response);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const getListUserWorkerJobs = () => {
+    api
+      .get(`jobs?acceptedCandidateId=${userLoggedId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setListUserJobs(response.data);
+        localStorage.setItem(
+          "@WorkSpace:listUserJobs",
+          JSON.stringify(response.data)
+        );
+        console.log(response);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const getListUserEmployerCompletedJobs = () => {
+    api
+      .get(`jobs?userId=${userLoggedId}&status=isCompleted`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        setListCompletedJobs(response.data);
+        localStorage.setItem(
+          "@WorkSpace:listUserCompletedJobs",
+          JSON.stringify(response.data)
+        );
+        //Show Toast
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const getListUserWorkerCompletedJobs = () => {
+    api
+      .get(`jobs?acceptedCandidateId=${userLoggedId}&status=isCompleted`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        setListCompletedJobs(response.data);
+        localStorage.setItem(
+          "@WorkSpace:listUserCompletedJobs",
+          JSON.stringify(response.data)
+        );
+        //Show Toast
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const getListUserEmployerCurrentJobs = () => {
+    api
+      .get(`jobs?userId=${userLoggedId}&status=isWaiting`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        setListUserEmployerCurrentJobs(response.data);
+        localStorage.setItem(
+          "@WorkSpace:listUserEmployerCurrentJobs",
+          JSON.stringify(response.data)
+        );
+        //Show Toast
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const getListUserEmployerActiveJobs = () => {
+    api
+      .get(`jobs?userId=${userLoggedId}&status=inProgress`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        setListUserEmployerActiveJobs(response.data);
+        localStorage.setItem(
+          "@WorkSpace:listUserEmployerActiveJobs",
+          JSON.stringify(response.data)
+        );
+        //Show Toast
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const getListUserWorkerAppliedJobs = () => {
+    api
+      .get(`jobs?appliedCandidateId=${userLoggedId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        setListUserWorkerAppliedJobs(response.data);
+        localStorage.setItem(
+          "@WorkSpace:listUserWorkerAppliedJobs",
+          JSON.stringify(response.data)
+        );
+        //Show Toast
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const getListUserWorkerActiveJobs = () => {
+    api
+      .get(`jobs?acceptedCandidateId=${userLoggedId}&status=inProgress`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        setListUserWorkerActiveJobs(response.data);
+        localStorage.setItem(
+          "@WorkSpace:listUserWorkerAppliedJobs",
+          JSON.stringify(response.data)
+        );
+        //Show Toast
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <JobsContext.Provider
       value={{
-        currentJob,
         userEmployerCreateJob,
         getASpecificJob,
+        currentJob,
         userEmployerEditJob,
         userEmployerAcceptCandidate,
         userEmployerRejectCandidate,
         userEmployerCompleteJob,
         userEmployerRatingJob,
         userWorkerApplyToJob,
+        getListAllJobs,
+        listAllJobs,
+        getListWaitingJobsWithoutCandidates,
+        listWaitingJobs,
+        getListUserEmployerJobs,
+        getListUserWorkerJobs,
+        listUserJobs,
+        getListUserEmployerCompletedJobs,
+        getListUserWorkerCompletedJobs,
+        listCompletedJobs,
+        getListUserEmployerCurrentJobs,
+        listuserEmployerCurrentJobs,
+        getListUserEmployerActiveJobs,
+        listUserEmployerActiveJobs,
+        getListUserWorkerAppliedJobs,
+        listUserWorkerAppliedJobs,
+        getListUserWorkerActiveJobs,
+        listUserWorkerActiveJobs,
       }}
     >
       {children}

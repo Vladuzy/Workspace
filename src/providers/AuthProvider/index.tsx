@@ -120,8 +120,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   useEffect(() => {
     getUserLoggedInfo();
-    console.log(token);
-    console.log(userLoggedId);
     handleAuth();
   }, []);
 
