@@ -1,14 +1,15 @@
 import imgLogout from "../../assets/img/Logout.svg";
-import imgStars from "../../assets/img/Stars.svg";
+import Rating from '@material-ui/lab/Rating';
 import imgAvatar from "../../assets/img/Avatar.svg";
 import imgEdit from "../../assets/img/Edit.svg";
 import {useHistory} from "react-router-dom";
 import { useAuth } from "../../providers/AuthProvider";
+import {useJobs} from "../../providers/Jobs"
 import {Container, HandleContainer, HeaderInternContainer, ImgHandleContainer, HeaderContainer, ImgStarHeaderContainer, TitleContainer} from "./style";
 const Header = () => {
-
+  const {listCompletedJobs} = useJobs()
   const {userLoggedInfo} = useAuth()
-  console.log(userLoggedInfo)
+  console.log(listCompletedJobs)
 
   const history = useHistory()
 
@@ -26,7 +27,7 @@ const Header = () => {
         <img src={imgAvatar} alt="Icone Avatar" />
       <HeaderInternContainer>
         <TitleContainer>Nome do usuário</TitleContainer>
-        <ImgStarHeaderContainer src={imgStars} alt="Icone Stars" />
+        <Rating precision={0.5} name="read-only" value={4.5} readOnly />
       </HeaderInternContainer>
       </HeaderContainer>
       <HandleContainer>

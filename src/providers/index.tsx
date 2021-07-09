@@ -1,4 +1,5 @@
 import { AuthProvider } from "./AuthProvider";
+import { JobsProvider } from "./Jobs";
 import { ReactNode } from "react";
 
 interface ProvidersProps {
@@ -6,7 +7,11 @@ interface ProvidersProps {
 }
 
 const Providers = ({ children }: ProvidersProps) => {
-  return <AuthProvider>{children}</AuthProvider>;
+  return (
+    <AuthProvider>
+      <JobsProvider>{children}</JobsProvider>
+    </AuthProvider>
+  );
 };
 
 export default Providers;

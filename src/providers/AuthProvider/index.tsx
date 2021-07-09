@@ -1,4 +1,5 @@
-// Irem
+// Os imports de Dispatch e SeStateAction, podem deixar, pois talvez iremos
+// precisar mais para frente quando for setar os states.
 import {
   createContext,
   Dispatch,
@@ -24,6 +25,34 @@ interface UserDataRegister {
     description: string;
     telephone: string;
   };
+}
+
+interface UserLoggedInfo {
+  name: string;
+  type: string;
+  email: string;
+  password: string;
+  rating: string;
+  moreInfo: {
+    categories: string[];
+    description: string;
+    telephone: string;
+  };
+  id: string;
+}
+
+interface UserWantedInfo {
+  name: string;
+  type: string;
+  email: string;
+  password: string;
+  rating: string;
+  moreInfo: {
+    categories: string[];
+    description: string;
+    telephone: string;
+  };
+  id: string;
 }
 
 interface UserDataLogin {
@@ -78,12 +107,14 @@ interface AuthProviderData {
   token: string;
   isAuthenticated: boolean;
   userLoggedId: string;
+
+
   handleRegister: (userDataRegister: UserDataRegister) => void;
   handleLogin: (userDataLogin: UserDataLogin) => void;
   getUserLoggedInfo: () => void;
-  userLoggedInfo: {};
+  userLoggedInfo: UserLoggedInfo;
   getInfoFromASpecificUser: (userWantedId: string) => void;
-  userWantedInfo: {};
+  userWantedInfo: UserWantedInfo;
   addMoreInfoUserEmployer: (userDataMoreInfo: UserEmployerDataMoreInfo) => void;
   addMoreInfoUserWorker: (
     userWorkerDataMoreInfo: UserWorkerDataMoreInfo
@@ -107,11 +138,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     () => localStorage.getItem("@WorkSpace:userLoggedId") || ""
   );
 
-  const [userLoggedInfo, setUserLoggedInfo] = useState(
-    () => localStorage.getItem("@WorkSpace:userLoggedInfo") || {}
-  );
+  const [userLoggedInfo, setUserLoggedInfo] = useState<UserLoggedInfo>({} as UserLoggedInfo);
 
-  const [userWantedInfo, setUserWantedInfo] = useState({});
+  const [userWantedInfo, setUserWantedInfo] = useState<UserWantedInfo>({} as UserWantedInfo);
 
   const [isAuthenticated, setIsAuthenticated] = useState(
     token !== "" ? true : false
@@ -120,7 +149,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   useEffect(() => {
     getUserLoggedInfo();
     handleAuth();
-  }, [token]);
+  }, []);
 
   const handleRegister = (userDataRegister: UserDataRegister) => {
     api
@@ -139,17 +168,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         console.log(response.data.accessToken);
         localStorage.setItem("@WorkSpace:token", response.data.accessToken);
         setToken(response.data.accessToken);
-
         const decodedToken: DecodedToken = jwt_decode(
           response.data.accessToken
         );
 
-        console.log(decodedToken);
         setUserLoggedId(decodedToken.sub);
-        localStorage.setItem(
-          "@WorkSpace:token:userLoggedId",
-          `${decodedToken.sub}`
-        );
+        localStorage.setItem("@WorkSpace:userLoggedId", `${decodedToken.sub}`);
       })
       .catch((err) => console.log(err));
   };
@@ -175,7 +199,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
           JSON.stringify(response.data)
         );
         setUserLoggedInfo(response.data);
-        console.log(userLoggedInfo);
         //Show Toast
       })
       .catch((err) => console.log(err));
