@@ -26,7 +26,7 @@ const Header = () => {
       <HeaderContainer>
         <img src={imgAvatar} alt="Icone Avatar" />
       <HeaderInternContainer>
-        <TitleContainer>Nome do usuário</TitleContainer>
+        <TitleContainer>{userLoggedInfo.name}</TitleContainer>
         <Rating precision={0.5} name="read-only" value={4.5} readOnly />
       </HeaderInternContainer>
       </HeaderContainer>
