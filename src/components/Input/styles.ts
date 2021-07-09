@@ -17,6 +17,7 @@ export const InputStyled = styled.input<input>`
   background-color: ${({ backColor }) => backColor};
   border-radius: ${({ borderRadius }) => borderRadius};
   border: ${({ border }) => border};
+  padding-left: 15px;
 
   &::placeholder {
     color: ${({ color }) => color};

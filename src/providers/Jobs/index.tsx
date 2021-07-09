@@ -14,7 +14,7 @@ import { useAuth } from "../AuthProvider/index";
 
 interface Job {
   title: string;
-  category: string[];
+  category: string;
   description: string;
   location: string;
   status: string;
@@ -25,6 +25,7 @@ interface Job {
   acceptedCandidateId: string;
   rejectedCandidatesIds: string[];
   userId: string;
+  id: string;
 }
 
 interface JobCreationData {
