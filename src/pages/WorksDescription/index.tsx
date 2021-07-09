@@ -1,38 +1,49 @@
 import { HeaderContainer, MainContainer, JobInfoContainer, SpecialInfoContainer, DescriptionInfoContainer } from './styles'
-import { useParams } from 'react-router-dom'
+import CategoryTag from '../../components/CategoryTag'
+import Button from '../../components/Button'
+
 import { FaDollarSign, FaUserCircle } from 'react-icons/fa'
 import { FiClock } from 'react-icons/fi'
 import { RiArrowLeftSLine } from 'react-icons/ri'
-import CategoryTag from '../../components/CategoryTag'
-import Button from '../../components/Button'
+import { MdLocationOn } from 'react-icons/md'
+
+import { useEffect } from 'react'
+import { useParams, useHistory } from 'react-router-dom'
+import { useJobs } from '../../providers/Jobs'
 
 interface Params {
   id: string
 }
 
 const WorksDescription = () => {
+  const history = useHistory()
   const { id } = useParams() as Params
-  const category = 'Gerais'
+  const { getASpecificJob, currentJob, userWorkerApplyToJob } = useJobs()
+  const { title, valueOffered, date, description, category, location} = currentJob
+
+  useEffect(() => {
+    getASpecificJob(id)
+  }, [])
 
   return (
     <>
       <HeaderContainer>
-        <RiArrowLeftSLine />
+        <RiArrowLeftSLine onClick={() => history.push('/works')}/>
         <FaUserCircle />
       </HeaderContainer>
       <MainContainer>
         <JobInfoContainer>
-          <h2>Trabalho com id {id}</h2>
+          <h2>{title}</h2>
           <h3>Contratante do trabalho com id {id}</h3>
 
           <SpecialInfoContainer>
             <div>
               <FaDollarSign />
-              <span>Valor</span>
+              <span>{valueOffered}</span>
             </div>
             <div>
               <FiClock />
-              <span>Horário</span>
+              <span>{date}</span>
             </div>
           </SpecialInfoContainer>
 
@@ -41,11 +52,14 @@ const WorksDescription = () => {
           <h2>Descrição do Trabalho</h2>
           <CategoryTag category={category}/>
           <p>
-            Aenean iaculis neque nibh, vel feugiat est viverra in. 
-            Nam sit amet eros egestas, vulputate felis posuere, pretium nibh. 
+            {description} 
           </p>
+          <div>
+            <MdLocationOn />
+            <span>{location}</span>
+          </div>
         </DescriptionInfoContainer>
-        <Button text='Aplicar' width='230px' heigth='40px' borderRadius='20px' handleClick={() => console.log('Colocar função WorsDetails')} backColor='var(--roxo-tema-principal)' color='white' border='none' fontSize='17px'/>
+        <Button text='Aplicar' width='230px' heigth='40px' borderRadius='20px' handleClick={() => userWorkerApplyToJob(id)} backColor='var(--roxo-tema-principal)' />
       </MainContainer>
     </>
   );
