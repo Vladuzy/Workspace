@@ -5,15 +5,11 @@ export const CardContainer = styled.div`
   align-items: center;
   justify-content: space-around;
   width: 100%;
-
-  a {
+  
+  & > svg {
     color: var(--roxo-tema-principal);
-    font-weight: bold;
-
-    svg {
-      width: 35px;
-      height: 35px;
-    }
+    width: 35px;
+    height: 35px;
   }
 
   border-bottom: 1px solid var(--roxo-tema-principal);
