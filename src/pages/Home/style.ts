@@ -1,24 +1,17 @@
-import styled from "styled-components"
+import styled from "styled-components";
 
-interface TabMobile{
-    id: string,
-    current:string,
-    onClick?:()=>void,
+interface TabProps {
+  id: string;
+  current: string;
+  onClick?: () => void;
 }
-
-export const MobileConteiner = styled.div`
-
-`
-export const DesktopConteiner = styled.div`
-
-`
 
 export const ListContainer = styled.div`
   height: 80vh;
-  
+
   background-color: var(--cinza-ultra-claro-main);
-`
-export const TabStyleMobile =styled.button<TabMobile>`
+`;
+export const TabStyle = styled.button<TabProps>`
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
   border: none;
@@ -26,24 +19,25 @@ export const TabStyleMobile =styled.button<TabMobile>`
   margin: 0;
   font-style: 17px;
   padding-bottom: 10px;
-  background-color: ${({id, current})=>id===current ? "var(--cinza-ultra-claro-main)": "var(--branco-fundo-body)"};
-  color:${({id, current})=>id===current ? "var(--preto-cafe)": "var(--cinza-claro)"};
+  background-color: ${({ id, current }) =>
+    id === current
+      ? "var(--cinza-ultra-claro-main)"
+      : "var(--branco-fundo-body)"};
+  color: ${({ id, current }) =>
+    id === current ? "var(--preto-cafe)" : "var(--cinza-claro)"};
+`;
 
-`
-
-export const Header= styled.div`
-    border-bottom: 3px solid var(--cinza-claro);
-    /* padding-bottom: 1rem; */
-    margin-bottom: 5px;
-    div{
-        color:var(--roxo-tema-principal);
-        font-weight: bold;
-        font-size: 20px;
-        margin: 5px 1rem;
-
-    }
-    span{
-        font-size: 10px;
-        margin-left: 1rem;
-    }
-`
+export const Header = styled.div`
+  border-bottom: 3px solid var(--cinza-claro);
+  margin-bottom: 5px;
+  div {
+    color: var(--roxo-tema-principal);
+    font-weight: bold;
+    font-size: 20px;
+    margin: 5px 1rem;
+  }
+  span {
+    font-size: 10px;
+    margin-left: 1rem;
+  }
+`;

@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useHistory } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import { useAuth } from "../../providers/AuthProvider";
 import {
   FormContainer,
@@ -23,7 +23,7 @@ interface Data {
 }
 const Register = () => {
   const history = useHistory();
-  const { handleRegister } = useAuth();
+  const { handleRegister, isAuthenticated } = useAuth();
 
   const schema = yup.object().shape({
     name: yup.string().required("Campo é obrigatório"),
@@ -67,6 +67,10 @@ const Register = () => {
     reset();
     history.push("/login");
   };
+
+  if (isAuthenticated) {
+    return <Redirect to="/Home" />;
+  }
 
   return (
     <Container>

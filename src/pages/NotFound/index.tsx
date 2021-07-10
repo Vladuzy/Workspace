@@ -2,12 +2,18 @@ import { useHistory } from "react-router-dom";
 import { Container, Content } from "./style";
 import imgNotFound from "../../assets/img/NotFound.svg";
 import Button from "../../components/Button";
+import { useAuth } from "../../providers/AuthProvider";
 
 const NotFound = () => {
+  const { isAuthenticated } = useAuth();
   const history = useHistory();
 
   const redirectToHome = () => {
-    history.push("/");
+    if (isAuthenticated) {
+      history.push("/Home");
+    } else {
+      history.push("/");
+    }
   };
 
   return (

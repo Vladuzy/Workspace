@@ -1,54 +1,69 @@
-import Footer from "../../components/Footer"
-import {ListContainer, TabStyleMobile, Header, MobileConteiner, DesktopConteiner} from "./style"
-import CardWork from "../../components/CardWork"
+import Footer from "../../components/Footer";
+import { ListContainer, TabStyle, Header } from "./style";
+import CardWork from "../../components/CardWork";
 import { useEffect, useState } from "react";
 import { useJobs } from "../../providers/Jobs";
+import { useAuth } from "../../providers/AuthProvider";
+import { Redirect } from "react-router-dom";
 
 const Home = () => {
-  const [current, setCurrent]=useState<string>( "ativos" as string )
-  const [totalGain, setTotalGain]=useState<string>( "0" as string )
-  
-  const {
-    getListUserWorkerAppliedJobs, 
-    getListUserWorkerActiveJobs, 
-    listUserWorkerAppliedJobs,
-    listUserWorkerActiveJobs
-    }= useJobs()
-  const listApplied =listUserWorkerAppliedJobs;
-  const listActive =listUserWorkerActiveJobs
+  const { token } = useAuth();
+  const [current, setCurrent] = useState<string>("ativos" as string);
+  const [totalGain, setTotalGain] = useState<string>("0" as string);
 
-  const addGains=()=>{
-    const num = Number(totalGain)
-    //reduci da lista de concluidos pra somar a quantidade total ganha
-    const stg = num.toFixed(2)
-    setTotalGain(stg)
+  const {
+    getListUserWorkerAppliedJobs,
+    getListUserWorkerActiveJobs,
+    listUserWorkerAppliedJobs,
+    listUserWorkerActiveJobs,
+  } = useJobs();
+  const listApplied = listUserWorkerAppliedJobs;
+  const listActive = listUserWorkerActiveJobs;
+
+  const addGains = () => {
+    const num = Number(totalGain);
+    //reducer da lista de concluidos pra somar a quantidade total ganha
+    const stg = num.toFixed(2);
+    setTotalGain(stg);
+  };
+
+  useEffect(() => {
+    getListUserWorkerAppliedJobs();
+    getListUserWorkerActiveJobs();
+    addGains();
+  }, []);
+
+  if (!token) {
+    return <Redirect to="/" />;
   }
 
-  useEffect(()=>{
-    getListUserWorkerAppliedJobs()
-    getListUserWorkerActiveJobs()
-    addGains()
-  }, [])
-
   return (
-    <>
-    <MobileConteiner>
+    <div>
       <Header>
-        
         <span>Total ganho:</span>
         <div>R${totalGain}</div>
-        
       </Header>
 
       <div>
-        <TabStyleMobile id="ativos" current={current} onClick={()=> setCurrent("ativos")} >ATIVOS</TabStyleMobile>
-        <TabStyleMobile id="aplicados" current={current} onClick={()=> setCurrent("aplicados")} >APLICADOS</TabStyleMobile>
+        <TabStyle
+          id="ativos"
+          current={current}
+          onClick={() => setCurrent("ativos")}
+        >
+          ATIVOS
+        </TabStyle>
+        <TabStyle
+          id="aplicados"
+          current={current}
+          onClick={() => setCurrent("aplicados")}
+        >
+          APLICADOS
+        </TabStyle>
       </div>
 
-      {
-        current==="ativos" ?(
-          <ListContainer>
-            {/* <CardWork
+      {current === "ativos" ? (
+        <ListContainer>
+          {/* <CardWork
               key="1"
               work={{
               nameWork: "Remoção de vespas",
@@ -57,13 +72,13 @@ const Home = () => {
               local: "Rua dos Mineiros",
             }}
             /> */}
-            {listApplied.map(job => (
-              <CardWork job={job} key={job.id}/>
-            ))}
-          </ListContainer>
-        ):(
-          <ListContainer>
-            {/* <CardWork
+          {listApplied.map((job) => (
+            <CardWork job={job} key={job.id} />
+          ))}
+        </ListContainer>
+      ) : (
+        <ListContainer>
+          {/* <CardWork
               key="1"
               work={{
               nameWork: "Remoção de abelhas",
@@ -72,20 +87,14 @@ const Home = () => {
               local: "Rua dos Mineiros",
             }}
             /> */}
-            {listActive.map(job => (
-              <CardWork job={job} key={job.id}/>
-            ))}
-          </ListContainer>
-        )
-      }
-      
+          {listActive.map((job) => (
+            <CardWork job={job} key={job.id} />
+          ))}
+        </ListContainer>
+      )}
+
       <Footer isHome />
-    </MobileConteiner>
-
-    <DesktopConteiner>
-
-    </DesktopConteiner>
-    </>
+    </div>
   );
 };
 
