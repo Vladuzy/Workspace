@@ -28,14 +28,6 @@ export const ContainerInputs = styled.div`
   padding: 35px 0;
 `;
 
-export const InputContainer = styled.input`
-  width: 274px;
-  height: 40px;
-  padding-left: 15px;
-  border-radius: 8px;
-  background-color: var(--cinza-input-color);
-`;
-
 export const FooterContainer = styled.div`
   display: flex;
   flex-direction: row;
