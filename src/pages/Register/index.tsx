@@ -3,18 +3,28 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../providers/AuthProvider";
-import {InputContainer, FormContainer, Container, FooterContainer, FooterContainerLink, SelectContainer, ButtonContainer, SpanFormContainer, HeaderContainer} from "./style"
-import imgIcone from "../../assets/img/Icone.svg";
-interface Data{
+import {
+  InputContainer,
+  FormContainer,
+  Container,
+  FooterContainer,
+  FooterContainerLink,
+  SelectContainer,
+  ContainerInputs,
+  SpanFormContainer,
+} from "./style";
+import imgLogo from "../../assets/img/Logo.svg";
+import Button from "../../components/Button";
+interface Data {
   name: string;
   type: string;
   email: string;
   password: string;
 }
 const Register = () => {
-  const history = useHistory()
-  const {handleRegister} = useAuth()
-  
+  const history = useHistory();
+  const { handleRegister } = useAuth();
+
   const schema = yup.object().shape({
     name: yup.string().required("Campo é obrigatório"),
     type: yup.string().required("Campo é obrigatório"),
@@ -27,7 +37,7 @@ const Register = () => {
         "Senha deve conter ao menos uma letra maiúscula, uma minúscula, um número e um caracter especial!"
       )
       .required("Campo obrigatório*"),
-      passwordConfirm: yup
+    passwordConfirm: yup
       .string()
       .oneOf([yup.ref("password")], "senhas diferentes")
       .required("Senha obrigatório*"),
@@ -40,13 +50,11 @@ const Register = () => {
     reset,
   } = useForm({ resolver: yupResolver(schema) });
 
-  const handleForm = (data:Data) =>{
-    const {name,
-      type,      email,
-      password} = data 
+  const handleForm = (data: Data) => {
+    const { name, type, email, password } = data;
     handleRegister({
-      email ,
-      password ,
+      email,
+      password,
       name,
       type,
       rating: "",
@@ -55,42 +63,56 @@ const Register = () => {
         description: "",
         telephone: "",
       },
-    })
-    reset()
-    history.push("/login")
-  }
-
-  const handleClick = () => {
-    history.push("/login")
-  }
+    });
+    reset();
+    history.push("/login");
+  };
 
   return (
     <Container>
-      <HeaderContainer>
-      <img src={imgIcone} alt="Icone da workspace" />
-      </HeaderContainer>
+      <img src={imgLogo} alt="Icone da workspace" />
 
-    <FormContainer onSubmit={handleSubmit(handleForm)}>
-      <SpanFormContainer>{errors.name?.message}</SpanFormContainer>
-      <InputContainer placeholder="Nome do usuário" {...register("name")}></InputContainer>
-      <SpanFormContainer>{errors.type?.message}</SpanFormContainer>
-      <SelectContainer placeholder="alo" {...register("type")}>
-        <option></option>
-        <option value="worker">Trabalhador</option>
-        <option value="employer">Empregador</option>
-      </SelectContainer>
-      <SpanFormContainer>{errors.email?.message}</SpanFormContainer>
-      <InputContainer placeholder="E-mail" {...register("email")}></InputContainer>
-      <SpanFormContainer>{errors.password?.message}</SpanFormContainer>
-      <InputContainer type="password" placeholder="Senha" {...register("password")}></InputContainer>
-      <SpanFormContainer>{errors.passwordConfirm?.message}</SpanFormContainer>
-      <InputContainer type="password" placeholder="Confirmar Senha" {...register("passwordConfirm")}></InputContainer>
-      <ButtonContainer>Cadastrar</ButtonContainer>
+      <FormContainer onSubmit={handleSubmit(handleForm)}>
+        <ContainerInputs>
+          <InputContainer
+            placeholder="Nome do usuário"
+            {...register("name")}
+          ></InputContainer>
+          <SpanFormContainer>{errors.name?.message}</SpanFormContainer>
+          <SelectContainer {...register("type")}>
+            <option selected disabled>
+              Tipo de usuário
+            </option>
+            <option value="worker">Trabalhador</option>
+            <option value="employer">Empregador</option>
+          </SelectContainer>
+          <SpanFormContainer>{errors.type?.message}</SpanFormContainer>
+          <InputContainer
+            placeholder="E-mail"
+            {...register("email")}
+          ></InputContainer>
+          <SpanFormContainer>{errors.email?.message}</SpanFormContainer>
+          <InputContainer
+            type="password"
+            placeholder="Senha"
+            {...register("password")}
+          ></InputContainer>
+          <SpanFormContainer>{errors.password?.message}</SpanFormContainer>
+          <InputContainer
+            type="password"
+            placeholder="Confirmar Senha"
+            {...register("passwordConfirm")}
+          ></InputContainer>
+          <SpanFormContainer>
+            {errors.passwordConfirm?.message}
+          </SpanFormContainer>
+        </ContainerInputs>
+        <Button text="Cadastrar" type="submit" />
+      </FormContainer>
       <FooterContainer>
         <p>Já possui uma conta? </p>
-        <FooterContainerLink onClick={handleClick}>Entrar</FooterContainerLink>
+        <FooterContainerLink to="/login">Entrar</FooterContainerLink>
       </FooterContainer>
-    </FormContainer>
     </Container>
   );
 };

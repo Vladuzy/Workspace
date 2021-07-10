@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const Container = styled.div`
   display: flex;
@@ -7,27 +8,31 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
 
-  h1 {
+  img {
+    margin-bottom: 70px;
+  }
+
+  > div {
+    margin-top: 20px;
+  }
+`;
+
+export const Content = styled.div`
+  height: 200px;
+`;
+
+export const ContainerInput = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 74px;
+
+  span {
+    padding: 5px;
     color: var(--roxo-tema-principal);
   }
 `;
 
-export const StyleForm = styled.form`
-  button {
-    margin: 32px auto;
-  }
-`;
-export const StyleInput = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 20px auto;
-
-  span {
-    height: 18px;
-    color: var(--vermelho);
-  }
-
-  div {
-    margin-bottom: 5px;
-  }
+export const LinkStyle = styled(Link)`
+  color: var(--roxo-tema-principal);
+  padding-left: 7px;
 `;

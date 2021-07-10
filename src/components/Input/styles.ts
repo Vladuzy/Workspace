@@ -8,6 +8,7 @@ interface input {
   borderRadius: string;
   border: string;
   fontSize: string;
+  padding: string;
 }
 
 export const InputStyled = styled.input<input>`
@@ -17,6 +18,7 @@ export const InputStyled = styled.input<input>`
   background-color: ${({ backColor }) => backColor};
   border-radius: ${({ borderRadius }) => borderRadius};
   border: ${({ border }) => border};
+  padding: ${({ padding }) => padding};
 
   &::placeholder {
     color: ${({ color }) => color};
