@@ -5,7 +5,7 @@ interface Props {
 }
 
 export const Container = styled.div `
-    width: 100px;
+    width: 125px;
     height: 40px;
     background-color: var(--cinza-ultra-claro-main);
     border-radius: 10px;
@@ -13,6 +13,8 @@ export const Container = styled.div `
     display: flex;
     justify-content: space-around;
     align-items: center;
+    margin-top: 5px;
+    margin-left: 5px;
 `
 
 export const ContainSvg = styled.div<Props>`

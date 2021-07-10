@@ -1,10 +1,16 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import CardCategory from '../../components/CardCategory'
-import { Close, Container, HeaderStyled, MainStyled } from './styles'
+import { Close, Container, ContentCards, HeaderStyled, MainStyled } from './styles'
 import Pintura from '../../assets/img/pintura.svg'
+import Limpeza from '../../assets/img/limpeza.svg'
+import Eletricista from '../../assets/img/eletricista.svg'
+import Encanador from '../../assets/img/encanador.svg'
+import Gerais from '../../assets/img/gerais.svg'
 
 export default function EditProfile() {
+    let arrTitle = ['Pintura', 'Limpeza', 'Eletricista', 'Encanador', 'Gerais']
+    let arrSvg = [Pintura, Limpeza, Eletricista, Encanador, Gerais]
     return (
         <>
         <HeaderStyled>
@@ -14,7 +20,12 @@ export default function EditProfile() {
             <p>Informações adicionais</p>
             <Container>
                 <p>Categorias que trabalha</p>
-                <CardCategory title='pintura' svg={Pintura}/>
+                <ContentCards>
+                    {arrTitle.map(
+                        (element, index) => 
+                        <CardCategory key={index} title={element} svg={arrSvg[index]} />
+                    )}
+                </ContentCards>
             </Container>
         </MainStyled>
         </>

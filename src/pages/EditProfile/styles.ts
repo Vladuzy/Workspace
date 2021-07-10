@@ -44,3 +44,9 @@ export const Container = styled.div `
         font-size: 1.2rem
     }
 `
+export const ContentCards = styled.div `
+    width: 100%;
+    height: 100px;
+    display: flex;
+    flex-wrap: wrap;
+`
