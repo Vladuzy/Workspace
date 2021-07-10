@@ -4,7 +4,7 @@ import imgLogo from "../../assets/img/Logo.svg";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-
+import { useHistory } from "react-router";
 import { Container, ContainerInput, Content, LinkStyle } from "./style";
 import { useAuth } from "../../providers/AuthProvider";
 
@@ -15,6 +15,8 @@ interface FormLogin {
 
 const Login = () => {
   const { handleLogin } = useAuth();
+
+  const history = useHistory();
 
   const schema = yup.object().shape({
     email: yup.string().required("Campo obrigatorio!"),
@@ -31,6 +33,7 @@ const Login = () => {
 
   const onSubmit = (data: FormLogin) => {
     handleLogin(data);
+    history.push("/home");
   };
 
   return (
