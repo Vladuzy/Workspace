@@ -11,6 +11,7 @@ export const ListContainer = styled.div`
 
   background-color: var(--cinza-ultra-claro-main);
 `;
+
 export const TabStyle = styled.button<TabProps>`
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;

@@ -42,11 +42,13 @@ export const FooterContainerLink = styled(Link)`
 export const SpanFormContainer = styled.span`
   color: var(--roxo-tema-principal);
   font-size: 13px;
+  padding: 5px;
+  min-height: 25px;
 `;
 
 export const SelectContainer = styled.select`
   width: 274px;
-  height: 40px;
+  min-height: 40px;
   padding-left: 10px;
   border-radius: 8px;
   background-color: var(--cinza-input-color);

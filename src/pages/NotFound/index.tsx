@@ -10,7 +10,7 @@ const NotFound = () => {
 
   const redirectToHome = () => {
     if (isAuthenticated) {
-      history.push("/Home");
+      history.push("/home");
     } else {
       history.push("/");
     }
