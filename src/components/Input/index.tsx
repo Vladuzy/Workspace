@@ -33,6 +33,7 @@ const Input = (
 ) => {
   return (
     <InputStyled
+      type={type}
       width={width}
       heigth={heigth}
       color={color}
