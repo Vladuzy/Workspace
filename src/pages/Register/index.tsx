@@ -15,6 +15,7 @@ import {
 import imgLogo from "../../assets/img/Logo.svg";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
+import { toast } from "react-hot-toast";
 interface Data {
   name: string;
   type: string;
@@ -27,19 +28,24 @@ const Register = () => {
 
   const schema = yup.object().shape({
     name: yup.string().required("Campo é obrigatório"),
-    type: yup.string().required("Campo é obrigatório"),
+    type: yup
+      .string()
+      .min(5, "Selecione o tipo de usuário*")
+      .required("Campo é obrigatório"),
     email: yup.string().email("Email inválido").required("Campo obrigatório*"),
     password: yup
       .string()
       .min(8, "Mínimo de 8 dígitos*")
+      .matches(/^((?=.*[A-Z]){1}).*$/, "Senha deve conter uma letra maiúscula,")
+      .matches(/^((?=.*[a-z]){1}).*$/, "uma letra minúscula,")
       .matches(
-        /^((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
-        "Senha deve conter ao menos uma letra maiúscula, uma minúscula, um número e um caracter especial!"
+        /^((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d).*$/,
+        "um número e caracter especial!"
       )
       .required("Campo obrigatório*"),
     passwordConfirm: yup
       .string()
-      .oneOf([yup.ref("password")], "senhas diferentes")
+      .oneOf([yup.ref("password")], "Senhas diferentes")
       .required("Senha obrigatório*"),
   });
 
@@ -65,11 +71,12 @@ const Register = () => {
       },
     });
     reset();
+    toast.success("Usuário cadastrado com Sucesso!");
     history.push("/login");
   };
 
   if (isAuthenticated) {
-    return <Redirect to="/Home" />;
+    return <Redirect to="/home" />;
   }
 
   return (
@@ -84,8 +91,8 @@ const Register = () => {
             register={register}
           ></Input>
           <SpanFormContainer>{errors.name?.message}</SpanFormContainer>
-          <SelectContainer defaultValue={"default"} {...register("type")}>
-            <option value="default" disabled>
+          <SelectContainer defaultValue="null" {...register("type")}>
+            <option value="null" disabled>
               Tipo de usuário
             </option>
             <option value="worker">Trabalhador</option>

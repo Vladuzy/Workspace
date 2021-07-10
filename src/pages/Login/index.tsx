@@ -38,7 +38,7 @@ const Login = () => {
   };
 
   if (isAuthenticated) {
-    return <Redirect to="/Home" />;
+    return <Redirect to="/home" />;
   }
 
   return (
