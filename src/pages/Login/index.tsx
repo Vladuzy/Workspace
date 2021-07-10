@@ -1,13 +1,11 @@
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import imgLogo from "../../assets/img/Logo.svg";
-import api from "../../service/api";
-import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { Container, StyleForm, StyleInput } from "./style";
+import { Container, ContainerInput, Content, LinkStyle } from "./style";
 import { useAuth } from "../../providers/AuthProvider";
 
 interface FormLogin {
@@ -32,49 +30,39 @@ const Login = () => {
   });
 
   const onSubmit = (data: FormLogin) => {
-    // console.log("data", data)
     handleLogin(data);
   };
+
   return (
     <Container>
       <img src={imgLogo} alt="Logo da workspace" />
-      <StyleForm onSubmit={handleSubmit(onSubmit)}>
-        <StyleInput>
-          <div>E-mail:</div>
-          <Input
-            type="email"
-            id="email"
-            placeholder="E-mail"
-            width="274px"
-            heigth="56px"
-
-            register={register}
-            
-
-          />
-          <span> {errors && errors.email?.message}</span>
-        </StyleInput>
-
-        <StyleInput>
-          <div>Senha:</div>
-          <Input
-            type="password"
-            id="password"
-            placeholder="password"
-            width="274px"
-            heigth="56px"
-
-            register={register}
-
-          />
-          <span>{errors && errors.email?.message}</span>
-        </StyleInput>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Content>
+          <ContainerInput>
+            <Input
+              type="email"
+              id="email"
+              placeholder="E-mail"
+              register={register}
+            />
+            <span> {errors && errors.email?.message}</span>
+          </ContainerInput>
+          <ContainerInput>
+            <Input
+              type="password"
+              id="password"
+              placeholder="Senha"
+              register={register}
+            />
+            <span>{errors && errors.email?.message}</span>
+          </ContainerInput>
+        </Content>
 
         <Button text="Entrar" type="submit" />
-      </StyleForm>
-
+      </form>
       <div>
-        Ainda não possui uma conta? <Link to="/register">Cadastra-se</Link>
+        Ainda não possui uma conta?{" "}
+        <LinkStyle to="/register">Cadastra-se</LinkStyle>
       </div>
     </Container>
   );
