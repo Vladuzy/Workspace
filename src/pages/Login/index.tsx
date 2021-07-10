@@ -41,8 +41,8 @@ const Login = () => {
           <ContainerInput>
             <Input
               type="email"
-              id="email"
               placeholder="E-mail"
+              name="email"
               register={register}
             />
             <span> {errors && errors.email?.message}</span>
@@ -50,8 +50,8 @@ const Login = () => {
           <ContainerInput>
             <Input
               type="password"
-              id="password"
               placeholder="Senha"
+              name="password"
               register={register}
             />
             <span>{errors && errors.email?.message}</span>

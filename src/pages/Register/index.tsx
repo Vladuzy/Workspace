@@ -4,7 +4,6 @@ import * as yup from "yup";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../providers/AuthProvider";
 import {
-  InputContainer,
   FormContainer,
   Container,
   FooterContainer,
@@ -15,6 +14,7 @@ import {
 } from "./style";
 import imgLogo from "../../assets/img/Logo.svg";
 import Button from "../../components/Button";
+import Input from "../../components/Input";
 interface Data {
   name: string;
   type: string;
@@ -74,35 +74,35 @@ const Register = () => {
 
       <FormContainer onSubmit={handleSubmit(handleForm)}>
         <ContainerInputs>
-          <InputContainer
+          <Input
             placeholder="Nome do usuário"
-            {...register("name")}
-          ></InputContainer>
+            name="name"
+            register={register}
+          ></Input>
           <SpanFormContainer>{errors.name?.message}</SpanFormContainer>
-          <SelectContainer {...register("type")}>
-            <option selected disabled>
+          <SelectContainer defaultValue={"default"} {...register("type")}>
+            <option value="default" disabled>
               Tipo de usuário
             </option>
             <option value="worker">Trabalhador</option>
             <option value="employer">Empregador</option>
           </SelectContainer>
           <SpanFormContainer>{errors.type?.message}</SpanFormContainer>
-          <InputContainer
-            placeholder="E-mail"
-            {...register("email")}
-          ></InputContainer>
+          <Input placeholder="E-mail" name="email" register={register}></Input>
           <SpanFormContainer>{errors.email?.message}</SpanFormContainer>
-          <InputContainer
+          <Input
             type="password"
             placeholder="Senha"
-            {...register("password")}
-          ></InputContainer>
+            name="password"
+            register={register}
+          ></Input>
           <SpanFormContainer>{errors.password?.message}</SpanFormContainer>
-          <InputContainer
+          <Input
             type="password"
             placeholder="Confirmar Senha"
-            {...register("passwordConfirm")}
-          ></InputContainer>
+            name="passwordConfirm"
+            register={register}
+          ></Input>
           <SpanFormContainer>
             {errors.passwordConfirm?.message}
           </SpanFormContainer>
