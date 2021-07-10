@@ -8,6 +8,7 @@ export default createGlobalStyle`
         box-sizing: border-box;
         list-style-type: none;
         text-decoration: none;
+        border-style: none;
     }
 
     :root{
@@ -19,6 +20,7 @@ export default createGlobalStyle`
         --cinza-escuro: #ECEAEA;
         --cinza-claro: #A8A8A8;
         --cinza-ultra-claro-main: rgba(168, 168, 168, 0.2);
+        --cinza-input-color: #E5E5E5;
 
         //CORES DAS CATEGORIAS
         --amarelo: #FABC05;
@@ -39,7 +41,7 @@ export default createGlobalStyle`
         color: var(--preto-cafe)
     }
 
-    body, input, button {
+    body, input, button, select {
         font-family: 'Roboto Slab', serif;
         font-size: 1rem;
     }
