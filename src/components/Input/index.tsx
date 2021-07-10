@@ -11,7 +11,7 @@ interface inputProps {
   padding?: string;
   type?: string;
   placeholder?: string;
-  id?: string;
+  name?: string;
   register?: any;
 }
 
@@ -28,6 +28,7 @@ const Input = (
     placeholder = "var(--cinza-claro)",
     register,
     type,
+    name,
   }: inputProps,
   { ...rest }
 ) => {
@@ -43,7 +44,7 @@ const Input = (
       fontSize={fontSize}
       padding={padding}
       placeholder={placeholder}
-      {...register(type)}
+      {...register(name)}
       {...rest}
     />
   );
