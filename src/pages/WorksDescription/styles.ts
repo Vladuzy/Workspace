@@ -56,6 +56,7 @@ export const JobInfoContainer = styled.section`
 
 export const SpecialInfoContainer = styled.div`
   display: flex;
+  justify-content: space-evenly;
   padding: 15px 0;
 
   svg {
@@ -74,7 +75,6 @@ export const SpecialInfoContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 50%;
   }
 `
 
@@ -91,9 +91,28 @@ export const DescriptionInfoContainer = styled.section`
   }
 
   p {
+    width: 100%;
     margin-top: 10px;
     font-size: 13px;
     color: var(--cinza-claro);
-    flex-grow: 1;
+  }
+
+  svg {
+    width: 18px;
+    height: 18px;
+    color: var(--roxo-tema-principal);
+  }
+
+  span {
+    font-weight: bold;
+    font-size: 12px;
+    margin-left: 10px;
+  }
+
+  & div:last-of-type {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 `
