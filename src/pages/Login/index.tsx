@@ -7,6 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useHistory } from "react-router";
 import { Container, ContainerInput, Content, LinkStyle } from "./style";
 import { useAuth } from "../../providers/AuthProvider";
+import { Redirect } from "react-router-dom";
 
 interface FormLogin {
   email: string;
@@ -14,7 +15,7 @@ interface FormLogin {
 }
 
 const Login = () => {
-  const { handleLogin } = useAuth();
+  const { handleLogin, isAuthenticated } = useAuth();
 
   const history = useHistory();
 
@@ -35,6 +36,10 @@ const Login = () => {
     handleLogin(data);
     history.push("/home");
   };
+
+  if (isAuthenticated) {
+    return <Redirect to="/Home" />;
+  }
 
   return (
     <Container>
