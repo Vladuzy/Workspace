@@ -32,11 +32,10 @@ export const MainStyled = styled.main `
 
 export const Container = styled.div `
     width: 80vw;
-    height: 60vh;
+    height: 70vh;
     margin-top: 50px;
     display: flex;
     flex-direction: column;
-    border: 1px solid red;
     align-self: center;
     p{
         color: black;
@@ -49,4 +48,23 @@ export const ContentCards = styled.div `
     height: 100px;
     display: flex;
     flex-wrap: wrap;
+`
+
+export const ContentForms = styled.div `
+    width: 100%;
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: 80px;
+    textarea{
+        background-color: var(--cinza-input-color);
+        color: var(--cinza-claro);
+        border-radius: 20px;
+        &::placeholder{
+            padding: 15px;
+            font-family: 'Roboto Slab', serif;
+            font-size: 1rem
+        }
+    }
 `
