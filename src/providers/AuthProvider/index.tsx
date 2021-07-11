@@ -69,7 +69,7 @@ interface DecodedToken {
 
 interface UserEmployerDataMoreInfo {
   moreInfo: {
-    categories: [];
+    categories: string[];
     description: string;
     telephone: string;
   };
@@ -84,12 +84,10 @@ interface UserWorkerDataMoreInfo {
 }
 
 interface UserEmployerDataEdit {
-  email: string;
-  name: string;
-  moreInfo: {
-    categories: [];
-    description: string;
-    telephone: string;
+  moreInfo?: {
+    categories?: string[];
+    description?: string;
+    telephone?: string;
   };
 }
 
@@ -119,7 +117,7 @@ interface AuthProviderData {
   addMoreInfoUserWorker: (
     userWorkerDataMoreInfo: UserWorkerDataMoreInfo
   ) => void;
-  editUserEmployer: (userEmployerDataEdit: UserEmployerDataEdit) => void;
+  editUserEmployer: (userEmployerDataEdit: {}) => void;
   editUserWorker: (userWorkerDataEdit: UserWorkerDataEdit) => void;
 }
 

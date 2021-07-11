@@ -44,7 +44,6 @@ export default function EditProfile() {
         };
         editUserEmployer({moreInfo})
     }
-    console.log(errors)
     return (
         <>
         <HeaderStyled>

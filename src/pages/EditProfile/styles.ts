@@ -50,7 +50,7 @@ export const ContentCards = styled.div `
     flex-wrap: wrap;
 `
 
-export const ContentForms = styled.div `
+export const ContentForms = styled.form `
     width: 100%;
     height: 50vh;
     display: flex;
@@ -66,5 +66,11 @@ export const ContentForms = styled.div `
             font-family: 'Roboto Slab', serif;
             font-size: 1rem
         }
+    }
+    textarea + span {
+        color: red;
+    }
+    input + span {
+        color: red;
     }
 `
