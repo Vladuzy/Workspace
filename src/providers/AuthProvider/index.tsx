@@ -137,11 +137,13 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   );
 
   const [userLoggedInfo, setUserLoggedInfo] = useState<UserLoggedInfo>(
-    {} as UserLoggedInfo
+    (JSON.parse(localStorage.getItem("@WorkSpace:userLoggedInfo") as string) ||
+      {}) as UserLoggedInfo
   );
 
   const [userWantedInfo, setUserWantedInfo] = useState<UserWantedInfo>(
-    {} as UserWantedInfo
+    (JSON.parse(localStorage.getItem("@WorkSpace:userWantedInfo") as string) ||
+      {}) as UserWantedInfo
   );
 
   const [isAuthenticated, setIsAuthenticated] = useState(
@@ -206,6 +208,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       .then((response) => {
         console.log(response.data);
         setUserWantedInfo(response.data);
+        localStorage.setItem(
+          "@WorkSpace:userWantedInfo",
+          JSON.stringify(response.data)
+        );
         console.log(userWantedInfo);
         //Show Toast
       })

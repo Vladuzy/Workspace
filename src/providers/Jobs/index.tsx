@@ -108,34 +108,67 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
 
   // const [ currentJobId, setCurrentJobId ] = useState("");
 
-  const [currentJob, setCurrentJob] = useState<CurrentJob>({} as CurrentJob)
+  const [currentJob, setCurrentJob] = useState<CurrentJob>(
+    (JSON.parse(localStorage.getItem("@WorkSpace:currentJob") as string) ||
+      {}) as CurrentJob
+  );
 
-  const [listAllJobs, setListAllJobs] = useState<Job[]>([] as Job[]);
+  const [listAllJobs, setListAllJobs] = useState<Job[]>(
+    (JSON.parse(localStorage.getItem("@WorkSpace:listAllJobs") as string) ||
+      []) as Job[]
+  );
 
   const [
     listWaitingJobsWithoutCandidates,
     setListWaitingJobsWithoutCandidates,
-  ] = useState<Job[]>([] as Job[]);
+  ] = useState<Job[]>(
+    (JSON.parse(
+      localStorage.getItem(
+        "@WorkSpace:listWaitingJobsWithoutCandidates"
+      ) as string
+    ) || []) as Job[]
+  );
 
-  const [listUserJobs, setListUserJobs] = useState<Job[]>([] as Job[]);
+  const [listUserJobs, setListUserJobs] = useState<Job[]>(
+    (JSON.parse(localStorage.getItem("@WorkSpace:listUserJobs") as string) ||
+      []) as Job[]
+  );
 
   const [listCompletedJobs, setListCompletedJobs] = useState<Job[]>(
-    [] as Job[]
+    (JSON.parse(
+      localStorage.getItem("@WorkSpace:listUserCompletedJobs") as string
+    ) || []) as Job[]
   );
   const [listuserEmployerCurrentJobs, setListUserEmployerCurrentJobs] =
-    useState<Job[]>([] as Job[]);
+    useState<Job[]>(
+      (JSON.parse(
+        localStorage.getItem("@WorkSpace:listUserEmployerCurrentJobs") as string
+      ) || []) as Job[]
+    );
 
   const [listUserEmployerActiveJobs, setListUserEmployerActiveJobs] = useState<
     Job[]
-  >([] as Job[]);
+  >(
+    (JSON.parse(
+      localStorage.getItem("@WorkSpace:listUserEmployerActiveJobs") as string
+    ) || []) as Job[]
+  );
 
   const [listUserWorkerAppliedJobs, setListUserWorkerAppliedJobs] = useState<
     Job[]
-  >([] as Job[]);
+  >(
+    (JSON.parse(
+      localStorage.getItem("@WorkSpace:listUserWorkerAppliedJobs") as string
+    ) || []) as Job[]
+  );
 
   const [listUserWorkerActiveJobs, setListUserWorkerActiveJobs] = useState<
     Job[]
-  >([] as Job[]);
+  >(
+    (JSON.parse(
+      localStorage.getItem("@WorkSpace:listUserWorkerActiveJobs") as string
+    ) || []) as Job[]
+  );
 
   const userEmployerCreateJob = (jobCreationData: JobCreationData) => {
     const { title, category, description, location, valueOffered, date } =
@@ -485,7 +518,7 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
         console.log(response);
         setListUserWorkerActiveJobs(response.data);
         localStorage.setItem(
-          "@WorkSpace:listUserWorkerAppliedJobs",
+          "@WorkSpace:listUserWorkerActiveJobs",
           JSON.stringify(response.data)
         );
         //Show Toast
