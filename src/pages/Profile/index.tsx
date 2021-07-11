@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import Header from "../../components/Header";
 import { useAuth } from "../../providers/AuthProvider";
 import { useMenuFooter } from "../../providers/MenuFooterProvider";
-
+import  Footer from "../../components/Footer"
 const Profile = () => {
   const { token } = useAuth();
   const { setInHome, setInWorks, setInProfile } = useMenuFooter();
@@ -25,6 +25,7 @@ const Profile = () => {
     <>
       <Header></Header>
       <h1>Página perfil do usuário</h1>
+      <Footer/>
     </>
   );
 };
