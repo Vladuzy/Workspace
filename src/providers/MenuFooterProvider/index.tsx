@@ -25,9 +25,24 @@ const MenuFooterContext = createContext<MenuFooterProviderData>(
 );
 
 export const MenuFooterProvider = ({ children }: MenuFooterProviderProps) => {
-  const [inHome, setInHome] = useState(true);
-  const [inWorks, setInWorks] = useState(false);
-  const [inProfile, setInProfile] = useState(false);
+  const [inHome, setInHome] = useState(
+    localStorage.getItem("@WorkSpace:inHome")
+      ? JSON.parse(localStorage.getItem("@WorkSpace:inHome") as string)
+      : true
+  );
+
+  console.log(inHome);
+  const [inWorks, setInWorks] = useState(
+    localStorage.getItem("@WorkSpace:inWorks")
+      ? JSON.parse(localStorage.getItem("@WorkSpace:inWorks") as string)
+      : false
+  );
+
+  const [inProfile, setInProfile] = useState(
+    localStorage.getItem("@WorkSpace:inProfile")
+      ? JSON.parse(localStorage.getItem("@WorkSpace:inProfile") as string)
+      : false
+  );
 
   return (
     <MenuFooterContext.Provider
