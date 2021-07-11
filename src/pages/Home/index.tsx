@@ -93,7 +93,7 @@ const Home = () => {
         </ListContainer>
       )}
 
-      <Footer isHome />
+      {/* <Footer isHome /> */}
     </div>
   );
 };

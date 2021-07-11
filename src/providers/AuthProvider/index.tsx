@@ -108,6 +108,7 @@ interface UserWorkerDataEdit {
 interface AuthProviderData {
   token: string;
   isAuthenticated: boolean;
+  setIsAuthenticated: Dispatch<SetStateAction<boolean>>;
   userLoggedId: string;
   handleLogin: (userDataLogin: UserDataLogin) => void;
   getUserLoggedInfo: () => void;
@@ -152,7 +153,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   useEffect(() => {
     getUserLoggedInfo();
     handleAuth();
-  }, []);
+  }, [token]);
 
   const handleLogin = (userDataLogin: UserDataLogin) => {
     api
@@ -278,6 +279,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       value={{
         token,
         isAuthenticated,
+        setIsAuthenticated,
         userLoggedId,
         handleLogin,
         getUserLoggedInfo,
