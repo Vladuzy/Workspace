@@ -21,7 +21,7 @@ export const CardHeader = styled.div`
   margin-top: 15px;
 
   h2 {
-    font-size: 17px;
+    font-size: 15px;
     margin: 0 5px;
   }
 

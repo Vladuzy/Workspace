@@ -10,6 +10,10 @@ export const ListContainer = styled.div`
   height: 80vh;
 
   background-color: var(--cinza-ultra-claro-main);
+
+  & > div:last-child {
+    margin-bottom: 63px;
+  }
 `;
 
 export const TabStyle = styled.button<TabProps>`
