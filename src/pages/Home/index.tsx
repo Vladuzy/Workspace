@@ -103,7 +103,7 @@ const Home = () => {
         </ListContainer>
       )}
 
-      {/* <Footer isHome /> */}
+      <Footer />
     </div>
   );
 };
