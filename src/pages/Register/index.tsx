@@ -3,6 +3,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Redirect, useHistory } from "react-router-dom";
 import { useAuth } from "../../providers/AuthProvider";
+import api from "../../service/api";
 import {
   FormContainer,
   Container,
@@ -24,7 +25,7 @@ interface Data {
 }
 const Register = () => {
   const history = useHistory();
-  const { handleRegister, isAuthenticated } = useAuth();
+  const { isAuthenticated } = useAuth();
 
   const schema = yup.object().shape({
     name: yup.string().required("Campo é obrigatório"),
@@ -58,7 +59,7 @@ const Register = () => {
 
   const handleForm = (data: Data) => {
     const { name, type, email, password } = data;
-    handleRegister({
+    const userDataRegister = {
       email,
       password,
       name,
@@ -69,10 +70,17 @@ const Register = () => {
         description: "",
         telephone: "",
       },
-    });
-    reset();
-    toast.success("Usuário cadastrado com Sucesso!");
-    history.push("/login");
+    };
+
+    api
+      .post("/register", userDataRegister)
+      .then((response) => {
+        console.log(response);
+        toast.success("Usuário cadastrado com Sucesso!");
+        history.push("/login");
+        reset();
+      })
+      .catch(() => toast.error("E-mail já cadastrado!!"));
   };
 
   if (isAuthenticated) {

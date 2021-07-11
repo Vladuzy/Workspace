@@ -10,6 +10,8 @@ import {
   useState,
 } from "react";
 
+import { History } from "history";
+import { toast } from "react-hot-toast";
 import api from "../../service/api";
 
 import jwt_decode from "jwt-decode";
@@ -107,9 +109,6 @@ interface AuthProviderData {
   token: string;
   isAuthenticated: boolean;
   userLoggedId: string;
-
-
-  handleRegister: (userDataRegister: UserDataRegister) => void;
   handleLogin: (userDataLogin: UserDataLogin) => void;
   getUserLoggedInfo: () => void;
   userLoggedInfo: UserLoggedInfo;
@@ -138,9 +137,13 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     () => localStorage.getItem("@WorkSpace:userLoggedId") || ""
   );
 
-  const [userLoggedInfo, setUserLoggedInfo] = useState<UserLoggedInfo>({} as UserLoggedInfo);
+  const [userLoggedInfo, setUserLoggedInfo] = useState<UserLoggedInfo>(
+    {} as UserLoggedInfo
+  );
 
-  const [userWantedInfo, setUserWantedInfo] = useState<UserWantedInfo>({} as UserWantedInfo);
+  const [userWantedInfo, setUserWantedInfo] = useState<UserWantedInfo>(
+    {} as UserWantedInfo
+  );
 
   const [isAuthenticated, setIsAuthenticated] = useState(
     token !== "" ? true : false
@@ -150,16 +153,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     getUserLoggedInfo();
     handleAuth();
   }, []);
-
-  const handleRegister = (userDataRegister: UserDataRegister) => {
-    api
-      .post("/register", userDataRegister)
-      .then((response) => {
-        console.log(response);
-        //Show Toast
-      })
-      .catch((err) => console.log(err));
-  };
 
   const handleLogin = (userDataLogin: UserDataLogin) => {
     api
@@ -286,7 +279,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         token,
         isAuthenticated,
         userLoggedId,
-        handleRegister,
         handleLogin,
         getUserLoggedInfo,
         userLoggedInfo,
