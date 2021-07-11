@@ -58,32 +58,32 @@ const Footer = ({
 
   console.log(inHome);
 
-  const handleSwitchToHome = () => {
-    setInHome(true);
-    setInWorks(false);
-    setInProfile(false);
-    localStorage.setItem("@WorkSpace:inHome", "true");
-    localStorage.setItem("@WorkSpace:inWorks", "false");
-    localStorage.setItem("@WorkSpace:inProfile", "false");
-  };
+  // const handleSwitchToHome = () => {
+  //   setInHome(true);
+  //   setInWorks(false);
+  //   setInProfile(false);
+  //   localStorage.setItem("@WorkSpace:inHome", "true");
+  //   localStorage.setItem("@WorkSpace:inWorks", "false");
+  //   localStorage.setItem("@WorkSpace:inProfile", "false");
+  // };
 
-  const handleSwitchToWorks = () => {
-    setInHome(false);
-    setInWorks(true);
-    setInProfile(false);
-    localStorage.setItem("@WorkSpace:inHome", "false");
-    localStorage.setItem("@WorkSpace:inWorks", "true");
-    localStorage.setItem("@WorkSpace:inProfile", "false");
-  };
+  // const handleSwitchToWorks = () => {
+  //   setInHome(false);
+  //   setInWorks(true);
+  //   setInProfile(false);
+  //   localStorage.setItem("@WorkSpace:inHome", "false");
+  //   localStorage.setItem("@WorkSpace:inWorks", "true");
+  //   localStorage.setItem("@WorkSpace:inProfile", "false");
+  // };
 
-  const handleSwitchToProfile = () => {
-    setInHome(false);
-    setInWorks(false);
-    setInProfile(true);
-    localStorage.setItem("@WorkSpace:inHome", "false");
-    localStorage.setItem("@WorkSpace:inWorks", "false");
-    localStorage.setItem("@WorkSpace:inProfile", "true");
-  };
+  // const handleSwitchToProfile = () => {
+  //   setInHome(false);
+  //   setInWorks(false);
+  //   setInProfile(true);
+  //   localStorage.setItem("@WorkSpace:inHome", "false");
+  //   localStorage.setItem("@WorkSpace:inWorks", "false");
+  //   localStorage.setItem("@WorkSpace:inProfile", "true");
+  // };
 
   return (
     <>
@@ -91,7 +91,7 @@ const Footer = ({
         <Nav>
           <NavMenu>
             <NavLink
-              onClick={handleSwitchToWorks}
+              // onClick={handleSwitchToWorks}
               exact
               to="/works"
               className={inWorks ? "isActive" : ""}
@@ -105,7 +105,7 @@ const Footer = ({
               <span>Trabalhos</span>
             </NavLink>
             <NavLink
-              onClick={handleSwitchToHome}
+              // onClick={handleSwitchToHome}
               to="/home"
               className={inHome ? "isActive" : ""}
             >
@@ -113,7 +113,7 @@ const Footer = ({
               <span>Início</span>
             </NavLink>
             <NavLink
-              onClick={handleSwitchToProfile}
+              // onClick={handleSwitchToProfile}
               to="/profile"
               className={inProfile ? "isActive" : ""}
             >

@@ -11,6 +11,7 @@ import { useJobs } from "../../providers/Jobs";
 import { useEffect } from "react";
 import Footer from "../../components/Footer";
 import { useAuth } from "../../providers/AuthProvider";
+import { useMenuFooter } from "../../providers/MenuFooterProvider";
 import { Redirect } from "react-router-dom";
 
 const Works = () => {
@@ -19,8 +20,15 @@ const Works = () => {
     listWaitingJobsWithoutCandidates,
   } = useJobs();
   const { token } = useAuth();
+  const { setInHome, setInProfile, setInWorks } = useMenuFooter();
 
   useEffect(() => {
+    setInHome(false);
+    setInWorks(true);
+    setInProfile(false);
+    localStorage.setItem("@WorkSpace:inHome", "false");
+    localStorage.setItem("@WorkSpace:inWorks", "true");
+    localStorage.setItem("@WorkSpace:inProfile", "false");
     getListWaitingJobsWithoutCandidates();
   }, []);
 
