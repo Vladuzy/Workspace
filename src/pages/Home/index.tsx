@@ -72,7 +72,7 @@ const Home = () => {
               local: "Rua dos Mineiros",
             }}
             /> */}
-          {listApplied.map((job) => (
+          {listActive.map((job) => (
             <CardWork job={job} key={job.id} />
           ))}
         </ListContainer>
@@ -87,7 +87,7 @@ const Home = () => {
               local: "Rua dos Mineiros",
             }}
             /> */}
-          {listActive.map((job) => (
+          {listApplied.map((job) => (
             <CardWork job={job} key={job.id} />
           ))}
         </ListContainer>

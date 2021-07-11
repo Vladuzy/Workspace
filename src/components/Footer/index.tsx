@@ -14,10 +14,18 @@ import { useAuth } from "../../providers/AuthProvider";
 import { useMenuFooter } from "../../providers/MenuFooterProvider";
 // import { useState } from "react";
 
+//NÃO PODE APARECER NA TELA DE DESCRIÇÃO DE TRABALHO
+import { useLocation } from 'react-router-dom'
+import { useEffect, useState } from "react";
+
 interface FooterProps {
   isWork?: boolean;
   isHome?: boolean;
   isProfile?: boolean;
+}
+
+interface Params {
+  id: string;
 }
 
 const Footer = ({
@@ -25,6 +33,23 @@ const Footer = ({
   isHome = false,
   isProfile = false,
 }: FooterProps) => {
+  let { pathname } = useLocation()
+  const [isDescriptionPage, setIsDescriptionPage] = useState<boolean>(false as boolean)
+
+  const handleIsDescriptionPage = () => {
+    if (pathname.search(/\d/g) !== -1) {
+      setIsDescriptionPage(true)
+    } else {
+      setIsDescriptionPage(false)
+    }
+  }
+
+  useEffect(() => {
+    handleIsDescriptionPage()
+  }, [pathname])
+
+  console.log(isDescriptionPage)
+
   const { isAuthenticated } = useAuth();
   const { inHome, setInHome, inWorks, setInWorks, inProfile, setInProfile } =
     useMenuFooter();
@@ -49,7 +74,7 @@ const Footer = ({
 
   return (
     <>
-      {isAuthenticated && (
+      {(isAuthenticated && !isDescriptionPage) && (
         <Nav>
           <NavMenu>
             <NavLink

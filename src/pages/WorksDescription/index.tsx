@@ -41,7 +41,7 @@ const WorksDescription = () => {
   return (
     <>
       <HeaderContainer>
-        <RiArrowLeftSLine onClick={() => history.push("/works")} />
+        <RiArrowLeftSLine onClick={() => history.goBack()} />
         <FaUserCircle />
       </HeaderContainer>
       <MainContainer>

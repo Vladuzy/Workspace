@@ -48,6 +48,10 @@ export const JobInfoContainer = styled.section`
   display: flex;
   flex-direction: column;
 
+  h2 {
+    font-size: 18px;
+  }
+
   h3 {
     font-size: 11px;
     color: var(--roxo-tema-principal)
