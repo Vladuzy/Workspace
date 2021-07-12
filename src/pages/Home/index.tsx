@@ -8,33 +8,39 @@ import { useMenuFooter } from "../../providers/MenuFooterProvider";
 import { Redirect } from "react-router-dom";
 
 const Home = () => {
-  const { token } = useAuth();
+  const { token, userLoggedInfo } = useAuth();
+  const { type } = userLoggedInfo;
   const [current, setCurrent] = useState<string>("ativos" as string);
-  const [totalGain, setTotalGain] = useState<string>("0" as string);
 
   const {
     getListUserWorkerAppliedJobs,
     getListUserWorkerActiveJobs,
     listUserWorkerAppliedJobs,
     listUserWorkerActiveJobs,
+    listCompletedJobs,
+    getListUserEmployerActiveJobs,
+    getListUserEmployerCurrentJobs,
+    listUserEmployerActiveJobs,
+    listUserEmployerCurrentJobs,
   } = useJobs();
 
   const { setInHome, setInProfile, setInWorks } = useMenuFooter();
 
-  const listApplied = listUserWorkerAppliedJobs;
-  const listActive = listUserWorkerActiveJobs;
-
-  const addGains = () => {
-    const num = Number(totalGain);
-    //reducer da lista de concluidos pra somar a quantidade total ganha
-    const stg = num.toFixed(2);
-    setTotalGain(stg);
-  };
+  const totalGains =
+    type === "worker" &&
+    listCompletedJobs
+      .reduce((acc, acumulater) => acumulater.valueOffered + acc, 0)
+      .toFixed(2);
 
   useEffect(() => {
-    getListUserWorkerAppliedJobs();
-    getListUserWorkerActiveJobs();
-    addGains();
+    if (type === "worker") {
+      getListUserWorkerAppliedJobs();
+      getListUserWorkerActiveJobs();
+    } else if (type === "employer") {
+      getListUserEmployerActiveJobs();
+      getListUserEmployerCurrentJobs();
+    }
+
     setInHome(true);
     setInWorks(false);
     setInProfile(false);
@@ -51,7 +57,7 @@ const Home = () => {
     <div>
       <Header>
         <span>Total ganho:</span>
-        <div>R${totalGain}</div>
+        <div>R${totalGains}</div>
       </Header>
 
       <div>
@@ -62,42 +68,48 @@ const Home = () => {
         >
           ATIVOS
         </TabStyle>
-        <TabStyle
-          id="aplicados"
-          current={current}
-          onClick={() => setCurrent("aplicados")}
-        >
-          APLICADOS
-        </TabStyle>
+        {type === "worker" ? (
+          <TabStyle
+            id="aplicados"
+            current={current}
+            onClick={() => setCurrent("aplicados")}
+          >
+            APLICADOS
+          </TabStyle>
+        ) : (
+          <TabStyle
+            id="atuais"
+            current={current}
+            onClick={() => setCurrent("atuais")}
+          >
+            ATUAIS
+          </TabStyle>
+        )}
       </div>
 
       {current === "ativos" ? (
+        type === "worker" ? (
+          <ListContainer>
+            {listUserWorkerActiveJobs.map((job) => (
+              <CardWork job={job} key={job.id} />
+            ))}
+          </ListContainer>
+        ) : (
+          <ListContainer>
+            {listUserEmployerActiveJobs.map((job) => (
+              <CardWork job={job} key={job.id} />
+            ))}
+          </ListContainer>
+        )
+      ) : type === "worker" ? (
         <ListContainer>
-          {/* <CardWork
-              key="1"
-              work={{
-              nameWork: "Remoção de vespas",
-              category: "Gerais",
-              valorOferecido: "400,00",
-              local: "Rua dos Mineiros",
-            }}
-            /> */}
-          {listActive.map((job) => (
+          {listUserWorkerAppliedJobs.map((job) => (
             <CardWork job={job} key={job.id} />
           ))}
         </ListContainer>
       ) : (
         <ListContainer>
-          {/* <CardWork
-              key="1"
-              work={{
-              nameWork: "Remoção de abelhas",
-              category: "Gerais",
-              valorOferecido: "300,00",
-              local: "Rua dos Mineiros",
-            }}
-            /> */}
-          {listApplied.map((job) => (
+          {listUserEmployerCurrentJobs.map((job) => (
             <CardWork job={job} key={job.id} />
           ))}
         </ListContainer>
