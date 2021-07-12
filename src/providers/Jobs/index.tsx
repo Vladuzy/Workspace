@@ -88,7 +88,7 @@ interface JobsProviderData {
   getListUserWorkerCompletedJobs: () => void;
   listCompletedJobs: Job[];
   getListUserEmployerCurrentJobs: () => void;
-  listuserEmployerCurrentJobs: Job[];
+  listUserEmployerCurrentJobs: Job[];
   getListUserEmployerActiveJobs: () => void;
   listUserEmployerActiveJobs: Job[];
   getListUserWorkerAppliedJobs: () => void;
@@ -139,7 +139,7 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
       localStorage.getItem("@WorkSpace:listUserCompletedJobs") as string
     ) || []) as Job[]
   );
-  const [listuserEmployerCurrentJobs, setListUserEmployerCurrentJobs] =
+  const [listUserEmployerCurrentJobs, setListUserEmployerCurrentJobs] =
     useState<Job[]>(
       (JSON.parse(
         localStorage.getItem("@WorkSpace:listUserEmployerCurrentJobs") as string
@@ -490,7 +490,7 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
 
   const getListUserWorkerAppliedJobs = () => {
     api
-      .get(`jobs?appliedCandidateId=${userLoggedId}`, {
+      .get(`jobs?appliedCandidateId=${userLoggedId}&status=isWaiting`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -549,7 +549,7 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
         getListUserWorkerCompletedJobs,
         listCompletedJobs,
         getListUserEmployerCurrentJobs,
-        listuserEmployerCurrentJobs,
+        listUserEmployerCurrentJobs,
         getListUserEmployerActiveJobs,
         listUserEmployerActiveJobs,
         getListUserWorkerAppliedJobs,

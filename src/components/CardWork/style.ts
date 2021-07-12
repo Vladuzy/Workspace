@@ -3,17 +3,19 @@ import styled from "styled-components";
 export const CardContainer = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   width: 100%;
   
   & > svg {
+    margin-right: 10px;
     color: var(--roxo-tema-principal);
     width: 35px;
     height: 35px;
   }
-
+  
   border-bottom: 1px solid var(--roxo-tema-principal);
 `;
+
 
 export const CardHeader = styled.div`
   display: flex;

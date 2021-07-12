@@ -7,17 +7,17 @@ import Button from '../Button'
 
 interface FilterProps {
   close: (value: boolean) => void;
-  filters: string[],
   setFilters: Dispatch<SetStateAction<string[]>>
   setOrder: Dispatch<SetStateAction<string>>
 }
 
-const Filter = ({ close, filters, setFilters, setOrder }: FilterProps) => {
+const Filter = ({ close, setFilters, setOrder }: FilterProps) => {
   const [selected, setSelected] = useState<string[]>([] as string[])
-  console.log(selected)
+  const [value, setValue] = useState<string>('' as string)
 
   const handleAddFilter = () => {
     setFilters(selected)
+    setOrder(value)
     close(false)
   }
   
@@ -31,7 +31,7 @@ const Filter = ({ close, filters, setFilters, setOrder }: FilterProps) => {
         <CategorySelect setSelected={setSelected} selected={selected}>
           <h2>Categorias</h2>
         </CategorySelect>
-        <ValueFilter setSelected={setOrder}/>
+        <ValueFilter setSelected={setValue}/>
         <Button text='Aceitar Filtros' width='270px' heigth='35px' borderRadius='10px' handleClick={handleAddFilter}/>
       </FilterContainer>
     </BackgroundContainer>
