@@ -4,6 +4,7 @@ import Header from "../../components/Header";
 import { useAuth } from "../../providers/AuthProvider";
 import { useMenuFooter } from "../../providers/MenuFooterProvider";
 import Footer from "../../components/Footer";
+import { Container } from "./style";
 const Profile = () => {
   const { token, getUserLoggedInfo } = useAuth();
   const { setInHome, setInWorks, setInProfile } = useMenuFooter();
@@ -24,9 +25,9 @@ const Profile = () => {
   }
 
   return (
-    <>
+    <Container>
       {loading ? (
-        <p>Carregando</p>
+        <div className="loader">Carregando</div>
       ) : (
         <>
           <Header></Header>
@@ -34,7 +35,7 @@ const Profile = () => {
           <Footer />
         </>
       )}
-    </>
+    </Container>
   );
 };
 
