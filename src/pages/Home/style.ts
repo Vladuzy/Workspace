@@ -7,7 +7,7 @@ interface TabProps {
 }
 
 export const ListContainer = styled.div`
-  height: 80vh;
+  min-height: 80vh;
 
   background-color: var(--cinza-ultra-claro-main);
 
