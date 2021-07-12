@@ -7,7 +7,6 @@ function App() {
     <>
       <GlobalStyle />
       <Routes />
-      <Footer />
       <Toaster position="top-center" reverseOrder={false} />
     </>
   );
