@@ -10,8 +10,10 @@ import CardWork from "../../components/CardWork";
 import { useJobs } from "../../providers/Jobs";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../providers/AuthProvider";
+import { useMenuFooter } from "../../providers/MenuFooterProvider";
 import { Redirect } from "react-router-dom";
 import Filter from "../../components/Filter";
+import Footer from "../../components/Footer";
 
 const Works = () => {
   const [showFilter, setShowFilter] = useState<boolean>(false as boolean)
@@ -24,8 +26,15 @@ const Works = () => {
     listWaitingJobsWithoutCandidates,
   } = useJobs();
   const { token } = useAuth();
+  const { setInHome, setInProfile, setInWorks } = useMenuFooter();
 
   useEffect(() => {
+    setInHome(false);
+    setInWorks(true);
+    setInProfile(false);
+    localStorage.setItem("@WorkSpace:inHome", "false");
+    localStorage.setItem("@WorkSpace:inWorks", "true");
+    localStorage.setItem("@WorkSpace:inProfile", "false");
     getListWaitingJobsWithoutCandidates();
   }, []);
 
@@ -53,6 +62,7 @@ const Works = () => {
           <CardWork job={elem} key={elem.id} />
         ))}
       </MainContainer>
+      <Footer />
     </>
   );
 };

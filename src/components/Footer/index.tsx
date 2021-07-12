@@ -15,7 +15,7 @@ import { useMenuFooter } from "../../providers/MenuFooterProvider";
 // import { useState } from "react";
 
 //NÃO PODE APARECER NA TELA DE DESCRIÇÃO DE TRABALHO
-import { useLocation } from 'react-router-dom'
+import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 interface FooterProps {
@@ -33,52 +33,65 @@ const Footer = ({
   isHome = false,
   isProfile = false,
 }: FooterProps) => {
-  let { pathname } = useLocation()
-  const [isDescriptionPage, setIsDescriptionPage] = useState<boolean>(false as boolean)
+  let { pathname } = useLocation();
+  const [isDescriptionPage, setIsDescriptionPage] = useState<boolean>(
+    false as boolean
+  );
 
   const handleIsDescriptionPage = () => {
     if (pathname.search(/\d/g) !== -1) {
-      setIsDescriptionPage(true)
+      setIsDescriptionPage(true);
     } else {
-      setIsDescriptionPage(false)
+      setIsDescriptionPage(false);
     }
-  }
+  };
 
   useEffect(() => {
-    handleIsDescriptionPage()
-  }, [pathname])
+    handleIsDescriptionPage();
+  }, [pathname]);
 
-  console.log(isDescriptionPage)
+  console.log(isDescriptionPage);
 
   const { isAuthenticated } = useAuth();
   const { inHome, setInHome, inWorks, setInWorks, inProfile, setInProfile } =
     useMenuFooter();
 
-  const handleSwitchToHome = () => {
-    setInHome(true);
-    setInWorks(false);
-    setInProfile(false);
-  };
+  console.log(inHome);
 
-  const handleSwitchToWorks = () => {
-    setInHome(false);
-    setInWorks(true);
-    setInProfile(false);
-  };
+  // const handleSwitchToHome = () => {
+  //   setInHome(true);
+  //   setInWorks(false);
+  //   setInProfile(false);
+  //   localStorage.setItem("@WorkSpace:inHome", "true");
+  //   localStorage.setItem("@WorkSpace:inWorks", "false");
+  //   localStorage.setItem("@WorkSpace:inProfile", "false");
+  // };
 
-  const handleSwitchToProfile = () => {
-    setInHome(false);
-    setInWorks(false);
-    setInProfile(true);
-  };
+  // const handleSwitchToWorks = () => {
+  //   setInHome(false);
+  //   setInWorks(true);
+  //   setInProfile(false);
+  //   localStorage.setItem("@WorkSpace:inHome", "false");
+  //   localStorage.setItem("@WorkSpace:inWorks", "true");
+  //   localStorage.setItem("@WorkSpace:inProfile", "false");
+  // };
+
+  // const handleSwitchToProfile = () => {
+  //   setInHome(false);
+  //   setInWorks(false);
+  //   setInProfile(true);
+  //   localStorage.setItem("@WorkSpace:inHome", "false");
+  //   localStorage.setItem("@WorkSpace:inWorks", "false");
+  //   localStorage.setItem("@WorkSpace:inProfile", "true");
+  // };
 
   return (
     <>
-      {(isAuthenticated && !isDescriptionPage) && (
+      {isAuthenticated && !isDescriptionPage && (
         <Nav>
           <NavMenu>
             <NavLink
-              onClick={handleSwitchToWorks}
+              // onClick={handleSwitchToWorks}
               exact
               to="/works"
               className={inWorks ? "isActive" : ""}
@@ -92,7 +105,7 @@ const Footer = ({
               <span>Trabalhos</span>
             </NavLink>
             <NavLink
-              onClick={handleSwitchToHome}
+              // onClick={handleSwitchToHome}
               to="/home"
               className={inHome ? "isActive" : ""}
             >
@@ -100,7 +113,7 @@ const Footer = ({
               <span>Início</span>
             </NavLink>
             <NavLink
-              onClick={handleSwitchToProfile}
+              // onClick={handleSwitchToProfile}
               to="/profile"
               className={inProfile ? "isActive" : ""}
             >

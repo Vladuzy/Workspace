@@ -109,7 +109,7 @@ interface AuthProviderData {
   setIsAuthenticated: Dispatch<SetStateAction<boolean>>;
   userLoggedId: string;
   handleLogin: (userDataLogin: UserDataLogin) => void;
-  getUserLoggedInfo: () => void;
+  getUserLoggedInfo: (setLoading: Dispatch<SetStateAction<boolean>>) => void;
   userLoggedInfo: UserLoggedInfo;
   getInfoFromASpecificUser: (userWantedId: string) => void;
   userWantedInfo: UserWantedInfo;
@@ -137,11 +137,13 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   );
 
   const [userLoggedInfo, setUserLoggedInfo] = useState<UserLoggedInfo>(
-    {} as UserLoggedInfo
+    (JSON.parse(localStorage.getItem("@WorkSpace:userLoggedInfo") as string) ||
+      {}) as UserLoggedInfo
   );
 
   const [userWantedInfo, setUserWantedInfo] = useState<UserWantedInfo>(
-    {} as UserWantedInfo
+    (JSON.parse(localStorage.getItem("@WorkSpace:userWantedInfo") as string) ||
+      {}) as UserWantedInfo
   );
 
   const [isAuthenticated, setIsAuthenticated] = useState(
@@ -149,7 +151,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   );
 
   useEffect(() => {
-    getUserLoggedInfo();
     handleAuth();
   }, [token]);
 
@@ -177,7 +178,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   };
 
-  const getUserLoggedInfo = () => {
+  const getUserLoggedInfo = (setLoading: Dispatch<SetStateAction<boolean>>) => {
     api
       .get(`/users/${userLoggedId}`, {
         headers: {
@@ -191,6 +192,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
           JSON.stringify(response.data)
         );
         setUserLoggedInfo(response.data);
+        setLoading(false);
         //Show Toast
       })
       .catch((err) => console.log(err));
@@ -206,6 +208,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       .then((response) => {
         console.log(response.data);
         setUserWantedInfo(response.data);
+        localStorage.setItem(
+          "@WorkSpace:userWantedInfo",
+          JSON.stringify(response.data)
+        );
         console.log(userWantedInfo);
         //Show Toast
       })

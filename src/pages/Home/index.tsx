@@ -4,6 +4,7 @@ import CardWork from "../../components/CardWork";
 import { useEffect, useState } from "react";
 import { useJobs } from "../../providers/Jobs";
 import { useAuth } from "../../providers/AuthProvider";
+import { useMenuFooter } from "../../providers/MenuFooterProvider";
 import { Redirect } from "react-router-dom";
 
 const Home = () => {
@@ -17,6 +18,9 @@ const Home = () => {
     listUserWorkerAppliedJobs,
     listUserWorkerActiveJobs,
   } = useJobs();
+
+  const { setInHome, setInProfile, setInWorks } = useMenuFooter();
+
   const listApplied = listUserWorkerAppliedJobs;
   const listActive = listUserWorkerActiveJobs;
 
@@ -31,6 +35,12 @@ const Home = () => {
     getListUserWorkerAppliedJobs();
     getListUserWorkerActiveJobs();
     addGains();
+    setInHome(true);
+    setInWorks(false);
+    setInProfile(false);
+    localStorage.setItem("@WorkSpace:inHome", "true");
+    localStorage.setItem("@WorkSpace:inWorks", "false");
+    localStorage.setItem("@WorkSpace:inProfile", "false");
   }, []);
 
   if (!token) {
@@ -93,7 +103,7 @@ const Home = () => {
         </ListContainer>
       )}
 
-      {/* <Footer isHome /> */}
+      <Footer />
     </div>
   );
 };
