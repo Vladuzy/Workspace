@@ -7,6 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useHistory } from "react-router";
 import { Container, ContainerInput, Content, LinkStyle } from "./style";
 import { useAuth } from "../../providers/AuthProvider";
+import { toast } from "react-hot-toast";
 
 interface FormLogin {
   email: string;
@@ -15,11 +16,12 @@ interface FormLogin {
 
 const Login = () => {
   const { handleLogin } = useAuth();
+  const { isAuthenticated } = useAuth();
 
   const history = useHistory();
 
   const schema = yup.object().shape({
-    email: yup.string().required("Campo obrigatorio!"),
+    email: yup.string().required("Insira um e-mail"),
     password: yup.string().required("Campo obrigatorio!"),
   });
 
@@ -33,7 +35,12 @@ const Login = () => {
 
   const onSubmit = (data: FormLogin) => {
     handleLogin(data);
-    history.push("/home");
+
+    if (isAuthenticated) {
+      history.push("/home");
+    }
+    console.log("erro");
+    toast.error("E-mail ou senha inválido.");
   };
 
   return (
@@ -57,7 +64,7 @@ const Login = () => {
               name="password"
               register={register}
             />
-            <span>{errors && errors.email?.message}</span>
+            <span>{errors && errors.password?.message}</span>
           </ContainerInput>
         </Content>
 
