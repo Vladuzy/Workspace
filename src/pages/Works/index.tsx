@@ -36,11 +36,14 @@ interface Job {
 }
 
 const Works = () => {
+  //JOBS FILTRADOS PELO ARR FILTERS
+  const [filteredByFilterArr, setFilteredByFilterArr] = useState<Job[]>([] as Job[])
   //FILTRO USADO PELO INPUT 
-  const [filteredArr, setFilteredArr] = useState<Job[]>([] as Job[])
+  const [filteredBySearchArr, setFilteredBySearchArr] = useState<Job[]>([] as Job[])
   //MUDA ENTRE MOSTRAR/NÃO MOSTRAR POP-UP DOS FILTROS
   const [showFilter, setShowFilter] = useState<boolean>(false as boolean)
-
+  //VALOR INPUT PARA USAR VERIFICAR SE FOI DIGITADO ALGO
+  const [inputValue, setInputValue] = useState<string>('' as string)
 
   //ARRAY QUE POSSUI O NOME DE CADA FILTRO QUE FOI SELECIONADO
   const [filters, setFilters] = useState<string[]>([] as string[])
@@ -55,10 +58,10 @@ const Works = () => {
   const { token } = useAuth();
   const { setInHome, setInProfile, setInWorks } = useMenuFooter();
 
-  //FAZ O FILTRO COM BASE NO VALOR DO INPUT
+  //FAZ O FILTRO COM BASE NO VALOR DO INPUT, SETA O MESMO VALOR
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.toLocaleLowerCase()
-    setFilteredArr(listWaitingJobsWithoutCandidates.filter(elem => elem.title.toLocaleLowerCase().includes(value)))
+    setInputValue(e.target.value.toLocaleLowerCase())
+    setFilteredBySearchArr(listWaitingJobsWithoutCandidates.filter(elem => elem.title.toLocaleLowerCase().includes(inputValue)))
   }
 
   //MUDA O ESTADO PARA MOSTRAR OU NÃO POP UP DOS FILTROS
@@ -71,6 +74,16 @@ const Works = () => {
     setFilters(filters.filter((_, index) => index !== ind))
   }
 
+
+  const GlobalFilter = () => {
+    if (filters.length > 0) {
+      setFilteredByFilterArr(listWaitingJobsWithoutCandidates.filter(elem => filters.includes(elem.category)))
+    }
+    else {
+      setFilteredByFilterArr([])
+    }
+  }
+
   useEffect(() => {
     setInHome(false);
     setInWorks(true);
@@ -80,6 +93,10 @@ const Works = () => {
     localStorage.setItem("@WorkSpace:inProfile", "false");
     getListWaitingJobsWithoutCandidates();
   }, []);
+
+  useEffect(() => {
+    GlobalFilter()
+  }, [filters])
 
   if (!token) {
     return <Redirect to="/" />;
@@ -105,15 +122,19 @@ const Works = () => {
           </FilterTagsContainer>
       </HeaderContainer>
       <MainContainer>
-
-        {filteredArr.length > 0 ? 
-          filteredArr.map((elem) => (
+        {filteredByFilterArr.length > 0 ? 
+          filteredByFilterArr.map((elem) => (
             <CardWork job={elem} key={elem.id} />
-          ))
+          )) 
+          :
+          filteredBySearchArr.length > 0 ? 
+            filteredBySearchArr.map((elem) => (
+              <CardWork job={elem} key={elem.id} />
+            ))
           : 
-          listWaitingJobsWithoutCandidates.map((elem) => (
-            <CardWork job={elem} key={elem.id} />
-          ))
+            listWaitingJobsWithoutCandidates.map((elem) => (
+              <CardWork job={elem} key={elem.id} />
+            ))
         }
 
       </MainContainer>
