@@ -1,26 +1,39 @@
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import imgLogo from "../../assets/img/Logo.svg";
+import { Container, ContainerInput, Content, LinkStyle } from "./style";
+
+import { Redirect } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useHistory } from "react-router";
+
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useHistory } from "react-router";
-import { Container, ContainerInput, Content, LinkStyle } from "./style";
-import { useAuth } from "../../providers/AuthProvider";
-import { Redirect } from "react-router-dom";
+import api from "../../service/api";
+import jwt_decode from "jwt-decode";
 
-interface FormLogin {
+import { useAuth } from "../../providers/AuthProvider";
+import { toast } from "react-hot-toast";
+
+interface UserDataLogin {
   email: string;
   password: string;
 }
 
+interface DecodedToken {
+  email: string;
+  exp: number;
+  iat: number;
+  sub: string;
+}
+
 const Login = () => {
-  const { handleLogin, isAuthenticated } = useAuth();
+  const { setToken, setUserLoggedId, isAuthenticated } = useAuth();
 
   const history = useHistory();
 
   const schema = yup.object().shape({
-    email: yup.string().required("Campo obrigatorio!"),
+    email: yup.string().required("Insira um e-mail"),
     password: yup.string().required("Campo obrigatorio!"),
   });
 
@@ -28,13 +41,26 @@ const Login = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormLogin>({
+  } = useForm<UserDataLogin>({
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data: FormLogin) => {
-    handleLogin(data);
-    history.push("/home");
+  const handleLogin = (userDataLogin: UserDataLogin) => {
+    api
+      .post("/login", userDataLogin)
+      .then((response) => {
+        console.log(response.data.accessToken);
+        localStorage.setItem("@WorkSpace:token", response.data.accessToken);
+        setToken(response.data.accessToken);
+        const decodedToken: DecodedToken = jwt_decode(
+          response.data.accessToken
+        );
+
+        setUserLoggedId(decodedToken.sub);
+        localStorage.setItem("@WorkSpace:userLoggedId", `${decodedToken.sub}`);
+        history.push("/home");
+      })
+      .catch(() => toast.error("E-mail ou senha inválido."));
   };
 
   if (isAuthenticated) {
@@ -44,7 +70,7 @@ const Login = () => {
   return (
     <Container>
       <img src={imgLogo} alt="Logo da workspace" />
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(handleLogin)}>
         <Content>
           <ContainerInput>
             <Input
@@ -62,7 +88,7 @@ const Login = () => {
               name="password"
               register={register}
             />
-            <span>{errors && errors.email?.message}</span>
+            <span>{errors && errors.password?.message}</span>
           </ContainerInput>
         </Content>
 
