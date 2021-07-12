@@ -6,7 +6,6 @@ import { useJobs } from "../../providers/Jobs";
 import { useAuth } from "../../providers/AuthProvider";
 import { useMenuFooter } from "../../providers/MenuFooterProvider";
 import { Redirect } from "react-router-dom";
-import { worker } from "cluster";
 
 const Home = () => {
   const { token, userLoggedInfo } = useAuth();
