@@ -7,7 +7,7 @@ interface ValueFilterProps {
   setSelected: Dispatch<SetStateAction<string>>
 }
 
-const ValueFilter = ({ setSelected,  }: ValueFilterProps) => {
+const ValueFilter = ({ setSelected }: ValueFilterProps) => {
   const [isActive, setIsActive] = useState<string>('' as string)
 
   const handleAddValue = () => {
