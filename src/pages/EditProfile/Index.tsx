@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import CardCategory from '../../components/CardCategory'
 import { Close, Container, ContentCards, ContentForms, HeaderStyled, MainStyled } from './styles'
@@ -54,10 +54,10 @@ export default function EditProfile() {
             <Container>
                 <p>Categorias que trabalha</p>
                 <ContentCards>
-                    {arrTitle.map(
+                    {/* {arrTitle.map(
                         (element, index) => 
                         <button onClick={() => setArrCategory([...arrCategory, element])}><CardCategory key={index} title={element} svg={arrSvg[index]} /></button>
-                    )}
+                    )} */}
                 </ContentCards>
                 <ContentForms onSubmit={handleSubmit(submitForm)}>
                     <textarea cols={6} rows={6} placeholder='descrição de suas experiências' {...register('description')}/>
