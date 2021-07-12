@@ -490,7 +490,7 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
 
   const getListUserWorkerAppliedJobs = () => {
     api
-      .get(`jobs?appliedCandidateId=${userLoggedId}`, {
+      .get(`jobs?appliedCandidateId=${userLoggedId}&status=isWaiting`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
