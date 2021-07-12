@@ -35,6 +35,15 @@ export const IconContainer = styled.div`
     height: 20px;
   }
 `;
+
+export const FilterTagsContainer = styled.div`
+  margin: 5px 10px;
+
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+`
+
 export const MainContainer = styled.main`
   min-height: 80vh;
   border-top-left-radius: 20px;
@@ -47,12 +56,28 @@ export const MainContainer = styled.main`
 `
 
 export const Input = styled.input`
-  width: 235px;
-  height: 30px;
+  width: 200px;
+  height: 100%;
   padding-left: 15px;
   color: var(--cinza-claro);
-  background-color: var(--cinza-escuro);
-  border-radius:15px;
+
+  background: none;
   border: none;
   font-size: 17px;
+`
+
+export const InputContainer = styled.div`
+  width: 235px;
+  height: 30px;
+  background-color: var(--cinza-escuro);
+  border-radius:15px;
+  color: var(--cinza-claro);
+
+  display: flex;
+  align-items: center;
+
+  svg {
+    width: 25px;
+    height: 25px;
+  }
 `
