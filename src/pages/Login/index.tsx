@@ -1,22 +1,34 @@
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import imgLogo from "../../assets/img/Logo.svg";
+import { Container, ContainerInput, Content, LinkStyle } from "./style";
+
+import { Redirect } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useHistory } from "react-router";
+
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useHistory } from "react-router";
-import { Container, ContainerInput, Content, LinkStyle } from "./style";
+import api from "../../service/api";
+import jwt_decode from "jwt-decode";
+
 import { useAuth } from "../../providers/AuthProvider";
-import { Redirect } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
-interface FormLogin {
+interface UserDataLogin {
   email: string;
   password: string;
 }
 
+interface DecodedToken {
+  email: string;
+  exp: number;
+  iat: number;
+  sub: string;
+}
+
 const Login = () => {
-  const { handleLogin, isAuthenticated } = useAuth();
+  const { setToken, setUserLoggedId, isAuthenticated } = useAuth();
 
   const history = useHistory();
 
@@ -29,18 +41,26 @@ const Login = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormLogin>({
+  } = useForm<UserDataLogin>({
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data: FormLogin) => {
-    handleLogin(data);
+  const handleLogin = (userDataLogin: UserDataLogin) => {
+    api
+      .post("/login", userDataLogin)
+      .then((response) => {
+        console.log(response.data.accessToken);
+        localStorage.setItem("@WorkSpace:token", response.data.accessToken);
+        setToken(response.data.accessToken);
+        const decodedToken: DecodedToken = jwt_decode(
+          response.data.accessToken
+        );
 
-    if (isAuthenticated) {
-      history.push("/home");
-    }
-    console.log("erro");
-    toast.error("E-mail ou senha inválido.");
+        setUserLoggedId(decodedToken.sub);
+        localStorage.setItem("@WorkSpace:userLoggedId", `${decodedToken.sub}`);
+        history.push("/home");
+      })
+      .catch(() => toast.error("E-mail ou senha inválido."));
   };
 
   if (isAuthenticated) {
@@ -50,7 +70,7 @@ const Login = () => {
   return (
     <Container>
       <img src={imgLogo} alt="Logo da workspace" />
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(handleLogin)}>
         <Content>
           <ContainerInput>
             <Input

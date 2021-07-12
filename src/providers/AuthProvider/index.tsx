@@ -13,9 +13,6 @@ import {
 import { History } from "history";
 import { toast } from "react-hot-toast";
 import api from "../../service/api";
-
-import jwt_decode from "jwt-decode";
-
 interface UserDataRegister {
   name: string;
   type: string;
@@ -56,19 +53,6 @@ interface UserWantedInfo {
   };
   id: string;
 }
-
-interface UserDataLogin {
-  email: string;
-  password: string;
-}
-
-interface DecodedToken {
-  email: string;
-  exp: number;
-  iat: number;
-  sub: string;
-}
-
 interface UserEmployerDataMoreInfo {
   moreInfo: {
     categories: string[];
@@ -105,10 +89,11 @@ interface UserWorkerDataEdit {
 
 interface AuthProviderData {
   token: string;
+  setToken: Dispatch<SetStateAction<string>>;
   isAuthenticated: boolean;
   setIsAuthenticated: Dispatch<SetStateAction<boolean>>;
   userLoggedId: string;
-  handleLogin: (userDataLogin: UserDataLogin) => void;
+  setUserLoggedId: Dispatch<SetStateAction<string>>;
   getUserLoggedInfo: (setLoading: Dispatch<SetStateAction<boolean>>) => void;
   userLoggedInfo: UserLoggedInfo;
   getInfoFromASpecificUser: (userWantedId: string) => void;
@@ -154,22 +139,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     handleAuth();
   }, [token]);
 
-  const handleLogin = (userDataLogin: UserDataLogin) => {
-    api
-      .post("/login", userDataLogin)
-      .then((response) => {
-        console.log(response.data.accessToken);
-        localStorage.setItem("@WorkSpace:token", response.data.accessToken);
-        setToken(response.data.accessToken);
-        const decodedToken: DecodedToken = jwt_decode(
-          response.data.accessToken
-        );
-
-        setUserLoggedId(decodedToken.sub);
-        localStorage.setItem("@WorkSpace:userLoggedId", `${decodedToken.sub}`);
-      })
-      .catch((err) => console.log(err));
-  };
   const handleAuth = () => {
     if (token !== "") {
       setIsAuthenticated(true);
@@ -282,10 +251,11 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     <AuthContext.Provider
       value={{
         token,
+        setToken,
         isAuthenticated,
         setIsAuthenticated,
         userLoggedId,
-        handleLogin,
+        setUserLoggedId,
         getUserLoggedInfo,
         userLoggedInfo,
         getInfoFromASpecificUser,
