@@ -1,8 +1,9 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useHistory } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import { useAuth } from "../../providers/AuthProvider";
+import api from "../../service/api";
 import {
   FormContainer,
   Container,
@@ -15,6 +16,7 @@ import {
 import imgLogo from "../../assets/img/Logo.svg";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
+import { toast } from "react-hot-toast";
 interface Data {
   name: string;
   type: string;
@@ -23,23 +25,28 @@ interface Data {
 }
 const Register = () => {
   const history = useHistory();
-  const { handleRegister } = useAuth();
+  const { isAuthenticated } = useAuth();
 
   const schema = yup.object().shape({
     name: yup.string().required("Campo é obrigatório"),
-    type: yup.string().required("Campo é obrigatório"),
+    type: yup
+      .string()
+      .min(5, "Selecione o tipo de usuário*")
+      .required("Campo é obrigatório"),
     email: yup.string().email("Email inválido").required("Campo obrigatório*"),
     password: yup
       .string()
       .min(8, "Mínimo de 8 dígitos*")
+      .matches(/^((?=.*[A-Z]){1}).*$/, "Senha deve conter uma letra maiúscula,")
+      .matches(/^((?=.*[a-z]){1}).*$/, "uma letra minúscula,")
       .matches(
-        /^((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
-        "Senha deve conter ao menos uma letra maiúscula, uma minúscula, um número e um caracter especial!"
+        /^((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d).*$/,
+        "um número e caracter especial!"
       )
       .required("Campo obrigatório*"),
     passwordConfirm: yup
       .string()
-      .oneOf([yup.ref("password")], "senhas diferentes")
+      .oneOf([yup.ref("password")], "Senhas diferentes")
       .required("Senha obrigatório*"),
   });
 
@@ -52,7 +59,7 @@ const Register = () => {
 
   const handleForm = (data: Data) => {
     const { name, type, email, password } = data;
-    handleRegister({
+    const userDataRegister = {
       email,
       password,
       name,
@@ -63,10 +70,22 @@ const Register = () => {
         description: "",
         telephone: "",
       },
-    });
-    reset();
-    history.push("/login");
+    };
+
+    api
+      .post("/register", userDataRegister)
+      .then((response) => {
+        console.log(response);
+        toast.success("Usuário cadastrado com Sucesso!");
+        history.push("/login");
+        reset();
+      })
+      .catch(() => toast.error("E-mail já cadastrado!!"));
   };
+
+  if (isAuthenticated) {
+    return <Redirect to="/home" />;
+  }
 
   return (
     <Container>
@@ -80,8 +99,8 @@ const Register = () => {
             register={register}
           ></Input>
           <SpanFormContainer>{errors.name?.message}</SpanFormContainer>
-          <SelectContainer defaultValue={"default"} {...register("type")}>
-            <option value="default" disabled>
+          <SelectContainer defaultValue="null" {...register("type")}>
+            <option value="null" disabled>
               Tipo de usuário
             </option>
             <option value="worker">Trabalhador</option>

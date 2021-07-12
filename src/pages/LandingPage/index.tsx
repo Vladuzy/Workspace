@@ -1,14 +1,20 @@
 import { Container } from "./style";
 import Button from "../../components/Button";
 import imgLogo from "../../assets/img/Logo.svg";
-import { useHistory } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
+import { useAuth } from "../../providers/AuthProvider";
 
 const LandingPage = () => {
   const history = useHistory();
+  const { isAuthenticated } = useAuth();
 
   const redirectToPage = (page: string) => {
     history.push(`/${page}`);
   };
+
+  if (isAuthenticated) {
+    return <Redirect to="/home" />;
+  }
 
   return (
     <Container>

@@ -36,10 +36,14 @@ export const IconContainer = styled.div`
   }
 `;
 export const MainContainer = styled.main`
-  height: 80vh;
+  min-height: 80vh;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   background-color: var(--cinza-ultra-claro-main);
+
+  & > div:last-child {
+    margin-bottom: 63px;
+  }
 `
 
 export const Input = styled.input`

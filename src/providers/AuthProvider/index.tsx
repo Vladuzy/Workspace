@@ -10,6 +10,8 @@ import {
   useState,
 } from "react";
 
+import { History } from "history";
+import { toast } from "react-hot-toast";
 import api from "../../service/api";
 
 import jwt_decode from "jwt-decode";
@@ -69,7 +71,7 @@ interface DecodedToken {
 
 interface UserEmployerDataMoreInfo {
   moreInfo: {
-    categories: [];
+    categories: string[];
     description: string;
     telephone: string;
   };
@@ -84,12 +86,10 @@ interface UserWorkerDataMoreInfo {
 }
 
 interface UserEmployerDataEdit {
-  email: string;
-  name: string;
-  moreInfo: {
-    categories: [];
-    description: string;
-    telephone: string;
+  moreInfo?: {
+    categories?: string[];
+    description?: string;
+    telephone?: string;
   };
 }
 
@@ -106,12 +106,10 @@ interface UserWorkerDataEdit {
 interface AuthProviderData {
   token: string;
   isAuthenticated: boolean;
+  setIsAuthenticated: Dispatch<SetStateAction<boolean>>;
   userLoggedId: string;
-
-
-  handleRegister: (userDataRegister: UserDataRegister) => void;
   handleLogin: (userDataLogin: UserDataLogin) => void;
-  getUserLoggedInfo: () => void;
+  getUserLoggedInfo: (setLoading: Dispatch<SetStateAction<boolean>>) => void;
   userLoggedInfo: UserLoggedInfo;
   getInfoFromASpecificUser: (userWantedId: string) => void;
   userWantedInfo: UserWantedInfo;
@@ -119,7 +117,7 @@ interface AuthProviderData {
   addMoreInfoUserWorker: (
     userWorkerDataMoreInfo: UserWorkerDataMoreInfo
   ) => void;
-  editUserEmployer: (userEmployerDataEdit: UserEmployerDataEdit) => void;
+  editUserEmployer: (userEmployerDataEdit: {}) => void;
   editUserWorker: (userWorkerDataEdit: UserWorkerDataEdit) => void;
 }
 
@@ -138,28 +136,23 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     () => localStorage.getItem("@WorkSpace:userLoggedId") || ""
   );
 
-  const [userLoggedInfo, setUserLoggedInfo] = useState<UserLoggedInfo>({} as UserLoggedInfo);
+  const [userLoggedInfo, setUserLoggedInfo] = useState<UserLoggedInfo>(
+    (JSON.parse(localStorage.getItem("@WorkSpace:userLoggedInfo") as string) ||
+      {}) as UserLoggedInfo
+  );
 
-  const [userWantedInfo, setUserWantedInfo] = useState<UserWantedInfo>({} as UserWantedInfo);
+  const [userWantedInfo, setUserWantedInfo] = useState<UserWantedInfo>(
+    (JSON.parse(localStorage.getItem("@WorkSpace:userWantedInfo") as string) ||
+      {}) as UserWantedInfo
+  );
 
   const [isAuthenticated, setIsAuthenticated] = useState(
     token !== "" ? true : false
   );
 
   useEffect(() => {
-    getUserLoggedInfo();
     handleAuth();
-  }, []);
-
-  const handleRegister = (userDataRegister: UserDataRegister) => {
-    api
-      .post("/register", userDataRegister)
-      .then((response) => {
-        console.log(response);
-        //Show Toast
-      })
-      .catch((err) => console.log(err));
-  };
+  }, [token]);
 
   const handleLogin = (userDataLogin: UserDataLogin) => {
     api
@@ -185,7 +178,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   };
 
-  const getUserLoggedInfo = () => {
+  const getUserLoggedInfo = (setLoading: Dispatch<SetStateAction<boolean>>) => {
     api
       .get(`/users/${userLoggedId}`, {
         headers: {
@@ -199,6 +192,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
           JSON.stringify(response.data)
         );
         setUserLoggedInfo(response.data);
+        setLoading(false);
         //Show Toast
       })
       .catch((err) => console.log(err));
@@ -214,6 +208,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       .then((response) => {
         console.log(response.data);
         setUserWantedInfo(response.data);
+        localStorage.setItem(
+          "@WorkSpace:userWantedInfo",
+          JSON.stringify(response.data)
+        );
         console.log(userWantedInfo);
         //Show Toast
       })
@@ -285,8 +283,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       value={{
         token,
         isAuthenticated,
+        setIsAuthenticated,
         userLoggedId,
-        handleRegister,
         handleLogin,
         getUserLoggedInfo,
         userLoggedInfo,

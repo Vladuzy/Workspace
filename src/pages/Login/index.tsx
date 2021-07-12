@@ -7,6 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useHistory } from "react-router";
 import { Container, ContainerInput, Content, LinkStyle } from "./style";
 import { useAuth } from "../../providers/AuthProvider";
+import { Redirect } from "react-router-dom";
 import { toast } from "react-hot-toast";
 
 interface FormLogin {
@@ -15,8 +16,7 @@ interface FormLogin {
 }
 
 const Login = () => {
-  const { handleLogin } = useAuth();
-  const { isAuthenticated } = useAuth();
+  const { handleLogin, isAuthenticated } = useAuth();
 
   const history = useHistory();
 
@@ -42,6 +42,10 @@ const Login = () => {
     console.log("erro");
     toast.error("E-mail ou senha inválido.");
   };
+
+  if (isAuthenticated) {
+    return <Redirect to="/home" />;
+  }
 
   return (
     <Container>
