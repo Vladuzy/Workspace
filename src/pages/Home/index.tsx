@@ -21,9 +21,6 @@ const Home = () => {
 
   const { setInHome, setInProfile, setInWorks } = useMenuFooter();
 
-  const listApplied = listUserWorkerAppliedJobs;
-  const listActive = listUserWorkerActiveJobs;
-
   const addGains = () => {
     const num = Number(totalGain);
     //reducer da lista de concluidos pra somar a quantidade total ganha
@@ -82,7 +79,7 @@ const Home = () => {
               local: "Rua dos Mineiros",
             }}
             /> */}
-          {listActive.map((job) => (
+          {listUserWorkerActiveJobs.map((job) => (
             <CardWork job={job} key={job.id} />
           ))}
         </ListContainer>
@@ -97,7 +94,7 @@ const Home = () => {
               local: "Rua dos Mineiros",
             }}
             /> */}
-          {listApplied.map((job) => (
+          {listUserWorkerAppliedJobs.map((job) => (
             <CardWork job={job} key={job.id} />
           ))}
         </ListContainer>
