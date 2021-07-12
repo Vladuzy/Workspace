@@ -109,7 +109,7 @@ interface AuthProviderData {
   setIsAuthenticated: Dispatch<SetStateAction<boolean>>;
   userLoggedId: string;
   handleLogin: (userDataLogin: UserDataLogin) => void;
-  getUserLoggedInfo: () => void;
+  getUserLoggedInfo: (setLoading: Dispatch<SetStateAction<boolean>>) => void;
   userLoggedInfo: UserLoggedInfo;
   getInfoFromASpecificUser: (userWantedId: string) => void;
   userWantedInfo: UserWantedInfo;
@@ -151,7 +151,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   );
 
   useEffect(() => {
-    getUserLoggedInfo();
     handleAuth();
   }, [token]);
 
@@ -179,7 +178,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   };
 
-  const getUserLoggedInfo = () => {
+  const getUserLoggedInfo = (setLoading: Dispatch<SetStateAction<boolean>>) => {
     api
       .get(`/users/${userLoggedId}`, {
         headers: {
@@ -193,6 +192,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
           JSON.stringify(response.data)
         );
         setUserLoggedInfo(response.data);
+        setLoading(false);
         //Show Toast
       })
       .catch((err) => console.log(err));

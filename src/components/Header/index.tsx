@@ -15,12 +15,15 @@ import {
   ImgStarHeaderContainer,
   TitleContainer,
 } from "./style";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+
 const Header = () => {
   const { listCompletedJobs, getListUserWorkerCompletedJobs } = useJobs();
   const { userLoggedInfo, setIsAuthenticated } = useAuth();
   const { setInHome, setInProfile, setInWorks } = useMenuFooter();
   console.log(listCompletedJobs);
+
+  const { type } = userLoggedInfo;
 
   const history = useHistory();
 
@@ -37,10 +40,13 @@ const Header = () => {
   };
 
   const totalRating =
-    listCompletedJobs.reduce(
-      (acc, acumulater) => parseInt(acumulater.rating) + acc,
-      0
-    ) / listCompletedJobs.length;
+    listCompletedJobs.length === 0
+      ? "Sem Avaliações"
+      : listCompletedJobs.reduce(
+          (acc, acumulater) => parseInt(acumulater.rating) + acc,
+          0
+        ) / listCompletedJobs.length;
+
   useEffect(() => {
     getListUserWorkerCompletedJobs();
   }, []);
@@ -51,12 +57,17 @@ const Header = () => {
         <img src={imgAvatar} alt="Icone Avatar" />
         <HeaderInternContainer>
           <TitleContainer>{userLoggedInfo.name}</TitleContainer>
-          <Rating
-            precision={0.5}
-            name="read-only"
-            value={totalRating}
-            readOnly
-          />
+          {type === "worker" &&
+            (totalRating === "Sem Avaliações" ? (
+              <p>{totalRating}</p>
+            ) : (
+              <Rating
+                precision={0.5}
+                name="read-only"
+                value={totalRating}
+                readOnly
+              />
+            ))}
         </HeaderInternContainer>
       </HeaderContainer>
       <HandleContainer>
