@@ -8,13 +8,19 @@ import {
 import { GoSettings } from "react-icons/go";
 import CardWork from "../../components/CardWork";
 import { useJobs } from "../../providers/Jobs";
-import { useEffect } from "react";
-import Footer from "../../components/Footer";
+import { useEffect, useState } from "react";
 import { useAuth } from "../../providers/AuthProvider";
 import { useMenuFooter } from "../../providers/MenuFooterProvider";
 import { Redirect } from "react-router-dom";
+import Filter from "../../components/Filter";
+import Footer from "../../components/Footer";
 
 const Works = () => {
+  const [showFilter, setShowFilter] = useState<boolean>(false as boolean)
+  const [filters, setFilters] = useState<string[]>([] as string[])
+  const [order, setOrder] = useState<string>('' as string)
+  console.log(order)
+  console.log(filters)
   const {
     getListWaitingJobsWithoutCandidates,
     listWaitingJobsWithoutCandidates,
@@ -32,17 +38,22 @@ const Works = () => {
     getListWaitingJobsWithoutCandidates();
   }, []);
 
+  const handleShowFilter = (value: boolean): void => {
+    setShowFilter(value)
+  }
+
   if (!token) {
     return <Redirect to="/" />;
   }
 
   return (
     <>
+      {showFilter && <Filter close={handleShowFilter} setFilters={setFilters} filters={filters} setOrder={setOrder}/>}
       <HeaderContainer>
         <FilterContainer>
           <Input />
           <IconContainer>
-            <GoSettings />
+            <GoSettings onClick={() => handleShowFilter(true)}/>
           </IconContainer>
         </FilterContainer>
       </HeaderContainer>
