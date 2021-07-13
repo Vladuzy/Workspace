@@ -28,21 +28,21 @@ interface Job {
   id: string;
 }
 
-interface CurrentJob {
-  title: string;
-  category: string;
-  description: string;
-  location: string;
-  status: string;
-  rating: string;
-  valueOffered: number;
-  date: string;
-  appliedCandidateId: string;
-  acceptedCandidateId: string;
-  rejectedCandidatesIds: string[];
-  userId: string;
-  id: string;
-}
+// interface CurrentJob {
+//   title: string;
+//   category: string;
+//   description: string;
+//   location: string;
+//   status: string;
+//   rating: string;
+//   valueOffered: number;
+//   date: string;
+//   appliedCandidateId: string;
+//   acceptedCandidateId: string;
+//   rejectedCandidatesIds: string[];
+//   userId: string;
+//   id: string;
+// }
 
 interface JobCreationData {
   title: string;
@@ -62,21 +62,22 @@ interface JobEditData {
 
 interface JobsProviderData {
   userEmployerCreateJob: (jobCreationData: JobCreationData) => void;
-  getASpecificJob: (jobId: string) => void;
-  currentJob: CurrentJob;
+  // getASpecificJob: (jobId: string) => void;
+  // currentJob: CurrentJob;
   userEmployerEditJob: (jobEditData: JobEditData, jobId: string) => void;
-  userEmployerAcceptCandidate: (
-    appliedCandidateId: string,
-    jobId: string
-  ) => void;
-  userEmployerRejectCandidate: (
-    appliedCandidateId: string,
-    rejectedCandidatesIds: string[],
-    jobId: string
-  ) => void;
-  userEmployerCompleteJob: (jobId: string) => void;
+  // userEmployerAcceptCandidate: (
+  //   appliedCandidateId: string,
+  //   jobId: string
+  // ) => void;
+  // userEmployerRejectCandidate: (
+  //   appliedCandidateId: string,
+  //   rejectedCandidatesIds: string[],
+  //   jobId: string
+  // ) => void;
+  // userEmployerCompleteJob: (jobId: string) => void;
   userEmployerRatingJob: (ratingJob: string, jobId: string) => void;
-  userWorkerApplyToJob: (jobId: string) => void;
+  // userWorkerApplyToJob: (jobId: string) => void;
+  // userWorkerCancelApplyToJob: (jobId: string) => void;
   getListAllJobs: () => void;
   listAllJobs: Job[];
   getListWaitingJobsWithoutCandidates: () => void;
@@ -108,10 +109,10 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
 
   // const [ currentJobId, setCurrentJobId ] = useState("");
 
-  const [currentJob, setCurrentJob] = useState<CurrentJob>(
-    (JSON.parse(localStorage.getItem("@WorkSpace:currentJob") as string) ||
-      {}) as CurrentJob
-  );
+  // const [currentJob, setCurrentJob] = useState<CurrentJob>(
+  //   (JSON.parse(localStorage.getItem("@WorkSpace:currentJob") as string) ||
+  //     {}) as CurrentJob
+  // );
 
   const [listAllJobs, setListAllJobs] = useState<Job[]>(
     (JSON.parse(localStorage.getItem("@WorkSpace:listAllJobs") as string) ||
@@ -202,24 +203,24 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
       .catch((err) => console.log(err));
   };
 
-  const getASpecificJob = (jobId: string) => {
-    api
-      .get(`/jobs/${jobId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        setCurrentJob(response.data);
-        localStorage.setItem(
-          "@WorkSpace:currentJob",
-          JSON.stringify(response.data)
-        );
-        console.log(response);
-        //Show Toast
-      })
-      .catch((err) => console.log(err));
-  };
+  // const getASpecificJob = (jobId: string) => {
+  //   api
+  //     .get(`/jobs/${jobId}`, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     })
+  //     .then((response) => {
+  //       setCurrentJob(response.data);
+  //       localStorage.setItem(
+  //         "@WorkSpace:currentJob",
+  //         JSON.stringify(response.data)
+  //       );
+  //       console.log(response);
+  //       //Show Toast
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
 
   const userEmployerEditJob = (jobEditData: JobEditData, jobId: string) => {
     api
@@ -235,73 +236,73 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
       .catch((err) => console.log(err));
   };
 
-  const userEmployerAcceptCandidate = (
-    appliedCandidateId: string,
-    jobId: string
-  ) => {
-    const acceptCandidateData = {
-      status: "inProgress",
-      appliedCandidateId: "",
-      acceptedCandidateId: appliedCandidateId,
-    };
+  // const userEmployerAcceptCandidate = (
+  //   appliedCandidateId: string,
+  //   jobId: string
+  // ) => {
+  //   const acceptCandidateData = {
+  //     status: "inProgress",
+  //     appliedCandidateId: "",
+  //     acceptedCandidateId: appliedCandidateId,
+  //   };
 
-    api
-      .patch(`/jobs/${jobId}`, acceptCandidateData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        console.log(response);
-        //Show Toast
-      })
-      .catch((err) => console.log(err));
-  };
+  //   api
+  //     .patch(`/jobs/${jobId}`, acceptCandidateData, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     })
+  //     .then((response) => {
+  //       console.log(response);
+  //       //Show Toast
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
 
-  const userEmployerRejectCandidate = (
-    appliedCandidateId: string,
-    rejectedCandidatesIds: string[],
-    jobId: string
-  ) => {
-    const rejectedCandidates = [...rejectedCandidatesIds, appliedCandidateId];
+  // const userEmployerRejectCandidate = (
+  //   appliedCandidateId: string,
+  //   rejectedCandidatesIds: string[],
+  //   jobId: string
+  // ) => {
+  //   const rejectedCandidates = [...rejectedCandidatesIds, appliedCandidateId];
 
-    const rejectCandidateData = {
-      status: "isWaiting",
-      appliedCandidateId: "Sem Candidatos",
-      acceptedCandidateId: "",
-      rejectedCandidatesIds: [rejectedCandidates],
-    };
+  //   const rejectCandidateData = {
+  //     status: "isWaiting",
+  //     appliedCandidateId: "Sem Candidatos",
+  //     acceptedCandidateId: "",
+  //     rejectedCandidatesIds: [rejectedCandidates],
+  //   };
 
-    api
-      .patch(`/jobs/${jobId}`, rejectCandidateData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        console.log(response);
-        //Show Toast
-      })
-      .catch((err) => console.log(err));
-  };
+  //   api
+  //     .patch(`/jobs/${jobId}`, rejectCandidateData, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     })
+  //     .then((response) => {
+  //       console.log(response);
+  //       //Show Toast
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
 
-  const userEmployerCompleteJob = (jobId: string) => {
-    const completeJobData = {
-      status: "isCompleted",
-    };
+  // const userEmployerCompleteJob = (jobId: string) => {
+  //   const completeJobData = {
+  //     status: "isCompleted",
+  //   };
 
-    api
-      .patch(`/jobs/${jobId}`, completeJobData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        console.log(response);
-        //Show Toast
-      })
-      .catch((err) => console.log(err));
-  };
+  //   api
+  //     .patch(`/jobs/${jobId}`, completeJobData, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     })
+  //     .then((response) => {
+  //       console.log(response);
+  //       //Show Toast
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
 
   const userEmployerRatingJob = (ratingJob: string, jobId: string) => {
     const ratingJobData = {
@@ -321,23 +322,41 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
       .catch((err) => console.log(err));
   };
 
-  const userWorkerApplyToJob = (jobId: string) => {
-    const applyToJobData = {
-      appliedCandidateId: userLoggedId,
-    };
+  // const userWorkerApplyToJob = (jobId: string) => {
+  //   const applyToJobData = {
+  //     appliedCandidateId: userLoggedId,
+  //   };
 
-    api
-      .patch(`/jobs/${jobId}`, applyToJobData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        console.log(response);
-        //Show Toast
-      })
-      .catch((err) => console.log(err));
-  };
+  //   api
+  //     .patch(`/jobs/${jobId}`, applyToJobData, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     })
+  //     .then((response) => {
+  //       console.log(response);
+  //       //Show Toast
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
+
+  // const userWorkerCancelApplyToJob = (jobId: string) => {
+  //   const applyToJobData = {
+  //     appliedCandidateId: "Sem Candidatos",
+  //   };
+
+  //   api
+  //     .patch(`/jobs/${jobId}`, applyToJobData, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     })
+  //     .then((response) => {
+  //       console.log(response);
+  //       //Show Toast
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
 
   const getListAllJobs = () => {
     api
@@ -530,14 +549,15 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
     <JobsContext.Provider
       value={{
         userEmployerCreateJob,
-        getASpecificJob,
-        currentJob,
+        // getASpecificJob,
+        // currentJob,
         userEmployerEditJob,
-        userEmployerAcceptCandidate,
-        userEmployerRejectCandidate,
-        userEmployerCompleteJob,
+        // userEmployerAcceptCandidate,
+        // userEmployerRejectCandidate,
+        // userEmployerCompleteJob,
         userEmployerRatingJob,
-        userWorkerApplyToJob,
+        // userWorkerApplyToJob,
+        // userWorkerCancelApplyToJob,
         getListAllJobs,
         listAllJobs,
         getListWaitingJobsWithoutCandidates,

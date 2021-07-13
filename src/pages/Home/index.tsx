@@ -56,8 +56,16 @@ const Home = () => {
   return (
     <div>
       <Header>
-        <span>Total ganho:</span>
-        <div>R${totalGains}</div>
+        {type === "worker" ? (
+          <>
+            <span>Total ganho:</span>
+            <div>R${totalGains}</div>
+          </>
+        ) : (
+          <>
+            <div>NÃO ESQUECER DE PENSAR EM ALGO</div>
+          </>
+        )}
       </Header>
 
       <div>
