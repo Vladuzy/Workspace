@@ -44,7 +44,7 @@ interface CurrentJob {
   id: string;
 }
 
-interface JobCreationData {
+export interface JobCreationData {
   title: string;
   category: string[];
   description: string;
@@ -173,6 +173,7 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
   const userEmployerCreateJob = (jobCreationData: JobCreationData) => {
     const { title, category, description, location, valueOffered, date } =
       jobCreationData;
+    
 
     const createJobCompleteData = {
       title,
@@ -181,7 +182,7 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
       location,
       valueOffered,
       date,
-      status: "",
+      status: "isWaiting",
       rating: "",
       appliedCandidateId: "Sem Candidatos",
       acceptedCandidateId: "",
