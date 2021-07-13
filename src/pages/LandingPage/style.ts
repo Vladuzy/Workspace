@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+export const Container = styled.main`
   background-color: var(--preto-cafe);
   color: var(--branco-fundo-body);
   height: 100vh;
