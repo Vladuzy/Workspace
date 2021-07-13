@@ -13,7 +13,9 @@ const Home = () => {
   const history = useHistory();
   const { token, userLoggedInfo, getUserLoggedInfo } = useAuth();
   const { type } = userLoggedInfo;
-  const [current, setCurrent] = useState<string>("ativos" as string);
+  const [current, setCurrent] = useState<string>(
+    () => localStorage.getItem("@WorkSpace:currenSection") || "ativos"
+  );
 
   const {
     getListUserWorkerAppliedJobs,
@@ -85,7 +87,10 @@ const Home = () => {
             <TabStyle
               id="ativos"
               current={current}
-              onClick={() => setCurrent("ativos")}
+              onClick={() => {
+                setCurrent("ativos");
+                localStorage.setItem("@WorkSpace:currenSection", "ativos");
+              }}
             >
               ATIVOS
             </TabStyle>
@@ -93,7 +98,10 @@ const Home = () => {
               <TabStyle
                 id="aplicados"
                 current={current}
-                onClick={() => setCurrent("aplicados")}
+                onClick={() => {
+                  setCurrent("aplicados");
+                  localStorage.setItem("@WorkSpace:currenSection", "aplicados");
+                }}
               >
                 APLICADOS
               </TabStyle>
@@ -101,7 +109,10 @@ const Home = () => {
               <TabStyle
                 id="atuais"
                 current={current}
-                onClick={() => setCurrent("atuais")}
+                onClick={() => {
+                  setCurrent("atuais");
+                  localStorage.setItem("@WorkSpace:currenSection", "atuais");
+                }}
               >
                 ATUAIS
               </TabStyle>
@@ -135,7 +146,10 @@ const Home = () => {
               ))}
             </ListContainer>
           )}
-          <ButtonAdd onClick={() => history.push("/createWork")}></ButtonAdd>
+          {type === "employer" && (
+            <ButtonAdd onClick={() => history.push("/createWork")}></ButtonAdd>
+          )}
+
           <Footer />
         </MainHomeContainer>
       )}

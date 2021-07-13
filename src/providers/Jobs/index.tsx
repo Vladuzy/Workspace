@@ -80,7 +80,9 @@ interface JobsProviderData {
   // userWorkerCancelApplyToJob: (jobId: string) => void;
   getListAllJobs: () => void;
   listAllJobs: Job[];
-  getListWaitingJobsWithoutCandidates: () => void;
+  getListWaitingJobsWithoutCandidates: (
+    setLoading: Dispatch<SetStateAction<boolean>>
+  ) => void;
   listWaitingJobsWithoutCandidates: Job[];
   getListUserEmployerJobs: () => void;
   getListUserWorkerJobs: () => void;
@@ -385,7 +387,9 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
       .catch((err) => console.log(err));
   };
 
-  const getListWaitingJobsWithoutCandidates = () => {
+  const getListWaitingJobsWithoutCandidates = (
+    setLoading: Dispatch<SetStateAction<boolean>>
+  ) => {
     api
       .get("/jobs?status=isWaiting&appliedCandidateId=Sem%20Candidatos", {
         headers: {
@@ -398,7 +402,8 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
           "@WorkSpace:listWaitingJobsWithoutCandidates",
           JSON.stringify(response.data)
         );
-        console.log(response);
+        setLoading(false);
+        // console.log(response);
       })
       .catch((err) => console.log(err));
   };
