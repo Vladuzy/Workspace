@@ -1,7 +1,11 @@
 import { MainContainer } from "./styles";
 
 const Loading = () => {
-  return <MainContainer className="loader">Carregando</MainContainer>;
+  return (
+    <MainContainer>
+      <div className="loader">Carregando</div>
+    </MainContainer>
+  );
 };
 
 export default Loading;
