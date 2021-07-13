@@ -91,8 +91,8 @@ const Profile = () => {
                 <div>Adicione o restante de suas informações!</div>
                 <Button
                   text="Adicionar"
-                  width="100px"
-                  heigth="32px"
+                  width="150px"
+                  heigth="40px"
                   borderRadius="20px"
                   handleClick={handleEdit}
                 />

@@ -101,7 +101,7 @@ export const StyledNoInfo = styled.div`
   height: 50vh;
   div {
     text-align: center;
-    margin: 1rem auto 5px;
+    margin: 1rem auto;
     color: var(--cinza-claro);
     width: 50%;
   }
@@ -112,7 +112,6 @@ export const JobsDone = styled.div`
     justify-content: space-between;
     h3 {
       color: var(--roxo-tema-principal);
-      /* margin: 1rem auto; */
     }
     button {
       right: 10px;

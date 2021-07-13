@@ -7,7 +7,6 @@ export const HeaderContainer = styled.header`
 
 export const FilterContainer = styled.section`
   height: 50px;
-
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -47,15 +46,14 @@ export const FilterTagsContainer = styled.div`
 
 export const MainContainer = styled.main`
   min-height: 80vh;
-  max-height: 80vh;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   background-color: var(--cinza-ultra-claro-main);
   overflow-y: scroll;
 
-  /* & > div:last-child {
-    margin-bottom: 63px;
-  } */
+  & > div:last-child {
+    margin-bottom: 60px;
+  }
 `;
 
 export const Input = styled.input`

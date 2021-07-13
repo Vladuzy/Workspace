@@ -6,16 +6,17 @@ interface TabProps {
   onClick?: () => void;
 }
 
-export const MainHomeContainer = styled.main``;
+export const MainHomeContainer = styled.main`
+  height: 100vh;
+`;
 
 export const ListContainer = styled.div`
-  height: 80vh;
   max-height: 80vh;
   overflow-y: scroll;
   background-color: var(--cinza-ultra-claro-main);
 
   & > div:last-child {
-    margin-bottom: 30px;
+    margin-bottom: 60px;
   }
 `;
 
