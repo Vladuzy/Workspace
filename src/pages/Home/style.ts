@@ -20,7 +20,7 @@ export const TabStyle = styled.button<TabProps>`
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
   border: none;
-  width: 50vw;
+  width: 49vw;
   margin: 0;
   font-style: 17px;
   padding-bottom: 10px;
