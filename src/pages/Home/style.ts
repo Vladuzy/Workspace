@@ -6,6 +6,18 @@ interface TabProps {
   onClick?: () => void;
 }
 
+export const MainHomeContainer = styled.main`
+
+  & > svg {
+    color: var(--roxo-tema-principal);
+    width: 45px;
+    height: 45px;
+    position: fixed;
+    bottom: 65px;
+    right: 10px;
+  }
+`
+
 export const ListContainer = styled.div`
   min-height: 80vh;
 
