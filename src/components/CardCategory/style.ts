@@ -26,6 +26,10 @@ export const Container = styled.div<ContainerProps>`
     color: ${({ color, active }) => active ? color : 'var(--cinza-claro)'} ;
     background-color: ${({ background, active }) => active ? background : 'var(--cinza-ultra-claro-main)'};
 
+    &:hover{
+        cursor: pointer;
+    }
+
     h4 {
         font-size: 12px;
     }

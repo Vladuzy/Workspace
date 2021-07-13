@@ -120,3 +120,14 @@ export const DescriptionInfoContainer = styled.section`
     align-items: center;
   }
 `
+
+export const ImageEdit = styled.img`
+width: 24px;
+height: 24px;
+margin-left: 17px;
+`
+
+export const HeaderContainerEdit = styled.div`
+display: flex;
+justify-content: center;
+`

@@ -12,7 +12,7 @@ import GeraisCor from '../../assets/img/ToolBox_Green.svg'
 
 import CardCategory from '../CardCategory'
 
-import { CategoryContainer, CardContainer } from './styles'
+import { CategoryContainer, CardContainer, LimitErrorSpan } from './styles'
 import { ReactNode, SetStateAction } from 'react'
 import { useState } from 'react'
 import { Dispatch } from 'react'
@@ -21,15 +21,20 @@ import { useEffect } from 'react'
 interface CategorySelectProps {
   children: ReactNode;
   selected: string[];
+  color?: string;
+  margin?: string;
+  limit?: number;
   setSelected: Dispatch<SetStateAction<string[]>>
 }
 
-const CategorySelect = ({ children, setSelected, selected }: CategorySelectProps) => {
+const CategorySelect = ({ children, setSelected, selected, limit, color = 'var(--roxo-tema-principal)', margin = '10px 0 5px 5px' }: CategorySelectProps) => {
   const [isPintura, setIsPintura] = useState<boolean>(false as boolean)
   const [isLimpeza, setIsLimpeza] = useState<boolean>(false as boolean)
   const [isEletricista, setIsEletricista] = useState<boolean>(false as boolean)
   const [isEncanador, setIsEncanador] = useState<boolean>(false as boolean)
   const [isGerais, setIsGerais] = useState<boolean>(false as boolean)
+
+  const [limitError, setLimitError] = useState<boolean>(false as boolean)
 
   const cards = [
     {title: 'Pintura', svg: Pintura, svgCor: PinturaCor, color: 'var(--amarelo)', background: 'var(--amarelo-claro)', isActive: isPintura, setIsActive: setIsPintura},
@@ -40,6 +45,7 @@ const CategorySelect = ({ children, setSelected, selected }: CategorySelectProps
   ]
 
   const handleAddFilters = () => {
+    
     if (isPintura && !selected.includes('Pintura')) {
       setSelected([...selected, 'Pintura'])
     }
@@ -55,6 +61,7 @@ const CategorySelect = ({ children, setSelected, selected }: CategorySelectProps
     if (isGerais && !selected.includes('Gerais')) {
       setSelected([...selected, 'Gerais'])
     }
+  
   }
 
   const handleRemoveFilters = () => {
@@ -76,29 +83,40 @@ const CategorySelect = ({ children, setSelected, selected }: CategorySelectProps
   }
 
   useEffect(() => {
-    handleAddFilters()
+    if (!limitError) {
+      handleAddFilters()
+    }
     handleRemoveFilters()
   }, [isPintura, isLimpeza, isEletricista, isEncanador, isGerais])
 
+  useEffect(() => {
+    console.log(selected)
+    if (limit !== undefined && selected.length === limit) {
+      setLimitError(true)
+    } else {
+      setLimitError(false)
+    }
+  }, [selected])
+
   return(
-    <CategoryContainer>
+    <CategoryContainer color={color} margin={margin}>
       {children}
       <CardContainer>
         {cards.map((element, index) => 
-            <button onClick={() => console.log('Card')}>
-              <CardCategory 
-                key={index} 
-                title={element.title} 
-                svg={element.svg} 
-                color={element.color} 
-                background={element.background} 
-                svgCor={element.svgCor}
-                isActive={element.isActive}
-                setIsActive={element.setIsActive}
-              />
-            </button>
+            <CardCategory 
+              key={index} 
+              title={element.title} 
+              svg={element.svg} 
+              color={element.color} 
+              background={element.background} 
+              svgCor={element.svgCor}
+              limitError={limitError}
+              isActive={element.isActive}
+              setIsActive={element.setIsActive}
+            />
         )}
       </CardContainer>
+      <LimitErrorSpan>{limitError && 'Limite Atingido!'}</LimitErrorSpan>
     </CategoryContainer>
   )
 }

@@ -4,6 +4,8 @@ import {
   JobInfoContainer,
   SpecialInfoContainer,
   DescriptionInfoContainer,
+  ImageEdit,
+  HeaderContainerEdit,
 } from "./styles";
 import CategoryTag from "../../components/CategoryTag";
 import Button from "../../components/Button";
@@ -17,6 +19,7 @@ import { useEffect } from "react";
 import { useParams, useHistory, Redirect } from "react-router-dom";
 import { useJobs } from "../../providers/Jobs";
 import { useAuth } from "../../providers/AuthProvider";
+import imgEdit from "../../assets/img/Edit.svg";
 
 interface Params {
   id: string;
@@ -46,7 +49,10 @@ const WorksDescription = () => {
       </HeaderContainer>
       <MainContainer>
         <JobInfoContainer>
-          <h2>{title}</h2>
+          <HeaderContainerEdit>
+            <h2>{title}</h2>
+            <ImageEdit onClick={() => history.push(`/worksEdit/${id}`)} src={imgEdit} alt="" />
+          </HeaderContainerEdit>
           <h3>Contratante do trabalho com id {id}</h3>
 
           <SpecialInfoContainer>
