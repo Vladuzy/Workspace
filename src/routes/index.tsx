@@ -7,7 +7,7 @@ import Home from "../pages/Home";
 import Works from "../pages/Works";
 import WorksDescription from "../pages/WorksDescription";
 import NotFound from "../pages/NotFound";
-import EditProfile from "../pages/EditProfile/Index";
+import MoreInfoProfile from "../pages/MoreInfoProfile/Index";
 import WorksEdit from "../pages/WorksEdit";
 import CreateWork from "../pages/CreateWork";
 
@@ -26,8 +26,8 @@ const Routes = () => {
       <Route path="/profile">
         <Profile />
       </Route>
-      <Route path="/editProfile">
-        <EditProfile/>
+      <Route path="/moreInfoProfile">
+        <MoreInfoProfile/>
       </Route>
       <Route path="/home">
         <Home />
