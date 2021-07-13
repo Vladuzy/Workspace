@@ -1,9 +1,9 @@
-import { useState } from "react";
 import { IoApps, IoBriefcase } from "react-icons/io5";
 import { useHistory } from "react-router-dom";
 import LogoImg from "../../assets/img/Logo.svg";
 import ImgLogout from "../../assets/img/Logout.svg";
 import { useAuth } from "../../providers/AuthProvider";
+import { useMenuFooter } from "../../providers/MenuFooterProvider";
 import {
   Container,
   NavMenuItens,
@@ -14,8 +14,8 @@ import {
 } from "./style";
 
 const Navbar = () => {
-  const [inWorks, setInWorks] = useState(true);
-  const [inHome, setInHome] = useState(false);
+  const { inHome, setInHome, inWorks, setInWorks } = useMenuFooter();
+
   const history = useHistory();
   const { setIsAuthenticated } = useAuth();
 
