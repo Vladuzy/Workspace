@@ -17,6 +17,7 @@ import imgLogo from "../../assets/img/Logo.svg";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import { toast } from "react-hot-toast";
+import ButtonAdd from "../../components/ButtonAdd"
 interface Data {
   name: string;
   type: string;
@@ -90,7 +91,7 @@ const Register = () => {
   return (
     <Container>
       <img src={imgLogo} alt="Icone da workspace" />
-
+      <ButtonAdd></ButtonAdd>
       <FormContainer onSubmit={handleSubmit(handleForm)}>
         <ContainerInputs>
           <Input
