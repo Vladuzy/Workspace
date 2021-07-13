@@ -5,12 +5,13 @@ import {
   SpecialInfoContainer,
   DescriptionInfoContainer,
   ImageEdit,
-  HeaderContainerEdit,
+  StatusWork,
+  SpanCandidates,
 } from "./styles";
 import CategoryTag from "../../components/CategoryTag";
 import Button from "../../components/Button";
 import api from "../../service/api";
-import { FaDollarSign, FaGlasses, FaUserCircle } from "react-icons/fa";
+import { FaDollarSign, FaUserCircle } from "react-icons/fa";
 import { FiClock } from "react-icons/fi";
 import { RiArrowLeftSLine } from "react-icons/ri";
 import { MdLocationOn } from "react-icons/md";
@@ -307,12 +308,12 @@ const WorksDescription = () => {
           <MainContainer>
             <JobInfoContainer>
               <h2>{title}</h2>
-              <h3>{userWhoCreatedJob.name}</h3>
               <ImageEdit
                 onClick={() => history.push(`/worksEdit/${id}`)}
                 src={imgEdit}
                 alt=""
               />
+              <h3>{userWhoCreatedJob.name}</h3>
               <SpecialInfoContainer>
                 <div>
                   <FaDollarSign />
@@ -332,6 +333,7 @@ const WorksDescription = () => {
                 <MdLocationOn />
                 <span>{location}</span>
               </div>
+              <h2>Candidato</h2>
             </DescriptionInfoContainer>
             {currentJob.status === "isWaiting" ? (
               userLoggedInfo.type === "worker" ? (
@@ -366,7 +368,7 @@ const WorksDescription = () => {
                     />
                   )
                 ) : (
-                  "Rejeitado"
+                  <StatusWork applyRejected>Não pode se aplicar</StatusWork>
                 )
               ) : //Employer Verificando se tem candidatos aplicados
               currentJob.appliedCandidateId !== "Sem Candidatos" ? (
@@ -402,11 +404,13 @@ const WorksDescription = () => {
                   />
                 </>
               ) : (
-                "Sem candidatos aplicados"
+                <SpanCandidates>
+                  Seu trabalho não possui nenhum candidato ainda...
+                </SpanCandidates>
               )
             ) : currentJob.status === "inProgress" ? (
               userLoggedInfo.type === "worker" ? (
-                "Trabalho Ativo"
+                <StatusWork activeWork>Trabalho Ativo</StatusWork>
               ) : (
                 <Button
                   text="Concluir"
@@ -420,7 +424,7 @@ const WorksDescription = () => {
                 />
               )
             ) : (
-              "Concluido"
+              <StatusWork completedWork>Concluído</StatusWork>
             )}
           </MainContainer>
         </>
