@@ -44,10 +44,7 @@ const Profile = () => {
     localStorage.setItem("@WorkSpace:inWorks", "false");
     localStorage.setItem("@WorkSpace:inProfile", "true");
   }, []);
-  const {
-    email,
-    moreInfo: { telephone, description, categories },
-  } = userLoggedInfo;
+  const { email, moreInfo } = userLoggedInfo;
 
   if (!token) {
     return <Redirect to="/" />;
@@ -65,26 +62,28 @@ const Profile = () => {
         <>
           <Header />
           <StyleBody>
-            {telephone ? (
+            {moreInfo.telephone ? (
               <StyleMain>
                 <StyledMureInfo>
                   <div>
                     <h3>Categorias</h3>
                     <div>
-                      {categories &&
-                        categories.map((iten: string) => <span>{iten}</span>)}
+                      {moreInfo.categories &&
+                        moreInfo.categories.map((iten: string) => (
+                          <span>{iten}</span>
+                        ))}
                     </div>
                   </div>
 
                   <div>
                     <h3>Contato</h3>
                     <span>{email}</span>
-                    <span>{telephone} </span>
+                    <span>{moreInfo.telephone} </span>
                   </div>
                 </StyledMureInfo>
                 <Exp>
                   <h3>Experiência</h3>
-                  <div>{description} </div>
+                  <div>{moreInfo.description} </div>
                 </Exp>
               </StyleMain>
             ) : (
