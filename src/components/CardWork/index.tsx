@@ -35,7 +35,7 @@ const CardWork = ({ job }: CardWorkProps) => {
           <FaUserCircle />
           <div>
             <h2>{title}</h2>
-            <CategoryTag category={category}/>
+            <CategoryTag category={Array.isArray(category) ? category[0] : category }/>
           </div>
         </CardHeader>
 
