@@ -40,7 +40,7 @@ border: none;
 padding: 10px;
 `
 export const InputFooterHour = styled.input`
-width: 120px;
+width: 137px;
 height: 40px;
 color: var(--cinza-claro);
 background-color: var(--cinza-input-color);
