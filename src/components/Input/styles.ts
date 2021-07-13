@@ -1,25 +1,27 @@
 import styled from "styled-components";
 
 interface input {
-    width: string,
-    heigth: string,
-    color: string,
-    backColor: string,
-    borderRadius: string,
-    border: string,
-    fontSize: string,
+  width: string;
+  heigth: string;
+  color: string;
+  backColor: string;
+  borderRadius: string;
+  border: string;
+  fontSize: string;
+  padding: string;
 }
 
-
 export const InputStyled = styled.input<input>`
-    width: ${(props) => props.width};
-    height: ${(props) => props.heigth};
-    color: black;
-    background-color: ${(props) => props.backColor};
-    border-radius: ${(props) => props.borderRadius};
-    border: ${(props) => props.border};
-    &::placeholder{
-        color: ${(props) => props.color};
-        font-size: ${(props) => props.fontSize}
-    }
-`
+  width: ${({ width }) => width};
+  height: ${({ heigth }) => heigth};
+  color: ${({ color }) => color};
+  background-color: ${({ backColor }) => backColor};
+  border-radius: ${({ borderRadius }) => borderRadius};
+  border: ${({ border }) => border};
+  padding: ${({ padding }) => padding};
+
+  &::placeholder {
+    color: ${({ color }) => color};
+    font-size: ${({ fontSize }) => fontSize};
+  }
+`;

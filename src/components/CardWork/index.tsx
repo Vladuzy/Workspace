@@ -1,45 +1,58 @@
-import {GiPositionMarker} from "react-icons/gi";
-import {CgDollar} from "react-icons/cg";
-import {IoIosArrowForward} from "react-icons/io"
-import { Container, CardHeader, CardFooter, Category } from "./style";
+import { GiPositionMarker } from "react-icons/gi";
+import { FaDollarSign } from 'react-icons/fa'
+import { IoIosArrowForward } from "react-icons/io";
+import { FaUserCircle } from 'react-icons/fa'
+import { CardContainer, CardHeader, CardFooter } from "./style";
+import CategoryTag from "../CategoryTag";
+import { useHistory } from 'react-router-dom'
 
-
-
-interface CardWorkProps{
-  work:{
-    nameWork: string;
-    img: string;
-    category: string
-  };
-  key: string;
+interface CardWorkProps {
+  job: {
+    title: string;
+    category: string;
+    description: string;
+    location: string;
+    status: string;
+    rating: string;
+    valueOffered: number;
+    date: string;
+    appliedCandidateId: string;
+    acceptedCandidateId: string;
+    rejectedCandidatesIds: string[];
+    userId: string;
+    id: string
+  }
 }
-//
-const CardWork = ({work, key}:CardWorkProps) => {
-  const {nameWork, img, category}=work
+
+const CardWork = ({ job }: CardWorkProps) => {
+  const history = useHistory()
+  const { title, category, valueOffered, location, id } = job;
+
   return (
-    
-    <Container key={key} >
+    <CardContainer onClick={() => history.push(`/works/${id}`)}>
       <div>
         <CardHeader>
-          <img src={img} />
+          <FaUserCircle />
           <div>
-            <h2>{nameWork}</h2>
-            <Category >{category}</Category>
+            <h2>{title}</h2>
+            <CategoryTag category={Array.isArray(category) ? category[0] : category }/>
           </div>
         </CardHeader>
 
         <CardFooter>
-          <div> <GiPositionMarker/> logal</div>
-          <div> <CgDollar/> valor ofertado</div>
+          <div>
+            <GiPositionMarker />
+            <span>{location}</span>
+          </div>
+          <div>
+            <FaDollarSign /> 
+            <span>{valueOffered}</span>
+          </div>
         </CardFooter>
       </div>
-      <a href="/works/description" >
-        <IoIosArrowForward/>
-      </a>
-    </Container>
-
-    
-    
+      {/* <IoIosArrowForward onClick={() => history.push(`/works/${id}`)}/> */}
+      
+    </CardContainer>
   );
 };
 

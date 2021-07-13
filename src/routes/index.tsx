@@ -7,6 +7,9 @@ import Home from "../pages/Home";
 import Works from "../pages/Works";
 import WorksDescription from "../pages/WorksDescription";
 import NotFound from "../pages/NotFound";
+import EditProfile from "../pages/EditProfile/Index";
+import WorksEdit from "../pages/WorksEdit";
+import CreateWork from "../pages/CreateWork";
 
 const Routes = () => {
   return (
@@ -23,14 +26,23 @@ const Routes = () => {
       <Route path="/profile">
         <Profile />
       </Route>
+      <Route path="/editProfile">
+        <EditProfile/>
+      </Route>
       <Route path="/home">
         <Home />
       </Route>
       <Route exact path="/works">
         <Works />
       </Route>
-      <Route path="/works/description">
+      <Route path="/worksEdit/:id">
+        <WorksEdit></WorksEdit>        
+      </Route>
+      <Route path="/works/:id">
         <WorksDescription />
+      </Route>
+      <Route path="/createWork">
+        <CreateWork />
       </Route>
       <Route path="*">
         <NotFound />
