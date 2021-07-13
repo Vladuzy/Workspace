@@ -8,6 +8,7 @@ import Works from "../pages/Works";
 import WorksDescription from "../pages/WorksDescription";
 import NotFound from "../pages/NotFound";
 import EditProfile from "../pages/EditProfile/Index";
+import WorksEdit from "../pages/WorksEdit";
 import CreateWork from "../pages/CreateWork";
 
 const Routes = () => {
@@ -33,6 +34,9 @@ const Routes = () => {
       </Route>
       <Route exact path="/works">
         <Works />
+      </Route>
+      <Route path="/worksEdit/:id">
+        <WorksEdit></WorksEdit>        
       </Route>
       <Route path="/works/:id">
         <WorksDescription />
