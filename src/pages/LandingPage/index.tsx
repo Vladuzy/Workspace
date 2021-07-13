@@ -3,6 +3,7 @@ import Button from "../../components/Button";
 import imgLogo from "../../assets/img/Logo.svg";
 import { Redirect, useHistory } from "react-router-dom";
 import { useAuth } from "../../providers/AuthProvider";
+import { Content, ContainerButton } from "./style";
 
 const LandingPage = () => {
   const history = useHistory();
@@ -18,17 +19,18 @@ const LandingPage = () => {
 
   return (
     <Container>
-      <div>
+      <Content>
         <img src={imgLogo} alt="Logo da workspace" />
         <p>Praticidade e segurança ao contratar um freelancer</p>
-      </div>
-      <div>
+      </Content>
+      <ContainerButton>
         <Button text="Entrar" handleClick={() => redirectToPage("login")} />
+        <span className="separador">ou crie uma conta</span>
         <Button
           text="Cadastrar"
           handleClick={() => redirectToPage("register")}
         />
-      </div>
+      </ContainerButton>
     </Container>
   );
 };
