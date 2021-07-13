@@ -29,13 +29,13 @@ const CardWork = ({ job }: CardWorkProps) => {
   const { title, category, valueOffered, location, id } = job;
 
   return (
-    <CardContainer>
+    <CardContainer onClick={() => history.push(`/works/${id}`)}>
       <div>
         <CardHeader>
           <FaUserCircle />
           <div>
             <h2>{title}</h2>
-            <CategoryTag category={category}/>
+            <CategoryTag category={Array.isArray(category) ? category[0] : category }/>
           </div>
         </CardHeader>
 
@@ -50,7 +50,7 @@ const CardWork = ({ job }: CardWorkProps) => {
           </div>
         </CardFooter>
       </div>
-      <IoIosArrowForward onClick={() => history.push(`/works/${id}`)}/>
+      {/* <IoIosArrowForward onClick={() => history.push(`/works/${id}`)}/> */}
       
     </CardContainer>
   );

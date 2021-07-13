@@ -28,23 +28,23 @@ interface Job {
   id: string;
 }
 
-// interface CurrentJob {
-//   title: string;
-//   category: string;
-//   description: string;
-//   location: string;
-//   status: string;
-//   rating: string;
-//   valueOffered: number;
-//   date: string;
-//   appliedCandidateId: string;
-//   acceptedCandidateId: string;
-//   rejectedCandidatesIds: string[];
-//   userId: string;
-//   id: string;
-// }
+interface CurrentJob {
+  title: string;
+  category: string;
+  description: string;
+  location: string;
+  status: string;
+  rating: string;
+  valueOffered: number;
+  date: string;
+  appliedCandidateId: string;
+  acceptedCandidateId: string;
+  rejectedCandidatesIds: string[];
+  userId: string;
+  id: string;
+}
 
-interface JobCreationData {
+export interface JobCreationData {
   title: string;
   category: string[];
   description: string;
@@ -62,8 +62,8 @@ interface JobEditData {
 
 interface JobsProviderData {
   userEmployerCreateJob: (jobCreationData: JobCreationData) => void;
-  // getASpecificJob: (jobId: string) => void;
-  // currentJob: CurrentJob;
+  getASpecificJob: (jobId: string) => void;
+  currentJob: CurrentJob;
   userEmployerEditJob: (jobEditData: JobEditData, jobId: string) => void;
   // userEmployerAcceptCandidate: (
   //   appliedCandidateId: string,
@@ -109,10 +109,10 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
 
   // const [ currentJobId, setCurrentJobId ] = useState("");
 
-  // const [currentJob, setCurrentJob] = useState<CurrentJob>(
-  //   (JSON.parse(localStorage.getItem("@WorkSpace:currentJob") as string) ||
-  //     {}) as CurrentJob
-  // );
+  const [currentJob, setCurrentJob] = useState<CurrentJob>(
+    (JSON.parse(localStorage.getItem("@WorkSpace:currentJob") as string) ||
+      {}) as CurrentJob
+  );
 
   const [listAllJobs, setListAllJobs] = useState<Job[]>(
     (JSON.parse(localStorage.getItem("@WorkSpace:listAllJobs") as string) ||
@@ -182,7 +182,7 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
       location,
       valueOffered,
       date,
-      status: "",
+      status: "isWaiting",
       rating: "",
       appliedCandidateId: "Sem Candidatos",
       acceptedCandidateId: "",
@@ -203,24 +203,24 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
       .catch((err) => console.log(err));
   };
 
-  // const getASpecificJob = (jobId: string) => {
-  //   api
-  //     .get(`/jobs/${jobId}`, {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     })
-  //     .then((response) => {
-  //       setCurrentJob(response.data);
-  //       localStorage.setItem(
-  //         "@WorkSpace:currentJob",
-  //         JSON.stringify(response.data)
-  //       );
-  //       console.log(response);
-  //       //Show Toast
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
+  const getASpecificJob = (jobId: string) => {
+    api
+      .get(`/jobs/${jobId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setCurrentJob(response.data);
+        localStorage.setItem(
+          "@WorkSpace:currentJob",
+          JSON.stringify(response.data)
+        );
+        console.log(response);
+        //Show Toast
+      })
+      .catch((err) => console.log(err));
+  };
 
   const userEmployerEditJob = (jobEditData: JobEditData, jobId: string) => {
     api
@@ -549,8 +549,8 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
     <JobsContext.Provider
       value={{
         userEmployerCreateJob,
-        // getASpecificJob,
-        // currentJob,
+        getASpecificJob,
+        currentJob,
         userEmployerEditJob,
         // userEmployerAcceptCandidate,
         // userEmployerRejectCandidate,

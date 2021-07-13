@@ -4,6 +4,8 @@ import {
   JobInfoContainer,
   SpecialInfoContainer,
   DescriptionInfoContainer,
+  ImageEdit,
+  HeaderContainerEdit,
 } from "./styles";
 import CategoryTag from "../../components/CategoryTag";
 import Button from "../../components/Button";
@@ -16,6 +18,8 @@ import { MdLocationOn } from "react-icons/md";
 import { SetStateAction, useEffect, useState, Dispatch } from "react";
 import { useParams, useHistory, Redirect } from "react-router-dom";
 import { useAuth } from "../../providers/AuthProvider";
+import imgEdit from "../../assets/img/Edit.svg";
+import Loading from "../../components/Loading";
 
 interface Params {
   id: string;
@@ -292,7 +296,7 @@ const WorksDescription = () => {
   return (
     <>
       {loadingCurrentJob && loadingUserLoggedInfo ? (
-        <p>Loading...</p>
+        <Loading />
       ) : (
         <>
           {" "}
@@ -304,7 +308,11 @@ const WorksDescription = () => {
             <JobInfoContainer>
               <h2>{title}</h2>
               <h3>{userWhoCreatedJob.name}</h3>
-
+              <ImageEdit
+                onClick={() => history.push(`/worksEdit/${id}`)}
+                src={imgEdit}
+                alt=""
+              />
               <SpecialInfoContainer>
                 <div>
                   <FaDollarSign />

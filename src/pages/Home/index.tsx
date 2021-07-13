@@ -1,13 +1,15 @@
 import Footer from "../../components/Footer";
-import { ListContainer, TabStyle, Header } from "./style";
+import { ListContainer, TabStyle, Header, MainHomeContainer } from "./style";
 import CardWork from "../../components/CardWork";
 import { useEffect, useState } from "react";
 import { useJobs } from "../../providers/Jobs";
 import { useAuth } from "../../providers/AuthProvider";
 import { useMenuFooter } from "../../providers/MenuFooterProvider";
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
+import { AiFillPlusCircle } from 'react-icons/ai'
 
 const Home = () => {
+  const history = useHistory()
   const { token, userLoggedInfo } = useAuth();
   const { type } = userLoggedInfo;
   const [current, setCurrent] = useState<string>("ativos" as string);
@@ -54,7 +56,7 @@ const Home = () => {
   }
 
   return (
-    <div>
+    <MainHomeContainer>
       <Header>
         {type === "worker" ? (
           <>
@@ -122,9 +124,9 @@ const Home = () => {
           ))}
         </ListContainer>
       )}
-
+      <AiFillPlusCircle onClick={() => history.push('/createWork')}/>
       <Footer />
-    </div>
+    </MainHomeContainer>
   );
 };
 
