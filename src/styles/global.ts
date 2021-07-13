@@ -44,7 +44,7 @@ export default createGlobalStyle`
 
     body, input, button, select {
         font-family: 'Roboto Slab', serif;
-        font-size: 1rem;
+        font-size: 0.9rem;
     }
 
     button {
