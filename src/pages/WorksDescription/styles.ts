@@ -32,15 +32,6 @@ export const MainContainer = styled.main`
   background-color: var(--cinza-ultra-claro-main);
   border-top-left-radius: 40px;
   border-top-right-radius: 40px;
-
-  position: relative;
-
-  button {
-    position: absolute;
-    bottom: 20px;
-    right: 50%;
-    transform: translateX(50%);
-  }
 `;
 
 export const JobInfoContainer = styled.section`
@@ -128,6 +119,19 @@ export const DescriptionInfoContainer = styled.section`
 export const ImageEdit = styled.img`
   width: 24px;
   display: inline-block;
+`;
+
+export const ContainerButton = styled.div`
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  bottom: 30px;
+  width: 100%;
+
+  > button {
+    width: 50%;
+    margin: 0 10px;
+  }
 `;
 
 export const StatusWork = styled.div<StatusWorksProps>`

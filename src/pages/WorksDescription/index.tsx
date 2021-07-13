@@ -7,6 +7,7 @@ import {
   ImageEdit,
   StatusWork,
   SpanCandidates,
+  ContainerButton,
 } from "./styles";
 import CategoryTag from "../../components/CategoryTag";
 import Button from "../../components/Button";
@@ -372,26 +373,16 @@ const WorksDescription = () => {
                 )
               ) : //Employer Verificando se tem candidatos aplicados
               currentJob.appliedCandidateId !== "Sem Candidatos" ? (
-                <>
-                  <Button
-                    text="Aceitar"
-                    width="230px"
-                    heigth="40px"
-                    borderRadius="20px"
-                    handleClick={() => {
-                      userEmployerAcceptCandidate(
-                        currentJob.appliedCandidateId,
-                        id,
-                        setLoadingEmployerAcceptCandidate
-                      );
-                    }}
-                    backColor="var(--roxo-tema-principal)"
-                  />
+                <ContainerButton>
                   <Button
                     text="Recusar"
                     width="230px"
+                    maxWidth="230px"
                     heigth="40px"
                     borderRadius="20px"
+                    border="1px solid var(--roxo-tema-principal)"
+                    color="var(--roxo-tema-principal)"
+                    backColor="var(--cinza-ultra-claro-main)"
                     handleClick={() => {
                       userEmployerRejectCandidate(
                         currentJob.appliedCandidateId,
@@ -400,9 +391,23 @@ const WorksDescription = () => {
                         setLoadingEmployerRejectCandidate
                       );
                     }}
-                    backColor="var(--roxo-tema-principal)"
                   />
-                </>
+                  <Button
+                    text="Aceitar"
+                    width="230px"
+                    maxWidth="230px"
+                    heigth="40px"
+                    borderRadius="20px"
+                    backColor="var(--roxo-tema-principal)"
+                    handleClick={() => {
+                      userEmployerAcceptCandidate(
+                        currentJob.appliedCandidateId,
+                        id,
+                        setLoadingEmployerAcceptCandidate
+                      );
+                    }}
+                  />
+                </ContainerButton>
               ) : (
                 <SpanCandidates>
                   Seu trabalho não possui nenhum candidato ainda...

@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const HeaderContainer = styled.header`
   min-height: 60px;
+  padding-top: 20px;
 `;
 
 export const FilterContainer = styled.section`
@@ -42,18 +43,20 @@ export const FilterTagsContainer = styled.div`
   display: flex;
   gap: 5px;
   flex-wrap: wrap;
-`
+`;
 
 export const MainContainer = styled.main`
   min-height: 80vh;
+  max-height: 80vh;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   background-color: var(--cinza-ultra-claro-main);
+  overflow-y: scroll;
 
-  & > div:last-child {
+  /* & > div:last-child {
     margin-bottom: 63px;
-  }
-`
+  } */
+`;
 
 export const Input = styled.input`
   width: 200px;
@@ -64,13 +67,13 @@ export const Input = styled.input`
   background: none;
   border: none;
   font-size: 17px;
-`
+`;
 
 export const InputContainer = styled.div`
   width: 235px;
   height: 30px;
   background-color: var(--cinza-escuro);
-  border-radius:15px;
+  border-radius: 15px;
   color: var(--cinza-claro);
 
   display: flex;
@@ -80,4 +83,4 @@ export const InputContainer = styled.div`
     width: 25px;
     height: 25px;
   }
-`
+`;
