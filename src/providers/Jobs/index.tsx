@@ -171,6 +171,14 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
     ) || []) as Job[]
   );
 
+  useEffect(() => {
+    if (userLoggedId === "employer") {
+      getListUserEmployerCompletedJobs();
+    } else {
+      getListUserWorkerCompletedJobs();
+    }
+  }, [userLoggedId]);
+
   const userEmployerCreateJob = (jobCreationData: JobCreationData) => {
     const { title, category, description, location, valueOffered, date } =
       jobCreationData;
