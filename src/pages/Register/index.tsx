@@ -90,7 +90,6 @@ const Register = () => {
   return (
     <Container>
       <img src={imgLogo} alt="Icone da workspace" />
-
       <FormContainer onSubmit={handleSubmit(handleForm)}>
         <ContainerInputs>
           <Input

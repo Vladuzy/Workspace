@@ -20,7 +20,6 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useJobs } from "../../providers/Jobs";
 import { useEffect } from "react";
-import Input from "../../components/Input";
 
 interface Data {
   title: string;
@@ -48,7 +47,7 @@ const WorksEdit = () => {
       .max(15, "Máximo de 15 caracteres."),
 
     description: yup.string().required("Campo Obrigatório."),
-    valueOffered: yup.number().required("Campo Obrigatório."),
+    valueOffered: yup.string().required("Campo Obrigatório."),
 
     date: yup.string().required("Campo Obrigarório"),
   });

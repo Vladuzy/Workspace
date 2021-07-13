@@ -6,7 +6,7 @@ import { useJobs } from "../../providers/Jobs";
 import { useAuth } from "../../providers/AuthProvider";
 import { useMenuFooter } from "../../providers/MenuFooterProvider";
 import { Redirect, useHistory } from "react-router-dom";
-import { AiFillPlusCircle } from 'react-icons/ai'
+import ButtonAdd from "../../components/ButtonAdd";
 
 const Home = () => {
   const history = useHistory()
@@ -124,7 +124,7 @@ const Home = () => {
           ))}
         </ListContainer>
       )}
-      <AiFillPlusCircle onClick={() => history.push('/createWork')}/>
+      <ButtonAdd onClick={() => history.push('/createWork')}></ButtonAdd>
       <Footer />
     </MainHomeContainer>
   );
