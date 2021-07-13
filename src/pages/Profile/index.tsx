@@ -8,55 +8,25 @@ import { Container, StyledMureInfo, StyleMain, Exp, StyledNoInfo, JobsDone, List
 import { useJobs } from "../../providers/Jobs";
 import { string } from "yup/lib/locale";
 import Button from "../../components/Button";
+import CartCompletedJob from "../../components/CartCompletedJob"
 
 interface moreInfoUser{
   description:string,
   telephone:string,
-  categories:any,
+  categories:string[],
 }
 
 const Profile = () => {
-  const { token, getUserLoggedInfo } = useAuth();
+  const { token, getUserLoggedInfo, userLoggedInfo } = useAuth();
   const { setInHome, setInWorks, setInProfile } = useMenuFooter();
   const [loading, setLoading] = useState(true);
 
   const history =useHistory()
 
-  const [loggedInfo, setLoggedInfo]= useState(
-    (JSON.parse(
-      localStorage.getItem("@WorkSpace:userLoggedInfo") as string
-    ) || {
-    //   email:""
-    //   moreInfo:{
-    //    categories: string[],
-    //    description: "",
-    //    telephone: "",
-    // }
-  })
-
-
-    // {
-
-    //   // email:"ianW@gmail.com",
-    //   // moreInfo:{
-    //   //     categories: [],
-    //   //     description: "You can use the overflow property when you want to have better control of the layout. The overflow property specifies what happens if content overflows an element's box.By default, the overflow is visible, meaning that it is not clipped and it renders outside the element's box:By default, the overflow is visible, meaning that it is not clipped and it renders outside the element's box:By default, the overflow is visible, meaning that it is not clipped and it renders outside the element's box:By default, the overflow is visible, meaning that it is not clipped and it renders outside the element's box:",
-    //   //     telephone: "(64)99999-9999",
-    //   // }
-
-    //   // email:"",
-    //   // moreInfo:{
-    //   //     categories: [],
-    //   //     description: "",
-    //   //     telephone: "",
-    //   // }
-
-    // }
-    )
-  const{ email,moreInfo:{telephone, description,categories}} =loggedInfo
-
+  
+  
   const {listCompletedJobs}= useJobs()
-
+  
   useEffect(() => {
     getUserLoggedInfo(setLoading);
     setInHome(false);
@@ -65,16 +35,13 @@ const Profile = () => {
     localStorage.setItem("@WorkSpace:inHome", "false");
     localStorage.setItem("@WorkSpace:inWorks", "false");
     localStorage.setItem("@WorkSpace:inProfile", "true");
-
     
-
+    
+    
   }, []);
-
-  useEffect(()=>{
-    console.log("listCompletedJobs",listCompletedJobs);
-    console.log("loggedInfo",loggedInfo)
-  },[listCompletedJobs])
-
+  const{ email,moreInfo:{telephone, description,categories}} =userLoggedInfo
+  
+  
   if (!token) {
     return <Redirect to="/" />;
   }
@@ -85,7 +52,7 @@ const Profile = () => {
  
   return (
     <Container>
-      {loading ? (
+      {!userLoggedInfo ? (
         <div className="loader">Carregando</div>
       ) : (
         <>
@@ -100,9 +67,9 @@ const Profile = () => {
                 <h3>Categorias</h3>
                 <div>
                   {
-                  // categories && categories.map((iten:string)=>(
-                  //   <span>{iten}</span>
-                  // ))
+                  categories && categories.map((iten:string)=>(
+                    <span>{iten}</span>
+                  ))
                 }
                 </div>
               </div>
@@ -150,9 +117,9 @@ const Profile = () => {
                 <ListJobs>
                   {
                     listCompletedJobs.map((job)=>(
-                      <div key={job.id} >
+                      <CartCompletedJob key={job.id} >
                         {job.title}
-                      </div>
+                      </CartCompletedJob>
                     ))
                   }
                 </ListJobs>
@@ -177,7 +144,7 @@ const Profile = () => {
           
           <Footer />
         </>
-      )}
+        )} 
     </Container>
   );
 };
