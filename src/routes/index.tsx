@@ -10,6 +10,7 @@ import NotFound from "../pages/NotFound";
 import MoreInfoProfile from "../pages/MoreInfoProfile/Index";
 import WorksEdit from "../pages/WorksEdit";
 import CreateWork from "../pages/CreateWork";
+import CardWorkDone from "../components/CardWorkDone";
 
 import EditInfoProfile from '../pages/EditInfoProfile'
 
@@ -39,6 +40,9 @@ const Routes = () => {
       </Route>
       <Route exact path="/works">
         <Works />
+      </Route>
+      <Route exact path="/teste">
+        <CardWorkDone />
       </Route>
       <Route path="/worksEdit/:id">
         <WorksEdit/>

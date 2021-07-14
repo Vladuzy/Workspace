@@ -19,6 +19,7 @@ import { string } from "yup/lib/locale";
 import Button from "../../components/Button";
 import CartCompletedJob from "../../components/CartCompletedJob";
 import Loading from "../../components/Loading/index";
+import CardWorkDone from "../../components/CardWorkDone"
 
 interface moreInfoUser {
   description: string;
