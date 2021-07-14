@@ -16,11 +16,13 @@ import {
   JobsDone,
   ListJobs,
   StyleBody,
+  CategoriesContainer
 } from "./style";
 import { useJobs } from "../../providers/Jobs";
 import Button from "../../components/Button";
 import CartCompletedJob from "../../components/CartCompletedJob";
 import Loading from "../../components/Loading/index";
+import CardCategoryProfile from '../../components/CardCategoryProfile'
 
 const Profile = () => {
   const { token, getUserLoggedInfo, userLoggedInfo } = useAuth();
@@ -64,12 +66,12 @@ const Profile = () => {
                   {userLoggedInfo.type === "worker" && (
                     <SectionCategories>
                       <h3>Categorias</h3>
-                      <div>
+                      <CategoriesContainer>
                         {moreInfo.categories &&
                           moreInfo.categories.map((item: string) => (
-                            <CategoryTag category={item} />
+                            <CardCategoryProfile category={item} />
                           ))}
-                      </div>
+                      </CategoriesContainer>
                     </SectionCategories>
                   )}
 

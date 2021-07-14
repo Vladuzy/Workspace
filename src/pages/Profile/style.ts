@@ -83,29 +83,37 @@ export const StyledMoreInfo = styled.div`
   display: flex;
   justify-content: space-between;
 
-  div {
-    /* width: 50%; */
-  }
   span {
     display: block;
   }
 `;
 export const SectionExp = styled.section`
-  margin: 1rem auto;
+  margin: 10px auto;
   div {
     height: 100px;
     word-break: break-all;
     overflow: auto;
-    margin-top: 1rem;
+    margin-top: 8px;
   }
 `;
 
-export const SectionCategories = styled.section``;
+export const CategoriesContainer = styled.section`
+  width: 100px;
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+`
+export const SectionCategories = styled.section`
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
 
 export const SectionContact = styled.section<SectionContactProps>`
   width: ${({ type }) => (type === "employer" ? "100%" : "initial")};
   div {
-    margin-top: 10px;
+    margin-top: 8px;
     display: ${({ type }) => (type === "employer" ? "flex" : "block")};
   }
   p:last-child {
