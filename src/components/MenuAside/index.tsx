@@ -22,10 +22,14 @@ const Navbar = () => {
   const handleClick = (page: string) => {
     if (page === "inWorks") {
       setInWorks(true);
-      return setInHome(false);
+      setInHome(false);
+      history.push("/works");
     }
-    setInWorks(false);
-    setInHome(true);
+    if(page === "inHome"){
+      setInWorks(false);
+      setInHome(true);
+      history.push("/home");
+    }
   };
 
   const handleLogout = () => {

@@ -125,12 +125,10 @@ export const StyledNoInfo = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* height: 50vh; */
   div {
     text-align: center;
     margin: 1rem auto 5px;
     color: var(--cinza-claro);
-    /* width: 50%; */
   }
 `;
 
@@ -139,7 +137,6 @@ export const JobsDone = styled.div`
     justify-content: space-between;
     h3 {
       color: var(--roxo-tema-principal);
-      /* margin: 1rem auto; */
     }
     button {
       right: 10px;
@@ -163,3 +160,9 @@ export const JobsDone = styled.div`
 export const ListJobs = styled.ul`
   list-style: none;
 `;
+
+export const MediaFooter =styled.div`
+  @media only screen and (min-width: 729px){
+    display: none;
+  }
+`
