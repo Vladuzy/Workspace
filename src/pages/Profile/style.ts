@@ -103,3 +103,9 @@ export const JobsDone = styled.div`
 export const ListJobs = styled.ul`
   list-style: none;
 `;
+
+export const MediaFooter = styled.div`
+  @media only screen and (min-width: 729px) {
+    display: none;
+  }
+`;

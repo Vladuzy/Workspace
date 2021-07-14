@@ -16,7 +16,8 @@ import {
   JobsDone,
   ListJobs,
   StyleBody,
-  CategoriesContainer
+  CategoriesContainer,
+  MediaFooter,
 } from "./style";
 import { useJobs } from "../../providers/Jobs";
 import Button from "../../components/Button";
@@ -131,8 +132,9 @@ const Profile = () => {
               )}
             </JobsDone>
           </StyleBody>
-
+          <MediaFooter>
           <Footer />
+          </MediaFooter>
         </>
       )}
     </Container>

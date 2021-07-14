@@ -10,6 +10,8 @@ import NotFound from "../pages/NotFound";
 import MoreInfoProfile from "../pages/MoreInfoProfile/Index";
 import WorksEdit from "../pages/WorksEdit";
 import CreateWork from "../pages/CreateWork";
+import DesktopHome from "../pages/DesktopHome";
+
 import EditInfoProfile from '../pages/EditInfoProfile'
 import { useViewport } from '../providers/GetViewport'
 
@@ -66,6 +68,9 @@ const Routes = () => {
       </Route>
       <Route path="/register">
         <Register />
+      </Route>
+      <Route path="/home">
+        <DesktopHome/>
       </Route>
     </Switch>
   );
