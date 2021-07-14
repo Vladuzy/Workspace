@@ -1,6 +1,6 @@
 <div align="center">
     <br>
-<!--     <img src="/uploads/c22846d420405f9b1d083f5fdebfe046/textLogo.svg" width="250px" alt="Logo Dev Healthy" /> -->
+<!--     <img src="/uploads/c22846d420405f9b1d083f5fdebfe046/textLogo.svg" width="250px" alt="Logo Workspace" /> -->
     <br><br>
 </div>
 
@@ -9,9 +9,7 @@
   <a href="http://makeapullrequest.com">
     <img src="https://img.shields.io/badge/progress-100%25-brightgreen.svg" alt="PRs Welcome">
   </a>
-   <a href="https://insomnia.rest/run?label=Habits%20API&uri=https%3A%2F%2Fhabit-docs.vercel.app%2Finsomnia.json">
-    <img src="https://img.shields.io/badge/HabitsAPI-Insomnia-6A57D5.svg" alt="API Insomnia">
-  </a>
+[![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=WorkspaceAPI&uri=https%3A%2F%2Fworkspace--server.herokuapp.com%2F)
  </p>
 
 <h4 align="center"> 
@@ -28,15 +26,31 @@
 
 ## 💻 About
 
+In view of the pandemic situation we found ourselves in, we created Workspace.
+A solution that connects the employer with the employee, and aims to increase the number of freeLancer's, quickly and simply. Our web application allows the creation of two types of users: one of the freelancer type, looking for a job, and one of the contracting type, which creates services.
+The freelancer type user will have a profile page that will show the area they work in, their experience, their active and completed services. With this, you will always be able to see which services you are working on and the deadlines stipulated for completion, making it possible for you to organize yourself in a better way and deliver the services on time. In addition, you will have the balance with the total received for the work carried out, so you can know your billing. It will also be possible for the freelancer to limit the amount of services that can be hired and will have their evaluation grade according to the services provided so that their future contractors know how their services were evaluated by their clients.
+The outsourcer type user will have a profile page that will show the services they have active and completed. In addition, the outsourcer's profile page will also have their evaluation score based on feedback from the hired freelancers. With this, the next ones who work for him will be able to know more about what his client will be like.
+The application also has a page with a list of available services, it is possible to filter by category and priority level. Each service will have its page, the client will appear on it and an option for the freelancer to apply for the service, making a proposal for the amount they will charge. The contractor will be able to see the possible candidates and select the one that he liked best to perform the service. With this, the service closes for new applications. Then the contractor can contact the freelancer to provide more information and finalize the contract.
+
 ## ⚙️ Features
 
-- [x] Developers can register on the web plataform by sending:
+- [x] Freelancers can register on the web plataform by sending:
   - [x] name, email and password
-    - [x] Logged users worker have access to:
+    - [x] Logged freelancer worker have access to:
       - [x] Dashboard
       - [x] Profile
-      - [x] Worker
-      - [x] Worker/Description
+        - Edit profile
+      - [x] Work
+      - [x] Work/Description
+- [x] Employers can register on the web plataform by sending:
+  - [x] name, email and password
+    - [x] Logged employers have access to:
+      - [x] Dashboard
+      - [x] Profile
+        - Edit profile
+      - [x] Work
+        - Edit work
+      - [x] Work/Description
 
 ## 🎨 Layout
 
@@ -69,6 +83,7 @@ The following tools were used in the construction of the project:
 - [React Router DOM](https://www.npmjs.com/package/react-router-dom)
 - [React Hot Toast](https://www.npmjs.com/package/react-hot-toast)
 - [Context API](https://reactjs.org/docs/context.html)
+- [Typescript](https://www.typescriptlang.org/)
 
 ---
 
