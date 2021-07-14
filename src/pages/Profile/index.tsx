@@ -104,12 +104,6 @@ const Profile = () => {
                 <>
                   <div className="JobsDoneHeader">
                     <h3>Trabalhos feitos</h3>
-                    <Button
-                      text="MOSTRAR TODOS"
-                      width="150px"
-                      heigth="25px"
-                      borderRadius="20px"
-                    />
                   </div>
                   <ListJobs>
                     {listCompletedJobs.map((job) => (
