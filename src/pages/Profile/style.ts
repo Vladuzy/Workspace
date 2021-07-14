@@ -107,8 +107,9 @@ export const SectionContact = styled.section<SectionContactProps>`
   div {
     margin-top: 10px;
     display: ${({ type }) => (type === "employer" ? "flex" : "block")};
-    justify-content: ${({ type }) =>
-      type === "employer" ? "space-evenly" : "default"};
+  }
+  p:last-child {
+    margin-left: 20px;
   }
 `;
 

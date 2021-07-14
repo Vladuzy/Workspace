@@ -100,7 +100,7 @@ const Profile = () => {
             )}
 
             <JobsDone>
-              {listCompletedJobs ? (
+              {listCompletedJobs.length > 0 ? (
                 <>
                   <div className="JobsDoneHeader">
                     <h3>Trabalhos feitos</h3>
@@ -115,10 +115,14 @@ const Profile = () => {
                 </>
               ) : (
                 <>
-                  <h3>Trabalhos feitos</h3>
+                  <div className="JobsDoneHeader">
+                    <h3>Trabalhos feitos</h3>
+                  </div>
                   <div>
                     <div>
-                      Parece que você não possui nenhum trabalho feito ainda...
+                      {userLoggedInfo.type === "worker"
+                        ? "Parece que você não possui nenhum trabalho feito ainda... "
+                        : "Parece que nenhum dos seus trabalhos foi concluído ainda..."}
                     </div>
                   </div>
                 </>
