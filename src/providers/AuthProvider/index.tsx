@@ -190,18 +190,15 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const addMoreInfoUserEmployer = (
     userEmployerDataMoreInfo: UserEmployerDataMoreInfo
   ) => {
-    const completeDataMoreInfoEmployer = {
-      userEmployerDataMoreInfo,
-      categories: [],
-    };
     api
-      .patch(`/users/${userLoggedId}`, completeDataMoreInfoEmployer, {
+      .patch(`/users/${userLoggedId}`, userEmployerDataMoreInfo, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => {
         console.log(response);
+        toast.success("Informações adicionadas com sucesso!!");
         //Show Toast
       })
       .catch((err) => console.log(err));
@@ -218,6 +215,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       })
       .then((response) => {
         console.log(response);
+        toast.success("Informações adicionadas com sucesso!!");
         //Show Toast
       })
       .catch((err) => console.log(err));
@@ -232,6 +230,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       })
       .then((response) => {
         console.log(response);
+        toast.success("Perfil editado com sucesso!!");
         //Show Toast
       })
       .catch((err) => console.log(err));
@@ -246,6 +245,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       })
       .then((response) => {
         console.log(response);
+        toast.success("Perfil editado com sucesso!!");
         //Show Toast
       })
       .catch((err) => console.log(err));
