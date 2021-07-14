@@ -13,7 +13,9 @@ const Home = () => {
   const history = useHistory();
   const { token, userLoggedInfo, getUserLoggedInfo } = useAuth();
   const { type } = userLoggedInfo;
-  const [current, setCurrent] = useState<string>("ativos" as string);
+  const [current, setCurrent] = useState<string>(
+    () => localStorage.getItem("@WorkSpace:currenSection") || "ativos"
+  );
 
   const {
     getListUserWorkerAppliedJobs,
@@ -84,30 +86,41 @@ const Home = () => {
               <TabStyle
                 id="ativos"
                 current={current}
-                onClick={() => setCurrent("ativos")}
+                onClick={() => {
+                  setCurrent("ativos");
+                  localStorage.setItem("@WorkSpace:currenSection", "ativos");
+                }}
               >
                 ATIVOS
               </TabStyle>
               {type === "worker" ? (
                 <TabStyle
-                  id="aplicados"
+                  id="ativos"
                   current={current}
-                  onClick={() => setCurrent("aplicados")}
+                  onClick={() => {
+                    setCurrent("aplicados");
+                    localStorage.setItem(
+                      "@WorkSpace:currenSection",
+                      "aplicados"
+                    );
+                  }}
                 >
-                  APLICADOS
+                  ATIVOS
                 </TabStyle>
               ) : (
                 <TabStyle
                   id="atuais"
                   current={current}
-                  onClick={() => setCurrent("atuais")}
+                  onClick={() => {
+                    setCurrent("atuais");
+                    localStorage.setItem("@WorkSpace:currenSection", "atuais");
+                  }}
                 >
                   ATUAIS
                 </TabStyle>
               )}
             </div>
           </Header>
-
           {current === "ativos" ? (
             type === "worker" ? (
               <ListContainer>
@@ -135,7 +148,10 @@ const Home = () => {
               ))}
             </ListContainer>
           )}
-          <ButtonAdd onClick={() => history.push("/createWork")}></ButtonAdd>
+          {type === "employer" && (
+            <ButtonAdd onClick={() => history.push("/createWork")}></ButtonAdd>
+          )}
+
           <Footer minHeight="10%" />
         </MainHomeContainer>
       )}

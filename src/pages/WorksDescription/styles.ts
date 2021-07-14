@@ -32,6 +32,15 @@ export const MainContainer = styled.main`
   background-color: var(--cinza-ultra-claro-main);
   border-top-left-radius: 40px;
   border-top-right-radius: 40px;
+
+  position: relative;
+
+  button {
+    position: absolute;
+    bottom: 20px;
+    right: 50%;
+    transform: translateX(50%);
+  }
 `;
 
 export const JobInfoContainer = styled.section`

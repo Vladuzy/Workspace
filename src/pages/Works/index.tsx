@@ -18,6 +18,7 @@ import { Redirect } from "react-router-dom";
 import Filter from "../../components/Filter";
 import Footer from "../../components/Footer";
 import CardCategoryFilter from "../../components/CardCategoryFilter";
+import Loading from "../../components/Loading";
 
 interface Job {
   title: string;
@@ -42,6 +43,7 @@ const Works = () => {
   } = useJobs();
   const { token } = useAuth();
   const { setInHome, setInProfile, setInWorks } = useMenuFooter();
+  const [loading, setLoading] = useState(true);
 
   //JOBS FILTRADOS PELO ARR FILTERS
   const [filteredByFilterArr, setFilteredByFilterArr] = useState<Job[]>(
@@ -133,7 +135,7 @@ const Works = () => {
     localStorage.setItem("@WorkSpace:inHome", "false");
     localStorage.setItem("@WorkSpace:inWorks", "true");
     localStorage.setItem("@WorkSpace:inProfile", "false");
-    getListWaitingJobsWithoutCandidates();
+    getListWaitingJobsWithoutCandidates(setLoading);
   }, []);
 
   useEffect(() => {
@@ -153,41 +155,48 @@ const Works = () => {
           setOrder={setOrder}
         />
       )}
-      <HeaderContainer>
-        <FilterContainer>
-          <InputContainer>
-            <Input placeholder="Pesquisar..." onChange={handleSearch} />
-            <HiSearch />
-          </InputContainer>
-          <IconContainer>
-            <GoSettings onClick={() => handleShowFilter(true)} />
-          </IconContainer>
-        </FilterContainer>
-        <FilterTagsContainer>
-          {filters.map((elem, ind) => (
-            <CardCategoryFilter
-              text={elem}
-              ind={ind}
-              key={ind}
-              remove={handleRemoveFilter}
-            />
-          ))}
-        </FilterTagsContainer>
-      </HeaderContainer>
-      <MainContainer>
-        {filterByCategoriesByInputOrdered.length > 0
-          ? filterByCategoriesByInputOrdered.map((elem) => (
-              <CardWork job={elem} key={elem.id} />
-            ))
-          : filterByCategoriesByInputOrdered.length > 0
-          ? filterByCategoriesByInputOrdered.map((elem) => (
-              <CardWork job={elem} key={elem.id} />
-            ))
-          : listWaitingJobsWithoutCandidates.map((elem) => (
-              <CardWork job={elem} key={elem.id} />
-            ))}
-      </MainContainer>
-      <Footer minHeight="10%" />
+
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          <HeaderContainer>
+            <FilterContainer>
+              <InputContainer>
+                <Input placeholder="Pesquisar..." onChange={handleSearch} />
+                <HiSearch />
+              </InputContainer>
+              <IconContainer>
+                <GoSettings onClick={() => handleShowFilter(true)} />
+              </IconContainer>
+            </FilterContainer>
+            <FilterTagsContainer>
+              {filters.map((elem, ind) => (
+                <CardCategoryFilter
+                  text={elem}
+                  ind={ind}
+                  key={ind}
+                  remove={handleRemoveFilter}
+                />
+              ))}
+            </FilterTagsContainer>
+          </HeaderContainer>
+          <MainContainer>
+            {filterByCategoriesByInputOrdered.length > 0
+              ? filterByCategoriesByInputOrdered.map((elem) => (
+                  <CardWork job={elem} key={elem.id} />
+                ))
+              : filterByCategoriesByInputOrdered.length > 0
+              ? filterByCategoriesByInputOrdered.map((elem) => (
+                  <CardWork job={elem} key={elem.id} />
+                ))
+              : listWaitingJobsWithoutCandidates.map((elem) => (
+                  <CardWork job={elem} key={elem.id} />
+                ))}
+          </MainContainer>
+          <Footer minHeight="10%" />
+        </>
+      )}
     </>
   );
 };

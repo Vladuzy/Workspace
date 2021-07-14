@@ -9,6 +9,8 @@ import {
 } from "react";
 
 import api from "../../service/api";
+import toast from "react-hot-toast";
+import { useHistory } from "react-router";
 
 import { useAuth } from "../AuthProvider/index";
 
@@ -80,7 +82,9 @@ interface JobsProviderData {
   // userWorkerCancelApplyToJob: (jobId: string) => void;
   getListAllJobs: () => void;
   listAllJobs: Job[];
-  getListWaitingJobsWithoutCandidates: () => void;
+  getListWaitingJobsWithoutCandidates: (
+    setLoading: Dispatch<SetStateAction<boolean>>
+  ) => void;
   listWaitingJobsWithoutCandidates: Job[];
   getListUserEmployerJobs: () => void;
   getListUserWorkerJobs: () => void;
@@ -206,7 +210,7 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
       })
       .then((response) => {
         console.log(response);
-        //Show Toast
+        toast.success("Trabalho Criado com sucesso!!");
       })
       .catch((err) => console.log(err));
   };
@@ -385,7 +389,9 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
       .catch((err) => console.log(err));
   };
 
-  const getListWaitingJobsWithoutCandidates = () => {
+  const getListWaitingJobsWithoutCandidates = (
+    setLoading: Dispatch<SetStateAction<boolean>>
+  ) => {
     api
       .get("/jobs?status=isWaiting&appliedCandidateId=Sem%20Candidatos", {
         headers: {
@@ -398,7 +404,8 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
           "@WorkSpace:listWaitingJobsWithoutCandidates",
           JSON.stringify(response.data)
         );
-        console.log(response);
+        setLoading(false);
+        // console.log(response);
       })
       .catch((err) => console.log(err));
   };

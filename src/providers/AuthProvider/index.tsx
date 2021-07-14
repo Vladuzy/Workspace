@@ -55,7 +55,6 @@ interface UserWantedInfo {
 }
 interface UserEmployerDataMoreInfo {
   moreInfo: {
-    categories: string[];
     description: string;
     telephone: string;
   };
@@ -70,8 +69,9 @@ interface UserWorkerDataMoreInfo {
 }
 
 interface UserEmployerDataEdit {
+  email: string;
+  name: string;
   moreInfo?: {
-    categories?: string[];
     description?: string;
     telephone?: string;
   };
@@ -102,7 +102,7 @@ interface AuthProviderData {
   addMoreInfoUserWorker: (
     userWorkerDataMoreInfo: UserWorkerDataMoreInfo
   ) => void;
-  editUserEmployer: (userEmployerDataEdit: {}) => void;
+  editUserEmployer: (userEmployerDataEdit: UserEmployerDataEdit) => void;
   editUserWorker: (userWorkerDataEdit: UserWorkerDataEdit) => void;
 }
 
@@ -198,6 +198,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       })
       .then((response) => {
         console.log(response);
+        toast.success("Informações adicionadas com sucesso!!");
         //Show Toast
       })
       .catch((err) => console.log(err));
@@ -214,6 +215,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       })
       .then((response) => {
         console.log(response);
+        toast.success("Informações adicionadas com sucesso!!");
         //Show Toast
       })
       .catch((err) => console.log(err));
@@ -228,6 +230,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       })
       .then((response) => {
         console.log(response);
+        toast.success("Perfil editado com sucesso!!");
         //Show Toast
       })
       .catch((err) => console.log(err));
@@ -242,6 +245,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       })
       .then((response) => {
         console.log(response);
+        toast.success("Perfil editado com sucesso!!");
         //Show Toast
       })
       .catch((err) => console.log(err));
