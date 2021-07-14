@@ -83,7 +83,12 @@ const WorksDescription = () => {
   const [loadingUserWhoCreatedJob, setLoadingUserWhoCreatedJob] =
     useState(true);
 
+  const [loadingUserAppliedJob, setLoadingUserAppliedJob] = useState(true);
+
   const [userWhoCreatedJob, setUserWhoCreatedJob] = useState<UserInfo>(
+    {} as UserInfo
+  );
+  const [userAppliedJob, setUserAppliedJob] = useState<UserInfo>(
     {} as UserInfo
   );
 
@@ -247,6 +252,24 @@ const WorksDescription = () => {
       .catch((err) => console.log(err));
   };
 
+  const getUserAppliedJob = (
+    userEmployerId: string,
+    setLoadingUserAppliedJob: Dispatch<SetStateAction<boolean>>
+  ) => {
+    api
+      .get(`/users/${userEmployerId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        setUserAppliedJob(response.data);
+        setLoadingUserAppliedJob(false);
+      })
+      .catch((err) => console.log(err));
+  };
+
   useEffect(() => {
     getUserLoggedInfo(setLoadingUserLoggedInfo);
     getASpecificJob(id, setLoadingCurrentJob);
@@ -256,6 +279,12 @@ const WorksDescription = () => {
   useEffect(() => {
     if (!loadingCurrentJob) {
       getUserWhoCreatedJob(currentJob.userId, setLoadingUserWhoCreatedJob);
+      if (currentJob.appliedCandidateId !== "Sem Candidatos") {
+        getUserAppliedJob(
+          currentJob.appliedCandidateId,
+          setLoadingUserAppliedJob
+        );
+      }
     }
   }, [loadingCurrentJob]);
 
@@ -319,8 +348,8 @@ const WorksDescription = () => {
           <MainContainer>
             <JobInfoContainer>
               <h2>{title}</h2>
-
-              {currentJob.userId === userLoggedInfo.id &&
+              {/* Foi necessário deixar == para comparar string e number */}
+              {currentJob.userId == userLoggedInfo.id &&
                 currentJob.status === "isWaiting" &&
                 currentJob.appliedCandidateId === "Sem Candidatos" && (
                   <ImageEdit
@@ -356,6 +385,7 @@ const WorksDescription = () => {
                 <span>{location}</span>
               </div>
               <h2>Candidato</h2>
+              <p>{userAppliedJob.name}</p>
             </DescriptionInfoContainer>
             {currentJob.status === "isWaiting" ? (
               userLoggedInfo.type === "worker" ? (

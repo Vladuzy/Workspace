@@ -4,27 +4,23 @@ import Header from "../../components/Header";
 import { useAuth } from "../../providers/AuthProvider";
 import { useMenuFooter } from "../../providers/MenuFooterProvider";
 import Footer from "../../components/Footer";
+import CategoryTag from "../../components/CategoryTag";
 import {
   Container,
-  StyledMureInfo,
+  StyledMoreInfo,
   StyleMain,
-  Exp,
+  SectionExp,
+  SectionCategories,
+  SectionContact,
   StyledNoInfo,
   JobsDone,
   ListJobs,
   StyleBody,
 } from "./style";
 import { useJobs } from "../../providers/Jobs";
-import { string } from "yup/lib/locale";
 import Button from "../../components/Button";
 import CartCompletedJob from "../../components/CartCompletedJob";
 import Loading from "../../components/Loading/index";
-
-interface moreInfoUser {
-  description: string;
-  telephone: string;
-  categories: string[];
-}
 
 const Profile = () => {
   const { token, getUserLoggedInfo, userLoggedInfo } = useAuth();
@@ -62,29 +58,33 @@ const Profile = () => {
         <>
           <Header />
           <StyleBody>
-            {moreInfo.telephone ? (
+            {moreInfo.telephone !== "" && moreInfo.description !== "" ? (
               <StyleMain>
-                <StyledMureInfo>
-                  <div>
-                    <h3>Categorias</h3>
-                    <div>
-                      {moreInfo.categories &&
-                        moreInfo.categories.map((iten: string) => (
-                          <span>{iten}</span>
-                        ))}
-                    </div>
-                  </div>
+                <StyledMoreInfo>
+                  {userLoggedInfo.type === "worker" && (
+                    <SectionCategories>
+                      <h3>Categorias</h3>
+                      <div>
+                        {moreInfo.categories &&
+                          moreInfo.categories.map((item: string) => (
+                            <CategoryTag category={item} />
+                          ))}
+                      </div>
+                    </SectionCategories>
+                  )}
 
-                  <div>
+                  <SectionContact type={userLoggedInfo.type}>
                     <h3>Contato</h3>
-                    <span>{email}</span>
-                    <span>{moreInfo.telephone} </span>
-                  </div>
-                </StyledMureInfo>
-                <Exp>
+                    <div>
+                      <p>{email}</p>
+                      <p>{moreInfo.telephone} </p>
+                    </div>
+                  </SectionContact>
+                </StyledMoreInfo>
+                <SectionExp>
                   <h3>Experiência</h3>
                   <div>{moreInfo.description} </div>
-                </Exp>
+                </SectionExp>
               </StyleMain>
             ) : (
               <StyledNoInfo>
