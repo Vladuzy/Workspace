@@ -1,6 +1,7 @@
 import { AuthProvider } from "./AuthProvider";
 import { JobsProvider } from "./Jobs";
 import { MenuFooterProvider } from "./MenuFooterProvider";
+import { ViewportProvider } from "./GetViewport";
 import { ReactNode } from "react";
 
 interface ProvidersProps {
@@ -9,11 +10,13 @@ interface ProvidersProps {
 
 const Providers = ({ children }: ProvidersProps) => {
   return (
-    <AuthProvider>
-      <JobsProvider>
-        <MenuFooterProvider>{children}</MenuFooterProvider>
-      </JobsProvider>
-    </AuthProvider>
+    <ViewportProvider>
+      <AuthProvider>
+        <JobsProvider>
+          <MenuFooterProvider>{children}</MenuFooterProvider>
+        </JobsProvider>
+      </AuthProvider>
+    </ViewportProvider>
   );
 };
 

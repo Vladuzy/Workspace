@@ -13,9 +13,13 @@ import CreateWork from "../pages/CreateWork";
 import DesktopHome from "../pages/DesktopHome";
 
 import EditInfoProfile from '../pages/EditInfoProfile'
+import { useViewport } from '../providers/GetViewport'
 
 const Routes = () => {
-  return (
+  const { viewport: { width } } = useViewport()
+  console.log(width)
+
+  return ( width < 769 ?
     <Switch>
       <Route exact path="/">
         <LandingPage />
@@ -36,8 +40,7 @@ const Routes = () => {
         <EditInfoProfile />
       </Route>
       <Route path="/home">
-        {/* <Home /> */}
-        <DesktopHome/>
+        <Home />
       </Route>
       <Route exact path="/works">
         <Works />
@@ -53,6 +56,21 @@ const Routes = () => {
       </Route>
       <Route path="*">
         <NotFound />
+      </Route>
+    </Switch>
+    :
+    <Switch>
+      <Route exact path="/">
+        <LandingPage />
+      </Route>
+      <Route path="/login">
+        <Login />
+      </Route>
+      <Route path="/register">
+        <Register />
+      </Route>
+      <Route path="/home">
+        <DesktopHome/>
       </Route>
     </Switch>
   );
