@@ -198,6 +198,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       })
       .then((response) => {
         console.log(response);
+        toast.success("Informações adicionadas com sucesso!!");
         //Show Toast
       })
       .catch((err) => console.log(err));
@@ -214,6 +215,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       })
       .then((response) => {
         console.log(response);
+        toast.success("Informações adicionadas com sucesso!!");
         //Show Toast
       })
       .catch((err) => console.log(err));
@@ -228,6 +230,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       })
       .then((response) => {
         console.log(response);
+        toast.success("Perfil editado com sucesso!!");
         //Show Toast
       })
       .catch((err) => console.log(err));
@@ -242,6 +245,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       })
       .then((response) => {
         console.log(response);
+        toast.success("Perfil editado com sucesso!!");
         //Show Toast
       })
       .catch((err) => console.log(err));
