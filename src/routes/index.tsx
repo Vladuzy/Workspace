@@ -10,8 +10,7 @@ import NotFound from "../pages/NotFound";
 import MoreInfoProfile from "../pages/MoreInfoProfile/Index";
 import WorksEdit from "../pages/WorksEdit";
 import CreateWork from "../pages/CreateWork";
-
-import DesktopHome from "../pages/DesktopHome"
+import DesktopHome from "../pages/DesktopHome";
 
 import EditInfoProfile from '../pages/EditInfoProfile'
 
@@ -37,8 +36,7 @@ const Routes = () => {
         <EditInfoProfile />
       </Route>
       <Route path="/home">
-        {/* <Home /> */}
-        <DesktopHome/>
+        <Home />
       </Route>
       <Route exact path="/works">
         <Works />

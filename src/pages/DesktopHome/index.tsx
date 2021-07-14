@@ -5,15 +5,18 @@ import CardWork from "../../components/CardWork";
 import { useEffect, useState } from "react";
 import { useJobs } from "../../providers/Jobs";
 import { useMenuFooter } from "../../providers/MenuFooterProvider";
-import {ContenerMain, ListsContainer, ColumnList, Page, ProfileDesktop} from "./style"
+import {
+  ContenerMain, 
+  ListsContainer, 
+  ColumnList, 
+  Page, 
+  ProfileDesktop,
+  ListContainer,
+} from "./style"
 
 
 import ButtonAdd from "../../components/ButtonAdd";
 import Loading from "../../components/Loading/index";
-import { ListContainer, 
-    // TabStyle, 
-    // Header, 
-    MainHomeContainer } from "./style";
 import Profile from "../Profile";
 
 const DesktopHome=()=>{
@@ -76,10 +79,9 @@ const DesktopHome=()=>{
         <Navbar/>
         <ContenerMain>
 
-{loadingUserLoggedInfo ? (
+      {loadingUserLoggedInfo ? (
         <Loading />
-      ) : (
-        <MainHomeContainer>
+      ) : (<>
           <h1>Trabalhos</h1>
 
           <ListsContainer>
@@ -99,7 +101,6 @@ const DesktopHome=()=>{
               </ListContainer>
                 )}
            </ColumnList>
-        {/* //   ) :( */}
                <>
               {type === "worker" ? (
               <ColumnList>
@@ -120,12 +121,11 @@ const DesktopHome=()=>{
             </ListContainer>
             </ColumnList>
           )}</>
-        {/* //   )} */}
           {type === "employer" && (
             <ButtonAdd onClick={() => history.push("/createWork")}></ButtonAdd>
           )}
 </ListsContainer>
-        </MainHomeContainer>
+        </>
       )}
         </ContenerMain>
         <ProfileDesktop>
