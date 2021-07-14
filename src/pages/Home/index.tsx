@@ -78,7 +78,7 @@ const Home = () => {
               </>
             ) : (
               <div>
-                <span>Seja bem-vindo(a),</span> {userLoggedInfo.name}
+                <span>Seja bem-vindo(a)</span> {userLoggedInfo.name}
               </div>
             )}
 
