@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+interface SectionContactProps {
+  type: string;
+}
+
 export const Container = styled.main`
   .loader,
   .loader:before,
@@ -73,18 +77,20 @@ export const StyleMain = styled.main`
   }
 `;
 
-export const StyledMureInfo = styled.div`
+export const StyledMoreInfo = styled.div`
+  margin-top: 20px;
+
   display: flex;
-  width: 100vw;
+  justify-content: space-between;
 
   div {
-    width: 50%;
+    /* width: 50%; */
   }
   span {
     display: block;
   }
 `;
-export const Exp = styled.div`
+export const SectionExp = styled.section`
   margin: 1rem auto;
   div {
     height: 100px;
@@ -94,16 +100,29 @@ export const Exp = styled.div`
   }
 `;
 
+export const SectionCategories = styled.section``;
+
+export const SectionContact = styled.section<SectionContactProps>`
+  width: ${({ type }) => (type === "employer" ? "100%" : "initial")};
+  div {
+    margin-top: 10px;
+    display: ${({ type }) => (type === "employer" ? "flex" : "block")};
+  }
+  p:last-child {
+    margin-left: 20px;
+  }
+`;
+
 export const StyledNoInfo = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 50vh;
+  /* height: 50vh; */
   div {
     text-align: center;
     margin: 1rem auto 5px;
     color: var(--cinza-claro);
-    width: 50%;
+    /* width: 50%; */
   }
 `;
 
