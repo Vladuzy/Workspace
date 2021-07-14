@@ -77,8 +77,8 @@ export const StyledMureInfo = styled.div`
   display: flex;
   width: 100vw;
 
-  div {
-    width: 50%;
+  & > div {
+    width: 40%;
   }
   span {
     display: block;
@@ -93,6 +93,13 @@ export const Exp = styled.div`
     margin-top: 1rem;
   }
 `;
+
+export const CategoriesContainer = styled.section`
+  width: 100px;
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+`
 
 export const StyledNoInfo = styled.div`
   display: flex;

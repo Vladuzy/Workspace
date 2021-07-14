@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { Container, ContainSvg } from "./style";
 
 interface CardCategoryProps {
@@ -12,7 +12,7 @@ interface CardCategoryProps {
   setIsActive: Dispatch<SetStateAction<boolean>>
 }
 
-const CardCategory = ({ title, svg, color, background, svgCor, isActive, setIsActive,limitError }: CardCategoryProps) => {
+const CardCategory = ({ title, svg, color, background, svgCor, isActive, setIsActive, limitError }: CardCategoryProps) => {
 
   const handleClick = () => {
     if (limitError && isActive) {

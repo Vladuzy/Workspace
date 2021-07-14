@@ -13,12 +13,13 @@ import {
   JobsDone,
   ListJobs,
   StyleBody,
+  CategoriesContainer
 } from "./style";
 import { useJobs } from "../../providers/Jobs";
-import { string } from "yup/lib/locale";
 import Button from "../../components/Button";
 import CartCompletedJob from "../../components/CartCompletedJob";
 import Loading from "../../components/Loading/index";
+import CardCategoryProfile from '../../components/CardCategoryProfile'
 
 interface moreInfoUser {
   description: string;
@@ -67,12 +68,12 @@ const Profile = () => {
                 <StyledMureInfo>
                   <div>
                     <h3>Categorias</h3>
-                    <div>
+                    <CategoriesContainer>
                       {moreInfo.categories &&
-                        moreInfo.categories.map((iten: string) => (
-                          <span>{iten}</span>
+                        moreInfo.categories.map((category: string) => (
+                          <CardCategoryProfile category={category}/>
                         ))}
-                    </div>
+                    </CategoriesContainer>
                   </div>
 
                   <div>
