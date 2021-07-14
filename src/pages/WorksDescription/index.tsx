@@ -80,15 +80,16 @@ const WorksDescription = () => {
   const [loadingEmployerCompleteJob, setLoadingEmployerCompleteJob] =
     useState(true);
 
+  const [loadingUserWhoCreatedJob, setLoadingUserWhoCreatedJob] =
+    useState(true);
+
   const [userWhoCreatedJob, setUserWhoCreatedJob] = useState<UserInfo>(
-    (JSON.parse(
-      localStorage.getItem("@WorkSpace:userWhoCreatedJob") as string
-    ) || {}) as UserInfo
+    {} as UserInfo
   );
 
   const getASpecificJob = (
     jobId: string,
-    setsetLoadingCurrentJob: Dispatch<SetStateAction<boolean>>
+    setLoadingCurrentJob: Dispatch<SetStateAction<boolean>>
   ) => {
     api
       .get(`/jobs/${jobId}`, {
@@ -198,9 +199,7 @@ const WorksDescription = () => {
         },
       })
       .then((response) => {
-        // console.log(response);
         setLoadingEmployerRejectCandidate(false);
-        //Show Toast
       })
       .catch((err) => console.log(err));
   };
@@ -227,7 +226,10 @@ const WorksDescription = () => {
       .catch((err) => console.log(err));
   };
 
-  const getUserWhoCreatedJob = (userEmployerId: string) => {
+  const getUserWhoCreatedJob = (
+    userEmployerId: string,
+    setLoadingUserWhoCreatedJob: Dispatch<SetStateAction<boolean>>
+  ) => {
     api
       .get(`/users/${userEmployerId}`, {
         headers: {
@@ -236,10 +238,11 @@ const WorksDescription = () => {
       })
       .then((response) => {
         setUserWhoCreatedJob(response.data);
-        localStorage.setItem(
-          "@WorkSpace:userWhoCreatedJob",
-          JSON.stringify(response.data)
-        );
+        // localStorage.setItem(
+        //   "@WorkSpace:userWhoCreatedJob",
+        //   JSON.stringify(response.data)
+        // );
+        setLoadingUserWhoCreatedJob(false);
       })
       .catch((err) => console.log(err));
   };
@@ -247,8 +250,14 @@ const WorksDescription = () => {
   useEffect(() => {
     getUserLoggedInfo(setLoadingUserLoggedInfo);
     getASpecificJob(id, setLoadingCurrentJob);
-    getUserWhoCreatedJob(currentJob.userId);
+    // getUserWhoCreatedJob(currentJob.userId, setLoadingUserWhoCreatedJob);
   }, []);
+
+  useEffect(() => {
+    if (!loadingCurrentJob) {
+      getUserWhoCreatedJob(currentJob.userId, setLoadingUserWhoCreatedJob);
+    }
+  }, [loadingCurrentJob]);
 
   useEffect(() => {
     if (!loadingWorkerApplyToJob) {
@@ -296,7 +305,9 @@ const WorksDescription = () => {
 
   return (
     <>
-      {loadingCurrentJob && loadingUserLoggedInfo ? (
+      {loadingCurrentJob &&
+      loadingUserLoggedInfo &&
+      loadingUserWhoCreatedJob ? (
         <Loading />
       ) : (
         <>
@@ -308,12 +319,23 @@ const WorksDescription = () => {
           <MainContainer>
             <JobInfoContainer>
               <h2>{title}</h2>
-              <ImageEdit
-                onClick={() => history.push(`/worksEdit/${id}`)}
-                src={imgEdit}
-                alt=""
-              />
-              <h3>{userWhoCreatedJob.name}</h3>
+
+              {currentJob.userId === userLoggedInfo.id &&
+                currentJob.status === "isWaiting" &&
+                currentJob.appliedCandidateId === "Sem Candidatos" && (
+                  <ImageEdit
+                    onClick={() => history.push(`/worksEdit/${id}`)}
+                    src={imgEdit}
+                    alt=""
+                  />
+                )}
+
+              {loadingUserWhoCreatedJob ? (
+                <h3>Carregando...</h3>
+              ) : (
+                <h3>{userWhoCreatedJob.name}</h3>
+              )}
+
               <SpecialInfoContainer>
                 <div>
                   <FaDollarSign />
@@ -405,7 +427,7 @@ const WorksDescription = () => {
                 </>
               ) : (
                 <SpanCandidates>
-                  Seu trabalho não possui nenhum candidato ainda...
+                  Este trabalho não possui nenhum candidato ainda...
                 </SpanCandidates>
               )
             ) : currentJob.status === "inProgress" ? (
