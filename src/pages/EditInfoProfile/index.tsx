@@ -58,6 +58,7 @@ const EditInfoProfile = () => {
     } else if (type === 'employer') {
       editUserEmployer(newDataEmployer)
     }
+    history.push("/profile");
   }
 
   return(

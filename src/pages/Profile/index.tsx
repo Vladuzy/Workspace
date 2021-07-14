@@ -41,7 +41,7 @@ const Profile = () => {
     localStorage.setItem("@WorkSpace:inProfile", "true");
   }, []);
   const { email, moreInfo } = userLoggedInfo;
-
+  console.log(moreInfo);
   if (!token) {
     return <Redirect to="/" />;
   }
