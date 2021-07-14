@@ -1,5 +1,4 @@
 import styled from "styled-components";
-
 interface TabProps {
   id: string;
   current: string;
@@ -11,19 +10,16 @@ export const MainHomeContainer = styled.main`
 `;
 
 export const ListContainer = styled.div`
-  max-height: 80vh;
+  max-height: 76vh;
   overflow-y: scroll;
   background-color: var(--cinza-ultra-claro-main);
-
-  & > div:last-child {
-    margin-bottom: 60px;
-  }
 `;
 
 export const TabStyle = styled.button<TabProps>`
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
   width: 49vw;
+  height: 100%;
   padding: 10px;
   background-color: ${({ id, current }) =>
     id === current
@@ -34,13 +30,16 @@ export const TabStyle = styled.button<TabProps>`
 `;
 
 export const Header = styled.div`
-  border-bottom: 3px solid var(--cinza-claro);
-  margin-bottom: 5px;
+  height: 15vh;
+
+  & > div:first-child {
+    border-bottom: 3px solid var(--cinza-claro);
+  }
   div {
     color: var(--roxo-tema-principal);
     font-weight: bold;
     font-size: 20px;
-    margin: 5px 1rem;
+    height: 50%;
   }
   span {
     font-size: 10px;

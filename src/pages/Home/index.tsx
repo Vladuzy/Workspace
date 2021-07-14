@@ -79,34 +79,34 @@ const Home = () => {
                 <div>NÃO ESQUECER DE PENSAR EM ALGO</div>
               </>
             )}
-          </Header>
 
-          <div>
-            <TabStyle
-              id="ativos"
-              current={current}
-              onClick={() => setCurrent("ativos")}
-            >
-              ATIVOS
-            </TabStyle>
-            {type === "worker" ? (
+            <div>
               <TabStyle
-                id="aplicados"
+                id="ativos"
                 current={current}
-                onClick={() => setCurrent("aplicados")}
+                onClick={() => setCurrent("ativos")}
               >
-                APLICADOS
+                ATIVOS
               </TabStyle>
-            ) : (
-              <TabStyle
-                id="atuais"
-                current={current}
-                onClick={() => setCurrent("atuais")}
-              >
-                ATUAIS
-              </TabStyle>
-            )}
-          </div>
+              {type === "worker" ? (
+                <TabStyle
+                  id="aplicados"
+                  current={current}
+                  onClick={() => setCurrent("aplicados")}
+                >
+                  APLICADOS
+                </TabStyle>
+              ) : (
+                <TabStyle
+                  id="atuais"
+                  current={current}
+                  onClick={() => setCurrent("atuais")}
+                >
+                  ATUAIS
+                </TabStyle>
+              )}
+            </div>
+          </Header>
 
           {current === "ativos" ? (
             type === "worker" ? (
@@ -136,7 +136,7 @@ const Home = () => {
             </ListContainer>
           )}
           <ButtonAdd onClick={() => history.push("/createWork")}></ButtonAdd>
-          <Footer />
+          <Footer minHeight="10%" />
         </MainHomeContainer>
       )}
     </>
