@@ -36,7 +36,8 @@ const Routes = () => {
         <EditInfoProfile />
       </Route>
       <Route path="/home">
-        <Home />
+        {/* <Home /> */}
+        <DesktopHome/>
       </Route>
       <Route exact path="/works">
         <Works />

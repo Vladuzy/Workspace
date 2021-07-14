@@ -23,9 +23,6 @@ const DesktopHome=()=>{
     const history = useHistory();
     const { token, userLoggedInfo, getUserLoggedInfo } = useAuth();
     const { type } = userLoggedInfo;
-    const [current, setCurrent] = useState<string>(
-      () => localStorage.getItem("@WorkSpace:currenSection") || "ativos"
-    );
   
     const {
       getListUserWorkerAppliedJobs,
@@ -129,7 +126,7 @@ const DesktopHome=()=>{
       )}
         </ContenerMain>
         <ProfileDesktop>
-            {/* <Profile/> */}
+            <Profile/>
         </ProfileDesktop>
         </Page>
     )

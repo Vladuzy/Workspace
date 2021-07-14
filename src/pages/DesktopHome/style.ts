@@ -10,16 +10,13 @@ export const ContenerMain= styled.main`
     }
 `
 export const ListsContainer=styled.div`
-    display: flex;
-    justify-content: space-around;
     width: 50vw;
 `
 export const ColumnList =styled.div`
-  /* margin: auto 1rem; */
+  margin: 1rem;
    h1{
       font-weight: normal;
-      text-align: center;
-      margin: 5px auto;
+      margin: 5px 1rem;
    } 
 `
 
@@ -28,7 +25,8 @@ export const Page=styled.div`
 
 `
 export const ProfileDesktop=styled.div`
-    max-width: 25vw;
+    width: 25vw;
+    border-left: 1px solid var(--roxo-tema-principal);
 `
 //
 
