@@ -1,32 +1,53 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
-export const CreateWorkContainer = styled.main`
+export const HeaderStyled = styled.header `
   width: 285px;
-  margin: 0 auto;
   color: var(--roxo-tema-principal);
+  display: flex;
+  justify-content: flex-end;
+  margin: 0 auto;
 
   & > svg {
     margin-top: 10px;
     width: 35px;
     height: 35px;
-    margin-left: calc(100% - 40px);
-  }
-
-  & > h2 {
-    font-family: 'Saira', sans-serif;
-    margin: 0 0 15px 0;;
-    font-size: 20px;
-    font-weight: 400;
+    margin-left: calc(100% - 35px);
   }
 `
 
-export const FormContainer = styled.form`
+export const MainStyled = styled.main `
+  width: 285px;
+  margin: 0 auto;
+  & > h2{
+    width: 100%;
+    font-family: 'Saira', sans-serif;
+    color: var(--roxo-tema-principal);
+    margin-bottom: 25px;
+    font-weight: 400;
+    font-size: 20px;
+  }
+`
+
+export const Container = styled.div `
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+  p{
+    color: black;
+    margin-left: 0;
+    font-size: 1.2rem
+  }
+`
+
+export const ContentForms = styled.form `
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 25px;
 
   & > div {
-    & > span {
+    span {
       margin-left: 10px;
       font-size: 12px;
       color: var(--vermelho);
@@ -35,13 +56,8 @@ export const FormContainer = styled.form`
     }
   }
 
-  & > div:last-of-type {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    & > span {
-      width: 46%;
-    }
+  & > button {
+    margin-top: 50px;
   }
 `
 

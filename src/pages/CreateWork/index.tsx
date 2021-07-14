@@ -15,7 +15,6 @@ const CreateWork = () => {
   const history = useHistory()
   const schema = yup.object().shape({
     title: yup.string().required('Campo Obrigatório.'),
-    category: yup.array().oneOf([['Pintura'], ['Limpeza'], ['Eletricista'], ['Gerais'], ['Encanador']], 'Campo inválido.'),
     description: yup.string().required('Campo Obrigatório.'),
     location: yup.string().required('Campo Obrigatório.'),
     valueOffered: yup.string().required('Campo Obrigatório.'),

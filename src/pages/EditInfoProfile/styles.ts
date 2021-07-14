@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const CreateWorkContainer = styled.main`
+export const EditProfileContainer = styled.main`
   width: 285px;
   margin: 0 auto;
   color: var(--roxo-tema-principal);
@@ -23,7 +23,7 @@ export const CreateWorkContainer = styled.main`
 export const FormContainer = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 2px;
 
   & > div {
     & > span {
