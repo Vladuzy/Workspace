@@ -83,7 +83,16 @@ const WorksDescription = () => {
   const [loadingUserWhoCreatedJob, setLoadingUserWhoCreatedJob] =
     useState(true);
 
+  const [loadingUserAppliedJob, setLoadingUserAppliedJob] = useState(true);
+  const [loadingUserAcceptedJob, setLoadingUserAcceptedJob] = useState(true);
+
   const [userWhoCreatedJob, setUserWhoCreatedJob] = useState<UserInfo>(
+    {} as UserInfo
+  );
+  const [userAppliedJob, setUserAppliedJob] = useState<UserInfo>(
+    {} as UserInfo
+  );
+  const [userAcceptedJob, setUserAcceptedJob] = useState<UserInfo>(
     {} as UserInfo
   );
 
@@ -247,15 +256,63 @@ const WorksDescription = () => {
       .catch((err) => console.log(err));
   };
 
+  const getUserAppliedJob = (
+    userEmployerId: string,
+    setLoadingUserAppliedJob: Dispatch<SetStateAction<boolean>>
+  ) => {
+    api
+      .get(`/users/${userEmployerId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        setUserAppliedJob(response.data);
+        setLoadingUserAppliedJob(false);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const getUserAcceptedJob = (
+    userEmployerId: string,
+    setLoadingUserAcceptedJob: Dispatch<SetStateAction<boolean>>
+  ) => {
+    api
+      .get(`/users/${userEmployerId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        setUserAcceptedJob(response.data);
+        setLoadingUserAcceptedJob(false);
+      })
+      .catch((err) => console.log(err));
+  };
+
   useEffect(() => {
     getUserLoggedInfo(setLoadingUserLoggedInfo);
     getASpecificJob(id, setLoadingCurrentJob);
-    // getUserWhoCreatedJob(currentJob.userId, setLoadingUserWhoCreatedJob);
   }, []);
 
   useEffect(() => {
     if (!loadingCurrentJob) {
       getUserWhoCreatedJob(currentJob.userId, setLoadingUserWhoCreatedJob);
+      if (currentJob.appliedCandidateId !== "Sem Candidatos") {
+        getUserAppliedJob(
+          currentJob.appliedCandidateId,
+          setLoadingUserAppliedJob
+        );
+      }
+
+      if (currentJob.acceptedCandidateId !== "") {
+        getUserAcceptedJob(
+          currentJob.acceptedCandidateId,
+          setLoadingUserAcceptedJob
+        );
+      }
     }
   }, [loadingCurrentJob]);
 
@@ -319,8 +376,8 @@ const WorksDescription = () => {
           <MainContainer>
             <JobInfoContainer>
               <h2>{title}</h2>
-
-              {currentJob.userId === userLoggedInfo.id &&
+              {/* Foi necessário deixar == para comparar string e number */}
+              {currentJob.userId == userLoggedInfo.id &&
                 currentJob.status === "isWaiting" &&
                 currentJob.appliedCandidateId === "Sem Candidatos" && (
                   <ImageEdit
@@ -355,7 +412,27 @@ const WorksDescription = () => {
                 <MdLocationOn />
                 <span>{location}</span>
               </div>
-              <h2>Candidato</h2>
+              {currentJob.acceptedCandidateId !== "" ? (
+                <>
+                  <h2>Freelancer Contratado</h2>
+                  <p>
+                    {loadingUserAcceptedJob
+                      ? "Carregando..."
+                      : userAcceptedJob.name}
+                  </p>
+                </>
+              ) : (
+                currentJob.appliedCandidateId !== "Sem Candidatos" && (
+                  <>
+                    <h2>Candidato</h2>
+                    <p>
+                      {loadingUserAppliedJob
+                        ? "Carregando..."
+                        : userAppliedJob.name}
+                    </p>
+                  </>
+                )
+              )}
             </DescriptionInfoContainer>
             {currentJob.status === "isWaiting" ? (
               userLoggedInfo.type === "worker" ? (

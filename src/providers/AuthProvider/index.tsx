@@ -190,8 +190,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const addMoreInfoUserEmployer = (
     userEmployerDataMoreInfo: UserEmployerDataMoreInfo
   ) => {
+    const completeDataMoreInfoEmployer = {
+      userEmployerDataMoreInfo,
+      categories: [],
+    };
     api
-      .patch(`/users/${userLoggedId}`, userEmployerDataMoreInfo, {
+      .patch(`/users/${userLoggedId}`, completeDataMoreInfoEmployer, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

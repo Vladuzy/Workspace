@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+interface SectionContactProps {
+  type: string;
+}
+
 export const Container = styled.main`
   .loader,
   .loader:before,
@@ -73,24 +77,23 @@ export const StyleMain = styled.main`
   }
 `;
 
-export const StyledMureInfo = styled.div`
-  display: flex;
-  width: 100vw;
+export const StyledMoreInfo = styled.div`
+  margin-top: 20px;
 
-  & > div {
-    width: 40%;
-  }
+  display: flex;
+  justify-content: space-between;
+
   span {
     display: block;
   }
 `;
-export const Exp = styled.div`
-  margin: 1rem auto;
+export const SectionExp = styled.section`
+  margin: 10px auto;
   div {
     height: 100px;
     word-break: break-all;
     overflow: auto;
-    margin-top: 1rem;
+    margin-top: 8px;
   }
 `;
 
@@ -100,17 +103,34 @@ export const CategoriesContainer = styled.section`
   justify-content: space-between;
   gap: 5px;
 `
+export const SectionCategories = styled.section`
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
+
+export const SectionContact = styled.section<SectionContactProps>`
+  width: ${({ type }) => (type === "employer" ? "100%" : "initial")};
+  div {
+    margin-top: 8px;
+    display: ${({ type }) => (type === "employer" ? "flex" : "block")};
+  }
+  p:last-child {
+    margin-left: 20px;
+  }
+`;
 
 export const StyledNoInfo = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 50vh;
+  /* height: 50vh; */
   div {
     text-align: center;
     margin: 1rem auto 5px;
     color: var(--cinza-claro);
-    width: 50%;
+    /* width: 50%; */
   }
 `;
 

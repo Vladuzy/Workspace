@@ -4,11 +4,14 @@ import Header from "../../components/Header";
 import { useAuth } from "../../providers/AuthProvider";
 import { useMenuFooter } from "../../providers/MenuFooterProvider";
 import Footer from "../../components/Footer";
+import CategoryTag from "../../components/CategoryTag";
 import {
   Container,
-  StyledMureInfo,
+  StyledMoreInfo,
   StyleMain,
-  Exp,
+  SectionExp,
+  SectionCategories,
+  SectionContact,
   StyledNoInfo,
   JobsDone,
   ListJobs,
@@ -20,12 +23,6 @@ import Button from "../../components/Button";
 import CartCompletedJob from "../../components/CartCompletedJob";
 import Loading from "../../components/Loading/index";
 import CardCategoryProfile from '../../components/CardCategoryProfile'
-
-interface moreInfoUser {
-  description: string;
-  telephone: string;
-  categories: string[];
-}
 
 const Profile = () => {
   const { token, getUserLoggedInfo, userLoggedInfo } = useAuth();
@@ -63,29 +60,33 @@ const Profile = () => {
         <>
           <Header />
           <StyleBody>
-            {moreInfo.telephone ? (
+            {moreInfo.telephone !== "" && moreInfo.description !== "" ? (
               <StyleMain>
-                <StyledMureInfo>
-                  <div>
-                    <h3>Categorias</h3>
-                    <CategoriesContainer>
-                      {moreInfo.categories &&
-                        moreInfo.categories.map((category: string) => (
-                          <CardCategoryProfile category={category}/>
-                        ))}
-                    </CategoriesContainer>
-                  </div>
+                <StyledMoreInfo>
+                  {userLoggedInfo.type === "worker" && (
+                    <SectionCategories>
+                      <h3>Categorias</h3>
+                      <CategoriesContainer>
+                        {moreInfo.categories &&
+                          moreInfo.categories.map((item: string) => (
+                            <CardCategoryProfile category={item} />
+                          ))}
+                      </CategoriesContainer>
+                    </SectionCategories>
+                  )}
 
-                  <div>
+                  <SectionContact type={userLoggedInfo.type}>
                     <h3>Contato</h3>
-                    <span>{email}</span>
-                    <span>{moreInfo.telephone} </span>
-                  </div>
-                </StyledMureInfo>
-                <Exp>
+                    <div>
+                      <p>{email}</p>
+                      <p>{moreInfo.telephone} </p>
+                    </div>
+                  </SectionContact>
+                </StyledMoreInfo>
+                <SectionExp>
                   <h3>Experiência</h3>
                   <div>{moreInfo.description} </div>
-                </Exp>
+                </SectionExp>
               </StyleMain>
             ) : (
               <StyledNoInfo>
@@ -101,16 +102,10 @@ const Profile = () => {
             )}
 
             <JobsDone>
-              {listCompletedJobs ? (
+              {listCompletedJobs.length > 0 ? (
                 <>
                   <div className="JobsDoneHeader">
                     <h3>Trabalhos feitos</h3>
-                    <Button
-                      text="MOSTRAR TODOS"
-                      width="150px"
-                      heigth="25px"
-                      borderRadius="20px"
-                    />
                   </div>
                   <ListJobs>
                     {listCompletedJobs.map((job) => (
@@ -122,10 +117,14 @@ const Profile = () => {
                 </>
               ) : (
                 <>
-                  <h3>Trabalhos feitos</h3>
+                  <div className="JobsDoneHeader">
+                    <h3>Trabalhos feitos</h3>
+                  </div>
                   <div>
                     <div>
-                      Parece que você não possui nenhum trabalho feito ainda...
+                      {userLoggedInfo.type === "worker"
+                        ? "Parece que você não possui nenhum trabalho feito ainda... "
+                        : "Parece que nenhum dos seus trabalhos foi concluído ainda..."}
                     </div>
                   </div>
                 </>
