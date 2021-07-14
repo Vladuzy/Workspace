@@ -11,6 +11,8 @@ import MoreInfoProfile from "../pages/MoreInfoProfile/Index";
 import WorksEdit from "../pages/WorksEdit";
 import CreateWork from "../pages/CreateWork";
 
+import DesktopHome from "../pages/DesktopHome"
+
 import EditInfoProfile from '../pages/EditInfoProfile'
 
 const Routes = () => {
@@ -35,7 +37,8 @@ const Routes = () => {
         <EditInfoProfile />
       </Route>
       <Route path="/home">
-        <Home />
+        {/* <Home /> */}
+        <DesktopHome/>
       </Route>
       <Route exact path="/works">
         <Works />
