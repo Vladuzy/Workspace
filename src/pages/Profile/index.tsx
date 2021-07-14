@@ -51,7 +51,7 @@ const Profile = () => {
   }
 
   const handleEdit = () => {
-    history.push("/editProfile");
+    history.push("/moreInfoProfile");
   };
 
   return (

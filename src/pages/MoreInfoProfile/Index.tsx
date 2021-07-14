@@ -10,7 +10,6 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useAuth } from '../../providers/AuthProvider'
 
-
 interface FormEdit {
   description: string;
   telephone: string;
@@ -19,7 +18,7 @@ interface FormEdit {
 export default function MoreInfoProfile() {
   const history = useHistory()
   const [arrCategory, setArrCategory] = useState<string[]>([])
-  const { editUserEmployer } = useAuth()
+  const { addMoreInfoUserWorker, addMoreInfoUserEmployer, userLoggedInfo: { type } } = useAuth()
 
   const formSchema = yup.object().shape({
     description: yup.string().required('Campo Obrigatório.'),
@@ -32,12 +31,24 @@ export default function MoreInfoProfile() {
 
   const submitForm = (data: FormEdit) => {
     const {description, telephone} = data
-    let moreInfo = {
-      categories: arrCategory,
-      description: description,
-      telephone: telephone,
+    const moreInfoWorker = {
+      moreInfo: {
+        categories: arrCategory,
+        description: description,
+        telephone: telephone,
+      }
     };
-    editUserEmployer({moreInfo})
+    const moreInfoEmployer = {
+      moreInfo: {
+        description,
+        telephone
+      }
+    }
+    if (type === 'worker') {
+      addMoreInfoUserWorker(moreInfoWorker)
+    } else if (type === 'employer') {
+      addMoreInfoUserEmployer(moreInfoEmployer)
+    }
   }
   return (
     <>
@@ -47,9 +58,9 @@ export default function MoreInfoProfile() {
       <MainStyled>
         <h2>Informações adicionais</h2>
         <Container>
-          <CategorySelect limit={3} selected={arrCategory} setSelected={setArrCategory} margin='none' color='var(--preto-cafe)'>
+          {type === 'worker' && <CategorySelect limit={3} selected={arrCategory} setSelected={setArrCategory} margin='none' color='var(--preto-cafe)'>
             <h2>Categorias que trabalha</h2>  
-          </CategorySelect>
+          </CategorySelect>}
           <ContentForms onSubmit={handleSubmit(submitForm)}>
             <div>
               <InputTextArea placeholder='Descrição de suas experiências' {...register('description')}/>

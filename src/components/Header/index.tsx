@@ -36,7 +36,7 @@ const Header = () => {
     history.push("/");
   };
   const handleEdit = () => {
-    history.push("/editProfile");
+    history.push("/editInfoProfile");
   };
 
   const totalRating =

@@ -11,6 +11,8 @@ import MoreInfoProfile from "../pages/MoreInfoProfile/Index";
 import WorksEdit from "../pages/WorksEdit";
 import CreateWork from "../pages/CreateWork";
 
+import EditInfoProfile from '../pages/EditInfoProfile'
+
 const Routes = () => {
   return (
     <Switch>
@@ -29,6 +31,9 @@ const Routes = () => {
       <Route path="/moreInfoProfile">
         <MoreInfoProfile/>
       </Route>
+      <Route path="/editInfoProfile">
+        <EditInfoProfile />
+      </Route>
       <Route path="/home">
         <Home />
       </Route>
@@ -36,7 +41,7 @@ const Routes = () => {
         <Works />
       </Route>
       <Route path="/worksEdit/:id">
-        <WorksEdit></WorksEdit>        
+        <WorksEdit/>
       </Route>
       <Route path="/works/:id">
         <WorksDescription />
