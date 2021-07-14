@@ -33,16 +33,24 @@ export const Header = styled.div`
   height: 15vh;
 
   & > div:first-child {
-    border-bottom: 3px solid var(--cinza-claro);
+    border-bottom: 1px solid var(--cinza-claro);
+    padding-left: 20px;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    & > span {
+      font-size: 14px;
+      display: inherit;
+      color: var(--preto-cafe);
+    }
   }
+
   div {
     color: var(--roxo-tema-principal);
     font-weight: bold;
     font-size: 20px;
     height: 50%;
-  }
-  span {
-    font-size: 10px;
-    margin-left: 1rem;
   }
 `;

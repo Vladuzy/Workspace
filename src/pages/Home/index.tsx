@@ -77,9 +77,9 @@ const Home = () => {
                 <div>R${totalGains}</div>
               </>
             ) : (
-              <>
-                <div>NÃO ESQUECER DE PENSAR EM ALGO</div>
-              </>
+              <div>
+                <span>Seja bem-vindo(a),</span> {userLoggedInfo.name}
+              </div>
             )}
 
             <div>
