@@ -7,19 +7,24 @@ import Home from "../pages/Home";
 import Works from "../pages/Works";
 import WorksDescription from "../pages/WorksDescription";
 import NotFound from "../pages/NotFound";
+import NotFoundDesk from "../pages/NotFoundDesk/NotFound";
 import MoreInfoProfile from "../pages/MoreInfoProfile/Index";
 import WorksEdit from "../pages/WorksEdit";
 import CreateWork from "../pages/CreateWork";
 import DesktopHome from "../pages/DesktopHome";
 
-import EditInfoProfile from '../pages/EditInfoProfile'
-import { useViewport } from '../providers/GetViewport'
+import RatingWork from "../components/RatingWork/index";
+import WorksDesktop from "../pages/WorksDesktop";
+import EditInfoProfile from "../pages/EditInfoProfile";
+import { useViewport } from "../providers/GetViewport";
 
 const Routes = () => {
-  const { viewport: { width } } = useViewport()
-  console.log(width)
+  const {
+    viewport: { width },
+  } = useViewport();
+  console.log(width);
 
-  return ( width < 769 ?
+  return width < 769 ? (
     <Switch>
       <Route exact path="/">
         <LandingPage />
@@ -34,7 +39,7 @@ const Routes = () => {
         <Profile />
       </Route>
       <Route path="/moreInfoProfile">
-        <MoreInfoProfile/>
+        <MoreInfoProfile />
       </Route>
       <Route path="/editInfoProfile">
         <EditInfoProfile />
@@ -46,10 +51,13 @@ const Routes = () => {
         <Works />
       </Route>
       <Route path="/worksEdit/:id">
-        <WorksEdit/>
+        <WorksEdit />
       </Route>
       <Route path="/works/:id">
         <WorksDescription />
+      </Route>
+      <Route path="/rating/:id">
+        <RatingWork />
       </Route>
       <Route path="/createWork">
         <CreateWork />
@@ -58,7 +66,7 @@ const Routes = () => {
         <NotFound />
       </Route>
     </Switch>
-    :
+  ) : (
     <Switch>
       <Route exact path="/">
         <LandingPage />
@@ -69,8 +77,17 @@ const Routes = () => {
       <Route path="/register">
         <Register />
       </Route>
+      <Route path="/works">
+        <WorksDesktop />
+      </Route>
       <Route path="/home">
-        <DesktopHome/>
+        <DesktopHome />
+      </Route>
+      <Route path="*">
+        <NotFound />
+      </Route>
+      <Route path="*">
+        <NotFoundDesk />
       </Route>
     </Switch>
   );

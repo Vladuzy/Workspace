@@ -16,4 +16,9 @@ export const CardContainer = styled.div`
     font-size: 14px;
     font-weight: 400;
   }
+
+  @media (min-width: 1266px) {
+    height: 30px;
+    gap: 5px;
+  }
 `
