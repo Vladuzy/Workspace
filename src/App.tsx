@@ -1,5 +1,15 @@
+import { Toaster } from "react-hot-toast";
+import Routes from "./routes";
+import GlobalStyle from "./styles/global";
+import Footer from "./components/Footer";
 function App() {
-  return <h1>App</h1>;
+  return (
+    <>
+      <GlobalStyle />
+      <Routes />
+      <Toaster position="top-center" reverseOrder={false} />
+    </>
+  );
 }
 
 export default App;
