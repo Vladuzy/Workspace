@@ -12,14 +12,17 @@ import WorksEdit from "../pages/WorksEdit";
 import CreateWork from "../pages/CreateWork";
 import DesktopHome from "../pages/DesktopHome";
 
-import EditInfoProfile from '../pages/EditInfoProfile'
-import { useViewport } from '../providers/GetViewport'
+import EditInfoProfile from "../pages/EditInfoProfile";
+import { useViewport } from "../providers/GetViewport";
+import ProfileSpecificUser from "../pages/ProfileSpecificUser/index";
 
 const Routes = () => {
-  const { viewport: { width } } = useViewport()
-  console.log(width)
+  const {
+    viewport: { width },
+  } = useViewport();
+  console.log(width);
 
-  return ( width < 769 ?
+  return width < 769 ? (
     <Switch>
       <Route exact path="/">
         <LandingPage />
@@ -33,8 +36,11 @@ const Routes = () => {
       <Route path="/profile">
         <Profile />
       </Route>
+      <Route path="/profileUser/:id">
+        <ProfileSpecificUser />
+      </Route>
       <Route path="/moreInfoProfile">
-        <MoreInfoProfile/>
+        <MoreInfoProfile />
       </Route>
       <Route path="/editInfoProfile">
         <EditInfoProfile />
@@ -46,7 +52,7 @@ const Routes = () => {
         <Works />
       </Route>
       <Route path="/worksEdit/:id">
-        <WorksEdit/>
+        <WorksEdit />
       </Route>
       <Route path="/works/:id">
         <WorksDescription />
@@ -58,7 +64,7 @@ const Routes = () => {
         <NotFound />
       </Route>
     </Switch>
-    :
+  ) : (
     <Switch>
       <Route exact path="/">
         <LandingPage />
@@ -70,7 +76,7 @@ const Routes = () => {
         <Register />
       </Route>
       <Route path="/home">
-        <DesktopHome/>
+        <DesktopHome />
       </Route>
     </Switch>
   );
