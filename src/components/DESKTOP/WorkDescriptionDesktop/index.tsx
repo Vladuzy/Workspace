@@ -11,14 +11,14 @@ import {
   ContainerCard,
   InfoContainerSubTitleCard,
   ContainerButton,
-  BackgroundContainer
+  BackgroundContainer,
 } from "./styles";
 import CategoryTag from "../../CategoryTag";
 import Button from "../../Button";
 import api from "../../../service/api";
 import { FaDollarSign, FaUserCircle } from "react-icons/fa";
 import { FiClock } from "react-icons/fi";
-import { IoMdClose } from 'react-icons/io'
+import { IoMdClose } from "react-icons/io";
 import { RiArrowLeftSLine } from "react-icons/ri";
 import { MdLocationOn } from "react-icons/md";
 
@@ -28,10 +28,11 @@ import { useAuth } from "../../../providers/AuthProvider";
 import imgEdit from "../../../assets/img/Edit.svg";
 import Loading from "../../../components/Loading";
 import RatingWork from "../../RatingWork/index";
+import WorksEditDesktop from '../WorksEditDesktop'
 
 interface Params {
   id: string;
-  setPopUp: Dispatch<SetStateAction<boolean>>
+  setPopUp: Dispatch<SetStateAction<boolean>>;
 }
 
 interface Job {
@@ -67,7 +68,7 @@ interface UserInfo {
 const WorksDescriptionDesktop = ({ id, setPopUp }: Params) => {
   const history = useHistory();
   const { token, userLoggedInfo, getUserLoggedInfo } = useAuth();
-  // const { id } = useParams() as Params;
+  const [editWorkOpen, setEditWorkOpen] = useState<boolean>(false as boolean)
 
   const [currentJob, setCurrentJob] = useState<Job>(
     (JSON.parse(localStorage.getItem("@WorkSpace:currentJob") as string) ||
@@ -373,8 +374,10 @@ const WorksDescriptionDesktop = ({ id, setPopUp }: Params) => {
   }
 
   return (
+    <>
+    {editWorkOpen && <WorksEditDesktop setEditWorkOpen={setEditWorkOpen} id={id}/>}
     <BackgroundContainer>
-      {showRating && <RatingWork setShowRating={setShowRating} id={id}/>}
+      {showRating && <RatingWork setShowRating={setShowRating} id={id} />}
       {loadingCurrentJob &&
       loadingUserLoggedInfo &&
       loadingUserWhoCreatedJob ? (
@@ -394,7 +397,7 @@ const WorksDescriptionDesktop = ({ id, setPopUp }: Params) => {
                 currentJob.status === "isWaiting" &&
                 currentJob.appliedCandidateId === "Sem Candidatos" && (
                   <ImageEdit
-                    onClick={() => history.push(`/worksEdit/${id}`)}
+                    onClick={() => setEditWorkOpen(true)}
                     src={imgEdit}
                     alt=""
                   />
@@ -442,7 +445,6 @@ const WorksDescriptionDesktop = ({ id, setPopUp }: Params) => {
                         : userAcceptedJob.name}
                     </InfoContainerSubTitleCard>
                   </ContainerCard>
-                  ;
                 </InfoWorker>
               ) : (
                 currentJob.appliedCandidateId !== "Sem Candidatos" && (
@@ -462,7 +464,6 @@ const WorksDescriptionDesktop = ({ id, setPopUp }: Params) => {
                           : userAppliedJob.name}
                       </InfoContainerSubTitleCard>
                     </ContainerCard>
-                    ;
                   </InfoWorker>
                 )
               )}
@@ -572,6 +573,7 @@ const WorksDescriptionDesktop = ({ id, setPopUp }: Params) => {
         </>
       )}
     </BackgroundContainer>
+    </>
   );
 };
 

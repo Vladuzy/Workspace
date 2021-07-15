@@ -92,12 +92,14 @@ const CardCompletedJob = ({
       getListUserWorkerCompletedJobs();
     }
   }, []);
-  
+
   return (
-    <Container  onClick={handleClick} >
+    <Container onClick={handleClick}>
       <FaUserCircle className="Avatar-Container" />
       <InfoContainer>
-        <InfoContainerTitle>{title}</InfoContainerTitle>
+        <InfoContainerTitle>
+          {title.length < 12 ? title : `${title.substring(0, 16)}...`}
+        </InfoContainerTitle>
         <InfoContainerSubTitle>
           {loading ? "Carregando..." : userCurrentInfo.name}
         </InfoContainerSubTitle>
