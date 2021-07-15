@@ -10,7 +10,7 @@ import ButtonAdd from "../../components/ButtonAdd";
 import Loading from "../../components/Loading/index";
 
 const Home = () => {
-  const history = useHistory();
+  const history = useHistory(); 
   const { token, userLoggedInfo, getUserLoggedInfo } = useAuth();
   const { type } = userLoggedInfo;
   const [current, setCurrent] = useState<string>(

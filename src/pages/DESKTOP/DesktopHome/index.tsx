@@ -18,11 +18,13 @@ import {
 import ButtonAdd from "../../../components/ButtonAdd";
 import Loading from "../../../components/Loading/index";
 import Profile from "../../Profile";
+import CreateWorkDesktop from "../../../components/DESKTOP/CreateWorkDesktop";
 
 const DesktopHome = () => {
   const history = useHistory();
   const { token, userLoggedInfo, getUserLoggedInfo } = useAuth();
   const { type } = userLoggedInfo;
+  const [createWorkOpen, setCreateWorkOpen] = useState<boolean>(false as boolean)
 
   const {
     getListUserWorkerAppliedJobs,
@@ -72,6 +74,8 @@ const DesktopHome = () => {
   }
 
   return (
+    <>
+    {createWorkOpen && <CreateWorkDesktop setCreateWorkOpen={setCreateWorkOpen} />}
     <ContainerMain>
       <Navbar />
       {loadingUserLoggedInfo ? (
@@ -120,7 +124,7 @@ const DesktopHome = () => {
             </>
             {type === "employer" && (
               <ButtonAdd
-                onClick={() => history.push("/createWork")}
+                onClick={() => setCreateWorkOpen(true)}
               ></ButtonAdd>
             )}
           </ListsContainer>
@@ -130,6 +134,7 @@ const DesktopHome = () => {
         <Profile />
       </ProfileDesktop>
     </ContainerMain>
+    </>
   );
 };
 
