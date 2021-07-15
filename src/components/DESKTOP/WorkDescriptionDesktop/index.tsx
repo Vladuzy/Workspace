@@ -28,6 +28,7 @@ import { useAuth } from "../../../providers/AuthProvider";
 import imgEdit from "../../../assets/img/Edit.svg";
 import Loading from "../../../components/Loading";
 import RatingWork from "../../RatingWork/index";
+import WorksEditDesktop from '../WorksEditDesktop'
 
 interface Params {
   id: string;
@@ -67,7 +68,7 @@ interface UserInfo {
 const WorksDescriptionDesktop = ({ id, setPopUp }: Params) => {
   const history = useHistory();
   const { token, userLoggedInfo, getUserLoggedInfo } = useAuth();
-  // const { id } = useParams() as Params;
+  const [editWorkOpen, setEditWorkOpen] = useState<boolean>(false as boolean)
 
   const [currentJob, setCurrentJob] = useState<Job>(
     (JSON.parse(localStorage.getItem("@WorkSpace:currentJob") as string) ||
@@ -373,6 +374,8 @@ const WorksDescriptionDesktop = ({ id, setPopUp }: Params) => {
   }
 
   return (
+    <>
+    {editWorkOpen && <WorksEditDesktop setEditWorkOpen={setEditWorkOpen} id={id}/>}
     <BackgroundContainer>
       {showRating && <RatingWork setShowRating={setShowRating} id={id} />}
       {loadingCurrentJob &&
@@ -394,7 +397,7 @@ const WorksDescriptionDesktop = ({ id, setPopUp }: Params) => {
                 currentJob.status === "isWaiting" &&
                 currentJob.appliedCandidateId === "Sem Candidatos" && (
                   <ImageEdit
-                    onClick={() => history.push(`/worksEdit/${id}`)}
+                    onClick={() => setEditWorkOpen(true)}
                     src={imgEdit}
                     alt=""
                   />
@@ -570,6 +573,7 @@ const WorksDescriptionDesktop = ({ id, setPopUp }: Params) => {
         </>
       )}
     </BackgroundContainer>
+    </>
   );
 };
 

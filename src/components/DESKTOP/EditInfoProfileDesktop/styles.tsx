@@ -25,6 +25,7 @@ export const EditProfileContainer = styled.main<Props>`
   color: var(--roxo-tema-principal);
   border-radius: 15px;
   background-color: var(--cinza-escuro);
+  box-shadow: -1px 8px 14px -4px #31292E;
 
   & > svg {
     margin-top: 10px;
