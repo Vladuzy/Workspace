@@ -1,4 +1,4 @@
-import Works from '../Works'
+import Works from '../../Works'
 import { WorksMainContainer, PageContainer, WorksContentContainer } from './styles'
 
 const DesktopWorks = () => {
