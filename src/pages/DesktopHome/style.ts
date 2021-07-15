@@ -70,6 +70,8 @@ export const ColumnList = styled.div`
 `;
 
 export const ProfileDesktop = styled.div`
-  width: 300px;
+  min-width: 185px;
+  max-width: 250px;
+  max-height: 100vh;
   border-left: 1px solid var(--roxo-tema-principal);
 `;

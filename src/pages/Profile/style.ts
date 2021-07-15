@@ -6,6 +6,10 @@ interface SectionContactProps {
 
 export const Container = styled.main`
   height: 100vh;
+
+  @media only screen and (min-width: 769px) {
+    padding-top: 15vh;
+  }
 `;
 
 export const StyleBody = styled.div`
@@ -44,6 +48,7 @@ export const CategoriesContainer = styled.section`
   justify-content: space-between;
   gap: 5px;
 `;
+
 export const SectionCategories = styled.section`
   width: 40%;
   display: flex;
@@ -105,7 +110,7 @@ export const ListJobs = styled.ul`
 `;
 
 export const MediaFooter = styled.div`
-  @media only screen and (min-width: 729px) {
+  @media only screen and (min-width: 769px) {
     display: none;
   }
 `;
