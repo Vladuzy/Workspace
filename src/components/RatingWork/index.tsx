@@ -1,18 +1,44 @@
 import Rating from "@material-ui/lab/Rating";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import React, { useEffect, useState, ChangeEvent } from "react";
 import { Container, Button } from "./style";
-interface Data {
-  rating: string;
+import api from "../../service/api";
+import { useAuth } from "../../providers/AuthProvider";
+
+interface RatingWorkParams {
+  id: string;
+  showModal: boolean;
 }
+
 interface Params {
   id: string;
 }
 const RatingWork = () => {
-  const [value, setValue] = React.useState<number | null>(2);
+  const [value, setValue] = React.useState<number | null>(0);
+
+  const { token } = useAuth();
+  const { id } = useParams() as Params;
   const history = useHistory();
-  const handleData = () => {
+
+  const handleData = (id: string, value: number | null) => {
     console.log(value);
+    api
+      .patch(
+        `/jobs/${id}`,
+        { rating: value?.toString() },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response);
+
+        //Show Toast
+      })
+      .catch((err) => console.log(err));
+    history.goBack();
   };
   return (
     <Container>
@@ -24,7 +50,7 @@ const RatingWork = () => {
           setValue(newValue);
         }}
       />
-      <Button onClick={() => handleData()} type="button">
+      <Button onClick={() => handleData(id, value)} type="button">
         Avaliar
       </Button>
     </Container>
