@@ -18,7 +18,7 @@ import {
 import { useEffect, useState } from "react";
 
 const Header = () => {
-  const { listCompletedJobs, getListUserWorkerCompletedJobs } = useJobs();
+  const { listCompletedJobs, getListUserWorkerCompletedJobs,  getListUserEmployerCompletedJobs} = useJobs();
   const { userLoggedInfo, setIsAuthenticated } = useAuth();
   const { setInHome, setInProfile, setInWorks } = useMenuFooter();
   console.log(listCompletedJobs);
@@ -47,9 +47,13 @@ const Header = () => {
           0
         ) / listCompletedJobs.length;
 
-  useEffect(() => {
-    getListUserWorkerCompletedJobs();
-  }, []);
+        useEffect(() => {
+          if (userLoggedInfo.type === "employer") {
+            getListUserEmployerCompletedJobs();
+          } else if (userLoggedInfo.type === "worker") {
+            getListUserWorkerCompletedJobs();
+          }
+        }, []);
 
   return (
     <Container>
