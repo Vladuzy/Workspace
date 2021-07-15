@@ -109,7 +109,7 @@ interface JobsProviderProps {
 const JobsContext = createContext<JobsProviderData>({} as JobsProviderData);
 
 export const JobsProvider = ({ children }: JobsProviderProps) => {
-  const { token, userLoggedId } = useAuth();
+  const { token, userLoggedId, userLoggedInfo } = useAuth();
 
   // const [ currentJobId, setCurrentJobId ] = useState("");
 
@@ -176,12 +176,12 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
   );
 
   useEffect(() => {
-    if (userLoggedId === "employer") {
+    if (userLoggedInfo.type === "employer") {
       getListUserEmployerCompletedJobs();
-    } else {
+    } else if (userLoggedInfo.type === "worker") {
       getListUserWorkerCompletedJobs();
     }
-  }, [userLoggedId]);
+  }, []);
 
   const userEmployerCreateJob = (jobCreationData: JobCreationData) => {
     const { title, category, description, location, valueOffered, date } =

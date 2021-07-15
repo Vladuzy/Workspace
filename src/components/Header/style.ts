@@ -8,6 +8,12 @@ export const Container = styled.div`
   border-radius: 0px 0px 20px 20px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
   height: 94px;
+
+  @media only screen and (min-width: 769px) {
+    border-radius: 10px;
+    max-width: 95%;
+    margin: 0 auto;
+  }
 `;
 
 export const TitleContainer = styled.h3`
@@ -24,6 +30,12 @@ export const HandleContainer = styled.div`
 export const ImgHandleContainer = styled.img`
   width: 24px;
   height: 24px;
+
+  @media only screen and (min-width: 769px) {
+    :first-child {
+      display: none;
+    }
+  }
 `;
 
 export const HeaderContainer = styled.header`

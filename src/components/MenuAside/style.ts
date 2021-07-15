@@ -2,25 +2,21 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const Container = styled.aside`
-  width: 300px;
+  min-width: 185px;
+  max-width: 250px;
   height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  position: fixed;
-  top: 0;
-  left: 0;
   border-right: 1px solid var(--roxo-tema-principal);
 `;
 
 export const MenuBars = styled(Link)`
   display: block;
-  margin: 20px auto 0;
-  height: 25vh;
+  margin: 60px auto 0;
+  height: 22vh;
 
   > img {
     display: block;
     margin: 0 auto;
+    width: 100%;
   }
 `;
 
@@ -38,15 +34,15 @@ export const NavMenuItens = styled.button`
   color: var(--cinza-claro);
   display: flex;
   align-items: center;
-  width: 270px;
+  width: 90%;
   height: 50px;
   border-radius: 18px;
   margin-bottom: 40px;
-  padding-left: 50px;
+  padding-left: 20px;
 
   svg {
     color: var(--cinza-claro);
-    width: 20%;
+    min-width: 20%;
   }
 
   &:hover {
@@ -77,11 +73,11 @@ export const Logout = styled.button`
   display: flex;
   align-items: center;
   justify-content: space-around;
-  width: 270px;
-  height: 15vh;
-  padding-left: 50px;
+  width: 90%;
+  padding-left: 20px;
   font-size: 24px;
   color: var(--vermelho);
+  background-color: var(--branco-fundo-body);
 
   img {
     width: 35px;

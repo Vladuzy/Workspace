@@ -1,11 +1,16 @@
 import { NavLink as Link } from "react-router-dom";
 import styled from "styled-components";
 
-export const Nav = styled.nav`
+interface NavProps {
+  minHeight: string;
+}
+
+export const Nav = styled.nav<NavProps>`
   background-color: var(--branco-fundo-body);
   border-top: 2px solid var(--roxo-tema-principal);
   width: 100%;
   height: 65px;
+  min-height: ${({ minHeight }) => minHeight};
   position: fixed;
   bottom: 0;
   left: 0;
