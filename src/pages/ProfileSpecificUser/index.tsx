@@ -23,6 +23,7 @@ import Loading from "../../components/Loading/index";
 import CardCategoryProfile from "../../components/CardCategoryProfile";
 import HeaderSpecificUser from "../../components/HeaderSpecificUser/index";
 import api from "../../service/api";
+import { useWatch } from "react-hook-form";
 
 interface Job {
   title: string;
@@ -165,20 +166,26 @@ const ProfileSpecificUser = () => {
               {listCompletedJobsSpecificUser.length > 0 ? (
                 <>
                   <div className="JobsDoneHeader">
-                    <h3>Trabalhos feitos</h3>
+                    <h3>Trabalhos Concluídos</h3>
                   </div>
                   <ListJobs>
                     {listCompletedJobsSpecificUser.map((job) => (
-                      <CartCompletedJob key={job.id}>
-                        {job.title}
-                      </CartCompletedJob>
+                      <CartCompletedJob
+                        title={job.title}
+                        rating={job.rating}
+                        acceptedCandidateId={job.acceptedCandidateId}
+                        id={job.id}
+                        userId={job.userId}
+                        key={job.id}
+                        pageType={userWantedInfo.type}
+                      ></CartCompletedJob>
                     ))}
                   </ListJobs>
                 </>
               ) : (
                 <>
                   <div className="JobsDoneHeader">
-                    <h3>Trabalhos feitos</h3>
+                    <h3>Trabalhos Concluídos</h3>
                   </div>
                   <div>
                     <div>Ainda não possui nenhum trabalho feito...</div>

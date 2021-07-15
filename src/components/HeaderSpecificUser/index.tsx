@@ -1,8 +1,6 @@
 import Rating from "@material-ui/lab/Rating";
 import imgAvatar from "../../assets/img/Avatar.svg";
 import { useHistory } from "react-router-dom";
-import { useAuth } from "../../providers/AuthProvider";
-import { useJobs } from "../../providers/Jobs";
 import close from "../../assets/img/close.svg";
 import {
   Container,
@@ -43,10 +41,8 @@ const HeaderSpecificUser = ({
   type,
   rating,
   id,
+  listCompletedJobsSpecificUser,
 }: HeaderSpecificUserProps) => {
-  const { listCompletedJobs, getListUserWorkerCompletedJobs } = useJobs();
-  console.log(listCompletedJobs);
-
   const history = useHistory();
 
   const handleExitApplication = () => {
@@ -54,12 +50,12 @@ const HeaderSpecificUser = ({
   };
 
   const totalRating =
-    listCompletedJobs.length === 0
+    listCompletedJobsSpecificUser.length === 0
       ? "Sem Avaliações"
-      : listCompletedJobs.reduce(
+      : listCompletedJobsSpecificUser.reduce(
           (acc, acumulater) => parseInt(acumulater.rating) + acc,
           0
-        ) / listCompletedJobs.length;
+        ) / listCompletedJobsSpecificUser.length;
 
   useEffect(() => {}, []);
 

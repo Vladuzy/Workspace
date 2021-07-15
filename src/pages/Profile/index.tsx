@@ -25,7 +25,6 @@ import CartCompletedJob from "../../components/CartCompletedJob";
 import Loading from "../../components/Loading/index";
 import CardCategoryProfile from "../../components/CardCategoryProfile";
 
-
 const Profile = () => {
   const { token, getUserLoggedInfo, userLoggedInfo } = useAuth();
   const { setInHome, setInWorks, setInProfile } = useMenuFooter();
@@ -108,18 +107,26 @@ const Profile = () => {
               {listCompletedJobs.length > 0 ? (
                 <>
                   <div className="JobsDoneHeader">
-                    <h3>Trabalhos feitos</h3>
+                    <h3>Trabalhos Concluídos</h3>
                   </div>
                   <ListJobs>
                     {listCompletedJobs.map((job) => (
-                      <CartCompletedJob title={job.title} rating={job.rating} id={job.id} userId={job.userId}  key={job.id}></CartCompletedJob>
+                      <CartCompletedJob
+                        title={job.title}
+                        rating={job.rating}
+                        acceptedCandidateId={job.acceptedCandidateId}
+                        id={job.id}
+                        userId={job.userId}
+                        key={job.id}
+                        pageType={userLoggedInfo.type}
+                      ></CartCompletedJob>
                     ))}
                   </ListJobs>
                 </>
               ) : (
                 <>
                   <div className="JobsDoneHeader">
-                    <h3>Trabalhos feitos</h3>
+                    <h3>Trabalhos Concluídos</h3>
                   </div>
                   <div>
                     <div>
