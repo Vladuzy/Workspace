@@ -164,3 +164,36 @@ export const SpanCandidates = styled.div`
   text-align: center;
   margin: 30px auto;
 `;
+
+export const ContainerCard = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 100%;
+  height: 80px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
+  .Avatar-Container {
+    margin-left: 10px;
+    width: 37px;
+    height: 37px;
+    color: var(--preto-cafe);
+  }
+`;
+
+export const InfoContainerSubTitleCard = styled.h2`
+  color: var(--roxo-tema-principal);
+  font-size: 0.8rem;
+`;
+
+export const InfoWorker = styled.section`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  div {
+    align-items: center;
+    justify-content: flex-start;
+    h2 {
+      margin-left: 15px;
+    }
+  }
+`;
