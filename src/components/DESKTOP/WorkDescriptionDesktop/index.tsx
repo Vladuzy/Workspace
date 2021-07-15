@@ -11,14 +11,14 @@ import {
   ContainerCard,
   InfoContainerSubTitleCard,
   ContainerButton,
-  BackgroundContainer
+  BackgroundContainer,
 } from "./styles";
 import CategoryTag from "../../CategoryTag";
 import Button from "../../Button";
 import api from "../../../service/api";
 import { FaDollarSign, FaUserCircle } from "react-icons/fa";
 import { FiClock } from "react-icons/fi";
-import { IoMdClose } from 'react-icons/io'
+import { IoMdClose } from "react-icons/io";
 import { RiArrowLeftSLine } from "react-icons/ri";
 import { MdLocationOn } from "react-icons/md";
 
@@ -31,7 +31,7 @@ import RatingWork from "../../RatingWork/index";
 
 interface Params {
   id: string;
-  setPopUp: Dispatch<SetStateAction<boolean>>
+  setPopUp: Dispatch<SetStateAction<boolean>>;
 }
 
 interface Job {
@@ -374,7 +374,7 @@ const WorksDescriptionDesktop = ({ id, setPopUp }: Params) => {
 
   return (
     <BackgroundContainer>
-      {showRating && <RatingWork setShowRating={setShowRating} id={id}/>}
+      {showRating && <RatingWork setShowRating={setShowRating} id={id} />}
       {loadingCurrentJob &&
       loadingUserLoggedInfo &&
       loadingUserWhoCreatedJob ? (
@@ -442,7 +442,6 @@ const WorksDescriptionDesktop = ({ id, setPopUp }: Params) => {
                         : userAcceptedJob.name}
                     </InfoContainerSubTitleCard>
                   </ContainerCard>
-                  ;
                 </InfoWorker>
               ) : (
                 currentJob.appliedCandidateId !== "Sem Candidatos" && (
@@ -462,7 +461,6 @@ const WorksDescriptionDesktop = ({ id, setPopUp }: Params) => {
                           : userAppliedJob.name}
                       </InfoContainerSubTitleCard>
                     </ContainerCard>
-                    ;
                   </InfoWorker>
                 )
               )}
