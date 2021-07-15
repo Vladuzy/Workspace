@@ -2,6 +2,8 @@ import { Redirect, useHistory } from "react-router-dom";
 import { useAuth } from "../../../providers/AuthProvider";
 import Navbar from "../../../components/DESKTOP/MenuAside";
 import CardWork from "../../../components/CardWork";
+import ButtonAdd from "../../../components/ButtonAdd";
+import Loading from "../../../components/Loading/index";
 import { useEffect, useState } from "react";
 import { useJobs } from "../../../providers/Jobs";
 import { useMenuFooter } from "../../../providers/MenuFooterProvider";
@@ -14,14 +16,14 @@ import {
   ProfileDesktop,
   ListContainer,
 } from "./style";
-
-import ButtonAdd from "../../../components/ButtonAdd";
-import Loading from "../../../components/Loading/index";
+import WorksDesktop from "../WorksDesktop";
 import Profile from "../../Profile";
 import CreateWorkDesktop from "../../../components/DESKTOP/CreateWorkDesktop";
+import { useLocation } from "react-router-dom";
 
 const DesktopHome = () => {
-  const history = useHistory();
+  let location = useLocation<string>();
+
   const { token, userLoggedInfo, getUserLoggedInfo } = useAuth();
   const { type } = userLoggedInfo;
   const [createWorkOpen, setCreateWorkOpen] = useState<boolean>(false as boolean)
@@ -31,7 +33,6 @@ const DesktopHome = () => {
     getListUserWorkerActiveJobs,
     listUserWorkerAppliedJobs,
     listUserWorkerActiveJobs,
-    listCompletedJobs,
     getListUserEmployerActiveJobs,
     getListUserEmployerCurrentJobs,
     listUserEmployerActiveJobs,
@@ -40,12 +41,6 @@ const DesktopHome = () => {
 
   const { setInHome, setInProfile, setInWorks } = useMenuFooter();
   const [loadingUserLoggedInfo, setLoadingUserLoggedInfo] = useState(true);
-  console.log(listCompletedJobs);
-  const totalGains =
-    type === "worker" &&
-    listCompletedJobs
-      .reduce((acc, acumulater) => acumulater.valueOffered + acc, 0)
-      .toFixed(2);
 
   useEffect(() => {
     getUserLoggedInfo(setLoadingUserLoggedInfo);
@@ -67,7 +62,7 @@ const DesktopHome = () => {
         getListUserEmployerCurrentJobs();
       }
     }
-  }, [loadingUserLoggedInfo]);
+  }, [loadingUserLoggedInfo, location.pathname]);
 
   if (!token) {
     return <Redirect to="/" />;
@@ -77,62 +72,70 @@ const DesktopHome = () => {
     <>
     {createWorkOpen && <CreateWorkDesktop setCreateWorkOpen={setCreateWorkOpen} />}
     <ContainerMain>
-      <Navbar />
       {loadingUserLoggedInfo ? (
         <Loading />
       ) : (
-        <Content>
-          <Title>Trabalhos</Title>
-
-          <ListsContainer>
-            <ColumnList>
-              <Title>ATIVOS</Title>
-              {type === "worker" ? (
-                <ListContainer>
-                  {listUserWorkerActiveJobs.map((job) => (
-                    <CardWork job={job} key={job.id} />
-                  ))}
-                </ListContainer>
-              ) : (
-                <ListContainer>
-                  {listUserEmployerActiveJobs.map((job) => (
-                    <CardWork job={job} key={job.id} />
-                  ))}
-                </ListContainer>
-              )}
-            </ColumnList>
-            <>
-              {type === "worker" ? (
+        <>
+          <Navbar />
+          {location.pathname === "/home" ? (
+            <Content>
+              <Title>Trabalhos</Title>
+              <ListsContainer>
                 <ColumnList>
-                  <Title>APLICADOS</Title>
-                  <ListContainer>
-                    {listUserWorkerAppliedJobs.map((job) => (
-                      <CardWork job={job} key={job.id} />
-                    ))}
-                  </ListContainer>
+                  <Title>ATIVOS</Title>
+                  {type === "worker" ? (
+                    <ListContainer>
+                      {listUserWorkerActiveJobs.map((job) => (
+                        <CardWork job={job} key={job.id} />
+                      ))}
+                    </ListContainer>
+                  ) : (
+                    <ListContainer>
+                      {listUserEmployerActiveJobs.map((job) => (
+                        <CardWork job={job} key={job.id} />
+                      ))}
+                    </ListContainer>
+                  )}
                 </ColumnList>
-              ) : (
-                <ColumnList>
-                  <Title>ATUAIS</Title>
-                  <ListContainer>
-                    {listUserEmployerCurrentJobs.map((job) => (
-                      <CardWork job={job} key={job.id} />
-                    ))}
-                  </ListContainer>
-                </ColumnList>
-              )}
-            </>
-            {type === "employer" && (
-              <ButtonAdd
-                onClick={() => setCreateWorkOpen(true)}
-              ></ButtonAdd>
-            )}
-          </ListsContainer>
-        </Content>
+                <>
+                  {type === "worker" ? (
+                    <ColumnList>
+                      <Title>APLICADOS</Title>
+                      <ListContainer>
+                        {listUserWorkerAppliedJobs.map((job) => (
+                          <CardWork job={job} key={job.id} />
+                        ))}
+                      </ListContainer>
+                    </ColumnList>
+                  ) : (
+                    <ColumnList>
+                      <Title>ATUAIS</Title>
+                      <ListContainer>
+                        {listUserEmployerCurrentJobs.map((job) => (
+                          <CardWork job={job} key={job.id} />
+                        ))}
+                      </ListContainer>
+                    </ColumnList>
+                  )}
+                </>
+                {type === "employer" && (
+                  <ButtonAdd
+                    onClick={() => setCreateWorkOpen(true)}
+                  ></ButtonAdd>
+                )}
+              </ListsContainer>
+              :
+            </Content>
+          ) : (
+            <Content>
+              <WorksDesktop />
+            </Content>
+          )}
+          <ProfileDesktop>
+            <Profile />
+          </ProfileDesktop>
+        </>
       )}
-      <ProfileDesktop>
-        <Profile />
-      </ProfileDesktop>
     </ContainerMain>
     </>
   );
