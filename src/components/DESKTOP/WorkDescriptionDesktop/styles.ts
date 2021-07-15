@@ -6,6 +6,16 @@ interface StatusWorksProps {
   applyRejected?: boolean;
 }
 
+export const BackgroundContainer = styled.div`
+  background-color: var(--cinza-escuro);
+  position: absolute;
+  z-index: 2; 
+  top: 50%;
+  left: 50%;
+
+  transform: translateX(-50%) translateY(-50%);
+`
+
 export const HeaderContainer = styled.header`
   height: 13vh;
   position: relative;
@@ -16,6 +26,8 @@ export const HeaderContainer = styled.header`
   svg:nth-child(1) {
     color: var(--roxo-tema-principal);
     position: absolute;
+    right: 0;
+    top: 0;
     width: 50px;
     height: 50px;
   }
@@ -28,7 +40,7 @@ export const HeaderContainer = styled.header`
 `;
 
 export const MainContainer = styled.main`
-  height: 87vh;
+  height: 500px;
   background-color: var(--cinza-ultra-claro-main);
   border-top-left-radius: 40px;
   border-top-right-radius: 40px;

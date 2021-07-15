@@ -15,6 +15,10 @@ export const CardContainer = styled.div`
   }
 
   border-bottom: 1px solid var(--roxo-tema-principal);
+
+  @media only screen and (min-width: 769px) {
+    height: 125px;
+  }
 `;
 
 export const CardHeader = styled.div`
@@ -48,7 +52,7 @@ export const CardFooter = styled.div`
   font-size: 15px;
 
   div {
-    margin: 10px 0;
+    margin: 10px 0 0 10px;
     display: flex;
     align-items: center;
 

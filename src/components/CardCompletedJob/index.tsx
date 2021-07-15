@@ -1,4 +1,10 @@
-import { ReactNode, useEffect } from "react";
+import {
+  ReactNode,
+  useEffect,
+  useState,
+  Dispatch,
+  SetStateAction,
+} from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { useAuth } from "../../providers/AuthProvider";
 import { useJobs } from "../../providers/Jobs";
@@ -11,40 +17,90 @@ import {
   InfoContainerSubTitle,
 } from "./style";
 import { useHistory } from "react-router-dom";
+import api from "../../service/api";
 
-interface CartCompletedJobPros {
-  children: ReactNode;
-}
-
-interface Job {
-  title: string;
+interface UserCurrenInfo {
+  name: string;
+  type: string;
+  email: string;
+  password: string;
   rating: string;
-  userId: string;
+  moreInfo: {
+    categories: string[];
+    description: string;
+    telephone: string;
+  };
   id: string;
 }
 
-const CartCompletedJob = ({ title, userId, rating, id }: Job) => {
+interface CartCompletedJobProps {
+  title: string;
+  rating: string;
+  userId: string;
+  acceptedCandidateId: string;
+  id: string;
+  pageType: string;
+}
+
+const CardCompletedJob = ({
+  title,
+  userId,
+  acceptedCandidateId,
+  rating,
+  id,
+  pageType,
+}: CartCompletedJobProps) => {
   const { getListUserEmployerCompletedJobs, getListUserWorkerCompletedJobs } =
     useJobs();
-  const { userLoggedInfo } = useAuth();
+  const { userLoggedInfo, token } = useAuth();
+  const [loading, setLoading] = useState(true);
+  const [userCurrentInfo, setUserCurrentInfo] = useState({} as UserCurrenInfo);
   const history = useHistory();
   const handleClick = () => {
     history.push(`/works/${id}`);
   };
 
+  const getInfoCurrentUser = (
+    userWantedId: string,
+    setLoading: Dispatch<SetStateAction<boolean>>
+  ) => {
+    api
+      .get(`/users/${userWantedId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+        setUserCurrentInfo(response.data);
+
+        setLoading(false);
+        //Show Toast
+      })
+      .catch((err) => console.log(err));
+  };
+
   useEffect(() => {
+    if (pageType === "worker") {
+      getInfoCurrentUser(userId, setLoading);
+    } else if (pageType === "employer") {
+      getInfoCurrentUser(acceptedCandidateId, setLoading);
+    }
     if (userLoggedInfo.type === "employer") {
       getListUserEmployerCompletedJobs();
     } else if (userLoggedInfo.type === "worker") {
       getListUserWorkerCompletedJobs();
     }
   }, []);
+  
   return (
-    <Container onClick={handleClick}>
+    <Container  onClick={handleClick} >
       <FaUserCircle className="Avatar-Container" />
       <InfoContainer>
         <InfoContainerTitle>{title}</InfoContainerTitle>
-        <InfoContainerSubTitle>rodrigo</InfoContainerSubTitle>
+        <InfoContainerSubTitle>
+          {loading ? "Carregando..." : userCurrentInfo.name}
+        </InfoContainerSubTitle>
         <Rating
           precision={0.5}
           name="read-only"
@@ -56,4 +112,4 @@ const CartCompletedJob = ({ title, userId, rating, id }: Job) => {
   );
 };
 
-export default CartCompletedJob;
+export default CardCompletedJob;
