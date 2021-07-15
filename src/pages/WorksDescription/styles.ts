@@ -130,6 +130,19 @@ export const ImageEdit = styled.img`
   display: inline-block;
 `;
 
+export const ContainerButton = styled.div`
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  bottom: 30px;
+  width: 100%;
+
+  > button {
+    width: 50%;
+    margin: 0 10px;
+  }
+`;
+
 export const StatusWork = styled.div<StatusWorksProps>`
   background: ${({ completedWork, activeWork, applyRejected }) =>
     completedWork

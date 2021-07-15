@@ -25,7 +25,7 @@ const Navbar = () => {
       setInHome(false);
       history.push("/works");
     }
-    if(page === "inHome"){
+    if (page === "inHome") {
       setInWorks(false);
       setInHome(true);
       history.push("/home");

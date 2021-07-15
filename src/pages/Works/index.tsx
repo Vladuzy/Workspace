@@ -13,6 +13,7 @@ import CardWork from "../../components/CardWork";
 import { useJobs } from "../../providers/Jobs";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../providers/AuthProvider";
+import { useViewport } from "../../providers/GetViewport";
 import { useMenuFooter } from "../../providers/MenuFooterProvider";
 import { Redirect } from "react-router-dom";
 import Filter from "../../components/Filter";
@@ -42,15 +43,14 @@ const Works = () => {
     listWaitingJobsWithoutCandidates,
   } = useJobs();
   const { token } = useAuth();
+  const { viewport: { width } } = useViewport()
   const { setInHome, setInProfile, setInWorks } = useMenuFooter();
   const [loading, setLoading] = useState(true);
 
-  //JOBS FILTRADOS PELO ARR FILTERS
   const [filteredByFilterArr, setFilteredByFilterArr] = useState<Job[]>(
     [] as Job[]
   );
 
-  //FILTRO USADO PELO INPUT
   const [filteredBySearchArr, setFilteredBySearchArr] = useState<Job[]>(
     [] as Job[]
   );
@@ -166,8 +166,9 @@ const Works = () => {
                 <Input placeholder="Pesquisar..." onChange={handleSearch} />
                 <HiSearch />
               </InputContainer>
-              <IconContainer>
-                <GoSettings onClick={() => handleShowFilter(true)} />
+              <IconContainer onClick={() => handleShowFilter(true)}>
+                { width > 1266 && <h3>Filtro</h3>}
+                <GoSettings />
               </IconContainer>
             </FilterContainer>
             <FilterTagsContainer>
@@ -194,7 +195,7 @@ const Works = () => {
                   <CardWork job={elem} key={elem.id} />
                 ))}
           </MainContainer>
-          <Footer />
+          <Footer minHeight="10%" />
         </>
       )}
     </>

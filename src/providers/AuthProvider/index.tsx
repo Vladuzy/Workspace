@@ -10,7 +10,6 @@ import {
   useState,
 } from "react";
 
-import { History } from "history";
 import { toast } from "react-hot-toast";
 import api from "../../service/api";
 interface UserDataRegister {

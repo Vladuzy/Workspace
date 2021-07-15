@@ -77,48 +77,50 @@ const Home = () => {
                 <div>R${totalGains}</div>
               </>
             ) : (
-              <>
-                <div>NÃO ESQUECER DE PENSAR EM ALGO</div>
-              </>
+              <div>
+                <span>Seja bem-vindo(a)</span> {userLoggedInfo.name}
+              </div>
             )}
+
+            <div>
+              <TabStyle
+                id="ativos"
+                current={current}
+                onClick={() => {
+                  setCurrent("ativos");
+                  localStorage.setItem("@WorkSpace:currenSection", "ativos");
+                }}
+              >
+                ATIVOS
+              </TabStyle>
+              {type === "worker" ? (
+                <TabStyle
+                  id="ativos"
+                  current={current}
+                  onClick={() => {
+                    setCurrent("aplicados");
+                    localStorage.setItem(
+                      "@WorkSpace:currenSection",
+                      "aplicados"
+                    );
+                  }}
+                >
+                  ATIVOS
+                </TabStyle>
+              ) : (
+                <TabStyle
+                  id="atuais"
+                  current={current}
+                  onClick={() => {
+                    setCurrent("atuais");
+                    localStorage.setItem("@WorkSpace:currenSection", "atuais");
+                  }}
+                >
+                  ATUAIS
+                </TabStyle>
+              )}
+            </div>
           </Header>
-
-          <div>
-            <TabStyle
-              id="ativos"
-              current={current}
-              onClick={() => {
-                setCurrent("ativos");
-                localStorage.setItem("@WorkSpace:currenSection", "ativos");
-              }}
-            >
-              ATIVOS
-            </TabStyle>
-            {type === "worker" ? (
-              <TabStyle
-                id="aplicados"
-                current={current}
-                onClick={() => {
-                  setCurrent("aplicados");
-                  localStorage.setItem("@WorkSpace:currenSection", "aplicados");
-                }}
-              >
-                APLICADOS
-              </TabStyle>
-            ) : (
-              <TabStyle
-                id="atuais"
-                current={current}
-                onClick={() => {
-                  setCurrent("atuais");
-                  localStorage.setItem("@WorkSpace:currenSection", "atuais");
-                }}
-              >
-                ATUAIS
-              </TabStyle>
-            )}
-          </div>
-
           {current === "ativos" ? (
             type === "worker" ? (
               <ListContainer>
@@ -150,7 +152,7 @@ const Home = () => {
             <ButtonAdd onClick={() => history.push("/createWork")}></ButtonAdd>
           )}
 
-          <Footer />
+          <Footer minHeight="10%" />
         </MainHomeContainer>
       )}
     </>

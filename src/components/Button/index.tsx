@@ -3,6 +3,7 @@ import { ButtonStyles } from "./styles";
 interface props {
   text: string;
   handleClick?: () => void;
+  maxWidth?: string;
   width?: string;
   heigth?: string;
   borderRadius?: string;
@@ -17,6 +18,7 @@ const Button = (
   {
     text,
     handleClick,
+    maxWidth = "inital",
     width = "274px",
     heigth = "56px",
     borderRadius = "8px",
@@ -30,6 +32,7 @@ const Button = (
   return (
     <ButtonStyles
       onClick={handleClick}
+      maxWidth={maxWidth}
       width={width}
       heigth={heigth}
       borderRadius={borderRadius}
