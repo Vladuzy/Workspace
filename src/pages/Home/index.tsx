@@ -31,12 +31,17 @@ const Home = () => {
 
   const { setInHome, setInProfile, setInWorks } = useMenuFooter();
   const [loadingUserLoggedInfo, setLoadingUserLoggedInfo] = useState(true);
-  console.log(listCompletedJobs);
-  const totalGains =
-    type === "worker" &&
-    listCompletedJobs
-      .reduce((acc, acumulater) => acumulater.valueOffered + acc, 0)
-      .toFixed(2);
+  
+  const getTotalGains =()=>{
+    if(type === "worker"){
+      
+      return listCompletedJobs
+      .reduce((acc, acumulater) => Number(acumulater.valueOffered) + acc, 0).toFixed(2)
+      
+    }
+  } 
+  const totalGains=getTotalGains()
+
 
   useEffect(() => {
     getUserLoggedInfo(setLoadingUserLoggedInfo);
@@ -95,7 +100,7 @@ const Home = () => {
               </TabStyle>
               {type === "worker" ? (
                 <TabStyle
-                  id="aplicados"
+                  id="ativos"
                   current={current}
                   onClick={() => {
                     setCurrent("aplicados");
@@ -105,7 +110,7 @@ const Home = () => {
                     );
                   }}
                 >
-                  Aplicados
+                  ATIVOS
                 </TabStyle>
               ) : (
                 <TabStyle
