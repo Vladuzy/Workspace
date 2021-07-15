@@ -360,8 +360,8 @@ const WorksDescription = () => {
       getASpecificJob(id, setLoadingCurrentJob);
       getUserLoggedInfo(setLoadingUserLoggedInfo);
       // <Redirect to={`works/rating/${currentJob.id}`} />;
-      history.push(`/rating/${currentJob.id}`);
-      // setShowRating(true);
+      // history.push(`/rating/${currentJob.id}`);
+      setShowRating(true);
     }
   }, [loadingEmployerCompleteJob]);
 
@@ -371,6 +371,7 @@ const WorksDescription = () => {
 
   return (
     <>
+      {showRating && <RatingWork setShowRating={setShowRating} id={id}/>}
       {loadingCurrentJob &&
       loadingUserLoggedInfo &&
       loadingUserWhoCreatedJob ? (
@@ -386,7 +387,7 @@ const WorksDescription = () => {
             <JobInfoContainer>
               <h2>{title}</h2>
               {/* Foi necessário deixar == para comparar string e number */}
-              {currentJob.userId == userLoggedInfo.id &&
+              {currentJob.userId === userLoggedInfo.id &&
                 currentJob.status === "isWaiting" &&
                 currentJob.appliedCandidateId === "Sem Candidatos" && (
                   <ImageEdit
