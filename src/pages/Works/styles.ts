@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
 export const HeaderContainer = styled.header`
-  height: 15vh;
+  min-height: 15vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 `;
@@ -12,6 +13,11 @@ export const FilterContainer = styled.section`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+
+  @media (min-width: 1266px) {
+    justify-content: flex-start;
+    gap: 30px;
+  }
 `;
 
 export const IconContainer = styled.div`
@@ -36,6 +42,25 @@ export const IconContainer = styled.div`
     width: 20px;
     height: 20px;
   }
+
+  @media (min-width: 1266px) {
+    height: 35px;
+    width: 130px;
+    border-radius: 20px;
+
+    justify-content: space-evenly;
+
+    h3 {
+      font-size: 20px;
+      color: white;
+      font-weight: 400;
+    }
+
+    svg {
+      width: 25px;
+      height: 25px;
+    }
+  }
 `;
 
 export const FilterTagsContainer = styled.div`
@@ -44,7 +69,12 @@ export const FilterTagsContainer = styled.div`
   display: flex;
   gap: 5px;
   flex-wrap: wrap;
-`;
+
+  @media (min-width: 1266px) {
+    margin: 20px 0;
+    gap: 10px;
+  }
+`
 
 export const MainContainer = styled.main`
   max-height: 76vh;
@@ -63,7 +93,14 @@ export const Input = styled.input`
   background: none;
   border: none;
   font-size: 17px;
-`;
+
+  @media (min-width: 1266px) {
+    width: 365px;
+    height: 45px;
+
+    font-size: 20px;
+  }
+`
 
 export const InputContainer = styled.div`
   width: 235px;
@@ -79,4 +116,14 @@ export const InputContainer = styled.div`
     width: 25px;
     height: 25px;
   }
-`;
+
+  @media (min-width: 1266px) {
+    width: 400px;
+    height: 45px;
+
+    svg {
+      width: 30px;
+      height: 30px;
+    }
+  }
+`

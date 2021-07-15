@@ -16,7 +16,7 @@ import {
   ListJobs,
   StyleBody,
   CategoriesContainer,
-  MediaFooter,
+  MediaFooter
 } from "./style";
 import { useJobs } from "../../providers/Jobs";
 import Button from "../../components/Button";
