@@ -27,6 +27,7 @@ export const FormContainer = styled.form`
 
   & > div {
     & > span {
+      flex-grow: 1;
       margin-left: 10px;
       font-size: 12px;
       color: var(--vermelho);
