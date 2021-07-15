@@ -13,10 +13,10 @@ import WorksEdit from "../pages/WorksEdit";
 import CreateWork from "../pages/CreateWork";
 import DesktopHome from "../pages/DESKTOP/DesktopHome";
 import ProfileSpecificUser from "../pages/ProfileSpecificUser/index";
-import RatingWork from "../components/RatingWork/index";
 import WorksDesktop from "../pages/DESKTOP/WorksDesktop";
 import EditInfoProfile from "../pages/EditInfoProfile";
 import { useViewport } from "../providers/GetViewport";
+import ChoiceAvatar from "../pages/ChoiceAvatar";
 
 const Routes = () => {
   const {
@@ -59,9 +59,9 @@ const Routes = () => {
       <Route path="/works/:id">
         <WorksDescription />
       </Route>
-      {/* <Route path="/rating/:id">
-        <RatingWork />
-      </Route> */}
+      <Route path="/teste">
+        <ChoiceAvatar />
+      </Route>
       <Route path="/createWork">
         <CreateWork />
       </Route>

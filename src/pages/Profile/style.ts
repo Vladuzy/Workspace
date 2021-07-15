@@ -97,7 +97,6 @@ export const JobsDone = styled.div`
   div {
     color: var(--cinza-claro);
     text-align: center;
-    width: 90%;
     display: flex;
     justify-content: center;
     align-items: center;
