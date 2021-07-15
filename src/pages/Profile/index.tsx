@@ -26,7 +26,7 @@ import CardCategoryProfile from "../../components/CardCategoryProfile";
 
 //DESKTOP
 import { useViewport } from "../../providers/GetViewport";
-// import MoreInfoProfileDesktop from "../../components/DESKTOP/";
+import MoreInfoProfileDesktop from "../../components/DESKTOP/MoreInfoProfileDesktop";
 
 const Profile = () => {
   const { viewport: { width } } = useViewport()
@@ -57,11 +57,16 @@ const Profile = () => {
   }
 
   const handleAddInfo = () => {
-    history.push("/moreInfoProfile");
+    if (width > 1266) {
+      setAddInfoOpen(true)
+    } else {
+      history.push("/moreInfoProfile");
+    }
   };
 
   return (
     <>
+      {addInfoOpen && <MoreInfoProfileDesktop setAddInfoOpen={setAddInfoOpen}/>}
       <Container>
         {loading ? (
           <Loading />
