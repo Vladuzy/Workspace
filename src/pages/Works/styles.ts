@@ -1,12 +1,14 @@
 import styled from "styled-components";
 
 export const HeaderContainer = styled.header`
-  min-height: 60px;
+  height: 15vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const FilterContainer = styled.section`
   height: 50px;
-
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -42,18 +44,15 @@ export const FilterTagsContainer = styled.div`
   display: flex;
   gap: 5px;
   flex-wrap: wrap;
-`
+`;
 
 export const MainContainer = styled.main`
-  min-height: 80vh;
+  max-height: 76vh;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   background-color: var(--cinza-ultra-claro-main);
-
-  & > div:last-child {
-    margin-bottom: 63px;
-  }
-`
+  overflow-y: scroll;
+`;
 
 export const Input = styled.input`
   width: 200px;
@@ -64,13 +63,13 @@ export const Input = styled.input`
   background: none;
   border: none;
   font-size: 17px;
-`
+`;
 
 export const InputContainer = styled.div`
   width: 235px;
   height: 30px;
   background-color: var(--cinza-escuro);
-  border-radius:15px;
+  border-radius: 15px;
   color: var(--cinza-claro);
 
   display: flex;
@@ -80,4 +79,4 @@ export const InputContainer = styled.div`
     width: 25px;
     height: 25px;
   }
-`
+`;

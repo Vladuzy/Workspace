@@ -5,65 +5,10 @@ interface SectionContactProps {
 }
 
 export const Container = styled.main`
-  .loader,
-  .loader:before,
-  .loader:after {
-    border-radius: 50%;
-    width: 2.5em;
-    height: 2.5em;
-    -webkit-animation-fill-mode: both;
-    animation-fill-mode: both;
-    -webkit-animation: load7 1.8s infinite ease-in-out;
-    animation: load7 1.8s infinite ease-in-out;
-  }
-  .loader {
-    color: var(--roxo-tema-principal);
-    font-size: 10px;
-    margin: 0 auto;
-    position: absolute;
-    bottom: 50%;
-    right: 50%;
-    transform: translate(-50%, 50%);
-    text-indent: -9999em;
-    -webkit-transform: translateZ(0);
-    -ms-transform: translateZ(0);
-    transform: translateZ(0);
-    -webkit-animation-delay: -0.16s;
-    animation-delay: -0.16s;
-  }
-  .loader:before,
-  .loader:after {
-    content: "";
-    position: absolute;
-    top: 0;
-  }
-  .loader:before {
-    left: -3.5em;
-    -webkit-animation-delay: -0.32s;
-    animation-delay: -0.32s;
-  }
-  .loader:after {
-    left: 3.5em;
-  }
-  @-webkit-keyframes load7 {
-    0%,
-    80%,
-    100% {
-      box-shadow: 0 2.5em 0 -1.3em;
-    }
-    40% {
-      box-shadow: 0 2.5em 0 0;
-    }
-  }
-  @keyframes load7 {
-    0%,
-    80%,
-    100% {
-      box-shadow: 0 2.5em 0 -1.3em;
-    }
-    40% {
-      box-shadow: 0 2.5em 0 0;
-    }
+  height: 100vh;
+
+  @media only screen and (min-width: 769px) {
+    padding-top: 15vh;
   }
 `;
 
@@ -79,7 +24,6 @@ export const StyleMain = styled.main`
 
 export const StyledMoreInfo = styled.div`
   margin-top: 20px;
-
   display: flex;
   justify-content: space-between;
 
@@ -87,6 +31,7 @@ export const StyledMoreInfo = styled.div`
     display: block;
   }
 `;
+
 export const SectionExp = styled.section`
   margin: 10px auto;
   div {
@@ -102,7 +47,8 @@ export const CategoriesContainer = styled.section`
   display: flex;
   justify-content: space-between;
   gap: 5px;
-`
+`;
+
 export const SectionCategories = styled.section`
   width: 40%;
   display: flex;
@@ -125,10 +71,11 @@ export const StyledNoInfo = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 44vh;
+  height: 25vh;
+
   div {
     text-align: center;
-    margin: 1rem auto 5px;
+    margin: 1rem auto;
     color: var(--cinza-claro);
   }
 `;
@@ -148,22 +95,41 @@ export const JobsDone = styled.div`
   div {
     color: var(--cinza-claro);
     text-align: center;
-    width: 90vw;
+    width: 90%;
     display: flex;
     justify-content: center;
     align-items: center;
+
     div {
       margin-top: 1rem;
       width: 200px;
     }
   }
 `;
+
 export const ListJobs = styled.ul`
-  list-style: none;
+  @media only screen and (min-width: 769px) {
+    overflow-y: scroll;
+    max-height: 40vh;
+
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 5px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--preto-cafe);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      border-radius: 30px;
+      background: var(--roxo-tema-principal);
+    }
+  }
 `;
 
-export const MediaFooter =styled.div`
-  @media only screen and (min-width: 729px){
+export const MediaFooter = styled.div`
+  @media only screen and (min-width: 769px) {
     display: none;
   }
-`
+`;

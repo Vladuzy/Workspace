@@ -19,6 +19,7 @@ import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 interface FooterProps {
+  minHeight?: string;
   isWork?: boolean;
   isHome?: boolean;
   isProfile?: boolean;
@@ -29,6 +30,7 @@ interface Params {
 }
 
 const Footer = ({
+  minHeight = "initial",
   isWork = false,
   isHome = false,
   isProfile = false,
@@ -88,7 +90,7 @@ const Footer = ({
   return (
     <>
       {isAuthenticated && !isDescriptionPage && (
-        <Nav>
+        <Nav minHeight={minHeight}>
           <NavMenu>
             <NavLink
               // onClick={handleSwitchToWorks}
