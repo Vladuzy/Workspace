@@ -139,23 +139,21 @@ export const JobsDone = styled.div`
 `;
 
 export const ListJobs = styled.ul`
-  @media only screen and (min-width: 769px) {
-    overflow-y: scroll;
-    max-height: 30vh;
+  overflow-y: scroll;
+  max-height: 30vh;
 
-    ::-webkit-scrollbar {
-      width: 4px;
-      height: 5px;
-    }
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 5px;
+  }
 
-    ::-webkit-scrollbar-track {
-      background: var(--preto-cafe);
-    }
+  ::-webkit-scrollbar-track {
+    background: var(--preto-cafe);
+  }
 
-    ::-webkit-scrollbar-thumb {
-      border-radius: 30px;
-      background: var(--roxo-tema-principal);
-    }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 30px;
+    background: var(--roxo-tema-principal);
   }
 `;
 
