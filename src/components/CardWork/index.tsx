@@ -5,6 +5,8 @@ import { FaUserCircle } from 'react-icons/fa'
 import { CardContainer, CardHeader, CardFooter } from "./style";
 import CategoryTag from "../CategoryTag";
 import { useHistory } from 'react-router-dom'
+import { useViewport } from '../../providers/GetViewport'
+import { useState } from "react";
 
 interface CardWorkProps {
   job: {
@@ -25,10 +27,13 @@ interface CardWorkProps {
 }
 
 const CardWork = ({ job }: CardWorkProps) => {
+  const [popUp, setPopUp] = useState<boolean>(false as boolean)
+  const { viewport: { width } } = useViewport()
   const history = useHistory()
   const { title, category, valueOffered, location, id } = job;
 
   return (
+    
     <CardContainer onClick={() => history.push(`/works/${id}`)}>
       <div>
         <CardHeader>

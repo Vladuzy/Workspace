@@ -7,14 +7,16 @@ import Home from "../pages/Home";
 import Works from "../pages/Works";
 import WorksDescription from "../pages/WorksDescription";
 import NotFound from "../pages/NotFound";
+import NotFoundDesk from "../pages/NotFoundDesk/NotFound";
 import MoreInfoProfile from "../pages/MoreInfoProfile/Index";
 import WorksEdit from "../pages/WorksEdit";
 import CreateWork from "../pages/CreateWork";
 import DesktopHome from "../pages/DesktopHome";
 
+import RatingWork from "../components/RatingWork/index";
+import WorksDesktop from "../pages/WorksDesktop";
 import EditInfoProfile from "../pages/EditInfoProfile";
 import { useViewport } from "../providers/GetViewport";
-import RatingWork from "../components/RatingWork/index";
 
 const Routes = () => {
   const {
@@ -75,11 +77,17 @@ const Routes = () => {
       <Route path="/register">
         <Register />
       </Route>
+      <Route path="/works">
+        <WorksDesktop />
+      </Route>
       <Route path="/home">
         <DesktopHome />
       </Route>
       <Route path="*">
         <NotFound />
+      </Route>
+      <Route path="*">
+        <NotFoundDesk />
       </Route>
     </Switch>
   );
