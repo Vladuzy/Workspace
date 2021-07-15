@@ -194,7 +194,7 @@ const Works = () => {
                   <CardWork job={elem} key={elem.id} />
                 ))}
           </MainContainer>
-          <Footer />
+          <Footer minHeight="10%" />
         </>
       )}
     </>

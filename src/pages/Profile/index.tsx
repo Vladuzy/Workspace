@@ -4,7 +4,6 @@ import Header from "../../components/Header";
 import { useAuth } from "../../providers/AuthProvider";
 import { useMenuFooter } from "../../providers/MenuFooterProvider";
 import Footer from "../../components/Footer";
-import CategoryTag from "../../components/CategoryTag";
 import {
   Container,
   StyledMoreInfo,
@@ -21,10 +20,9 @@ import {
 } from "./style";
 import { useJobs } from "../../providers/Jobs";
 import Button from "../../components/Button";
-import CartCompletedJob from "../../components/CartCompletedJob";
+import CardCompletedJob from "../../components/CardCompletedJob";
 import Loading from "../../components/Loading/index";
-import CardCategoryProfile from '../../components/CardCategoryProfile'
-
+import CardCategoryProfile from "../../components/CardCategoryProfile";
 
 const Profile = () => {
   const { token, getUserLoggedInfo, userLoggedInfo } = useAuth();
@@ -95,8 +93,8 @@ const Profile = () => {
                 <div>Adicione o restante de suas informações!</div>
                 <Button
                   text="Adicionar"
-                  width="100px"
-                  heigth="32px"
+                  width="150px"
+                  heigth="40px"
                   borderRadius="20px"
                   handleClick={handleEdit}
                 />
@@ -111,7 +109,13 @@ const Profile = () => {
                   </div>
                   <ListJobs>
                     {listCompletedJobs.map((job) => (
-                      <CartCompletedJob title={job.title} rating={job.rating} id={job.id} userId={job.userId}  key={job.id}></CartCompletedJob>
+                      <CardCompletedJob
+                        title={job.title}
+                        rating={job.rating}
+                        id={job.id}
+                        userId={job.userId}
+                        key={job.id}
+                      ></CardCompletedJob>
                     ))}
                   </ListJobs>
                 </>
@@ -132,7 +136,7 @@ const Profile = () => {
             </JobsDone>
           </StyleBody>
           <MediaFooter>
-          <Footer />
+            <Footer />
           </MediaFooter>
         </>
       )}
