@@ -17,7 +17,12 @@ import {
 } from "./style";
 import { useEffect, useState } from "react";
 
+import { useViewport } from "../../providers/GetViewport";
+import EditInfoProfileDesktop from "../../components/DESKTOP/EditInfoProfileDesktop";
+
 const Header = () => {
+  const { viewport: { width } } = useViewport()
+  const [editOpen, setEditOpen] = useState<boolean>(false as boolean)
   const {
     listCompletedJobs,
     getListUserWorkerCompletedJobs,
@@ -39,8 +44,15 @@ const Header = () => {
     setInProfile(false);
     history.push("/");
   };
+  
   const handleEdit = () => {
-    history.push("/editInfoProfile");
+    console.log('biri')
+    if (width > 1266) {
+      console.log('biri12')
+      setEditOpen(true)
+    } else {
+      history.push("/editInfoProfile");
+    }
   };
 
   const totalRating =
@@ -60,37 +72,40 @@ const Header = () => {
   }, []);
 
   return (
-    <Container>
-      <HeaderContainer>
-        <img src={imgAvatar} alt="Icone Avatar" />
-        <HeaderInternContainer>
-          <TitleContainer>{userLoggedInfo.name}</TitleContainer>
-          {type === "worker" &&
-            (totalRating === "Sem Avaliações" ? (
-              <p>{totalRating}</p>
-            ) : (
-              <Rating
-                precision={0.5}
-                name="read-only"
-                value={totalRating}
-                readOnly
-              />
-            ))}
-        </HeaderInternContainer>
-      </HeaderContainer>
-      <HandleContainer>
-        <ImgHandleContainer
-          onClick={handleLogout}
-          src={imgLogout}
-          alt="Icone Logout"
-        />
-        <ImgHandleContainer
-          onClick={handleEdit}
-          src={imgEdit}
-          alt="Icone Edit"
-        />
-      </HandleContainer>
-    </Container>
+    <>
+      {editOpen && <EditInfoProfileDesktop setEditOpen={setEditOpen}/>}
+      <Container>
+        <HeaderContainer>
+          <img src={imgAvatar} alt="Icone Avatar" />
+          <HeaderInternContainer>
+            <TitleContainer>{userLoggedInfo.name}</TitleContainer>
+            {type === "worker" &&
+              (totalRating === "Sem Avaliações" ? (
+                <p>{totalRating}</p>
+              ) : (
+                <Rating
+                  precision={0.5}
+                  name="read-only"
+                  value={totalRating}
+                  readOnly
+                />
+              ))}
+          </HeaderInternContainer>
+        </HeaderContainer>
+        <HandleContainer>
+          <ImgHandleContainer
+            onClick={handleLogout}
+            src={imgLogout}
+            alt="Icone Logout"
+          />
+          <ImgHandleContainer
+            onClick={handleEdit}
+            src={imgEdit}
+            alt="Icone Edit"
+          />
+        </HandleContainer>
+      </Container>
+    </>
   );
 };
 
