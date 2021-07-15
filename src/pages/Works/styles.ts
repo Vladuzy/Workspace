@@ -47,7 +47,6 @@ export const IconContainer = styled.div`
     height: 35px;
     width: 130px;
     border-radius: 20px;
-
     justify-content: space-evenly;
 
     h3 {
@@ -74,7 +73,7 @@ export const FilterTagsContainer = styled.div`
     margin: 20px 0;
     gap: 10px;
   }
-`
+`;
 
 export const MainContainer = styled.main`
   max-height: 76vh;
@@ -82,6 +81,39 @@ export const MainContainer = styled.main`
   border-top-right-radius: 20px;
   background-color: var(--cinza-ultra-claro-main);
   overflow-y: scroll;
+
+  @media (min-width: 769px) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    padding: 10px;
+    margin: 20px 0;
+    gap: 10px;
+    height: 65vh;
+
+    &::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: var(--preto-cafe);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 30px;
+      background: var(--roxo-tema-principal);
+    }
+
+    > div {
+      padding: 0px 10px;
+      max-width: 350px;
+      min-width: 235px;
+      width: 42%;
+      border: 1px solid var(--roxo-tema-principal);
+      border-radius: 8px;
+    }
+  }
 `;
 
 export const Input = styled.input`
@@ -100,7 +132,7 @@ export const Input = styled.input`
 
     font-size: 20px;
   }
-`
+`;
 
 export const InputContainer = styled.div`
   width: 235px;
@@ -126,4 +158,4 @@ export const InputContainer = styled.div`
       height: 30px;
     }
   }
-`
+`;

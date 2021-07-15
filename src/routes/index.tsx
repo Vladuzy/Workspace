@@ -81,7 +81,7 @@ const Routes = () => {
         <Register />
       </Route>
       <Route path="/works">
-        <WorksDesktop />
+        <DesktopHome />
       </Route>
       <Route path="/home">
         <DesktopHome />

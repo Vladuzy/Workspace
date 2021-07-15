@@ -32,11 +32,11 @@ const Home = () => {
   const { setInHome, setInProfile, setInWorks } = useMenuFooter();
   const [loadingUserLoggedInfo, setLoadingUserLoggedInfo] = useState(true);
   console.log(listCompletedJobs);
-  const totalGains =
+  /* const totalGains =
     type === "worker" &&
     listCompletedJobs
       .reduce((acc, acumulater) => acumulater.valueOffered + acc, 0)
-      .toFixed(2);
+      .toFixed(2); */
 
   useEffect(() => {
     getUserLoggedInfo(setLoadingUserLoggedInfo);
@@ -74,7 +74,7 @@ const Home = () => {
             {type === "worker" ? (
               <>
                 <span>Total ganho:</span>
-                <div>R${totalGains}</div>
+                <div>R$</div>
               </>
             ) : (
               <div>
