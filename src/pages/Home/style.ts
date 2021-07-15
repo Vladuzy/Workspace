@@ -39,7 +39,7 @@ export const Header = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-
+    height: 60%;
     & > span {
       font-size: 14px;
       display: inherit;
@@ -51,6 +51,6 @@ export const Header = styled.div`
     color: var(--roxo-tema-principal);
     font-weight: bold;
     font-size: 20px;
-    height: 50%;
+    height: 40%;
   }
 `;
