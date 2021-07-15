@@ -11,11 +11,10 @@ import NotFoundDesk from "../pages/NotFoundDesk/NotFound";
 import MoreInfoProfile from "../pages/MoreInfoProfile/Index";
 import WorksEdit from "../pages/WorksEdit";
 import CreateWork from "../pages/CreateWork";
-import DesktopHome from "../pages/DesktopHome";
-
+import DesktopHome from "../pages/DESKTOP/DesktopHome";
 import ProfileSpecificUser from "../pages/ProfileSpecificUser/index";
 import RatingWork from "../components/RatingWork/index";
-import WorksDesktop from "../pages/WorksDesktop";
+import WorksDesktop from "../pages/DESKTOP/WorksDesktop";
 import EditInfoProfile from "../pages/EditInfoProfile";
 import { useViewport } from "../providers/GetViewport";
 
@@ -86,9 +85,6 @@ const Routes = () => {
       </Route>
       <Route path="/home">
         <DesktopHome />
-      </Route>
-      <Route path="*">
-        <NotFound />
       </Route>
       <Route path="*">
         <NotFoundDesk />

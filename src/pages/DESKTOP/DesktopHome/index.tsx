@@ -1,10 +1,10 @@
 import { Redirect, useHistory } from "react-router-dom";
-import { useAuth } from "../../providers/AuthProvider";
-import Navbar from "../../components/MenuAside";
-import CardWork from "../../components/CardWork";
+import { useAuth } from "../../../providers/AuthProvider";
+import Navbar from "../../../components/DESKTOP/MenuAside";
+import CardWork from "../../../components/CardWork";
 import { useEffect, useState } from "react";
-import { useJobs } from "../../providers/Jobs";
-import { useMenuFooter } from "../../providers/MenuFooterProvider";
+import { useJobs } from "../../../providers/Jobs";
+import { useMenuFooter } from "../../../providers/MenuFooterProvider";
 import {
   ContainerMain,
   Content,
@@ -15,9 +15,9 @@ import {
   ListContainer,
 } from "./style";
 
-import ButtonAdd from "../../components/ButtonAdd";
-import Loading from "../../components/Loading/index";
-import Profile from "../Profile";
+import ButtonAdd from "../../../components/ButtonAdd";
+import Loading from "../../../components/Loading/index";
+import Profile from "../../Profile";
 
 const DesktopHome = () => {
   const history = useHistory();

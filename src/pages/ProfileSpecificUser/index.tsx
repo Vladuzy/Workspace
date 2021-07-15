@@ -18,7 +18,7 @@ import {
   MediaFooter,
 } from "./style";
 import { useJobs } from "../../providers/Jobs";
-import CartCompletedJob from "../../components/CartCompletedJob";
+import CardCompletedJob from "../../components/CardCompletedJob";
 import Loading from "../../components/Loading/index";
 import CardCategoryProfile from "../../components/CardCategoryProfile";
 import HeaderSpecificUser from "../../components/HeaderSpecificUser/index";
@@ -170,7 +170,7 @@ const ProfileSpecificUser = () => {
                   </div>
                   <ListJobs>
                     {listCompletedJobsSpecificUser.map((job) => (
-                      <CartCompletedJob
+                      <CardCompletedJob
                         title={job.title}
                         rating={job.rating}
                         acceptedCandidateId={job.acceptedCandidateId}
@@ -178,7 +178,7 @@ const ProfileSpecificUser = () => {
                         userId={job.userId}
                         key={job.id}
                         pageType={userWantedInfo.type}
-                      ></CartCompletedJob>
+                      ></CardCompletedJob>
                     ))}
                   </ListJobs>
                 </>
