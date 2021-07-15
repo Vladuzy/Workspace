@@ -4,7 +4,6 @@ import Header from "../../components/Header";
 import { useAuth } from "../../providers/AuthProvider";
 import { useMenuFooter } from "../../providers/MenuFooterProvider";
 import Footer from "../../components/Footer";
-import CategoryTag from "../../components/CategoryTag";
 import {
   Container,
   StyledMoreInfo,
@@ -17,7 +16,6 @@ import {
   ListJobs,
   StyleBody,
   CategoriesContainer,
-  MediaFooter,
 } from "./style";
 import { useJobs } from "../../providers/Jobs";
 import Button from "../../components/Button";
@@ -132,9 +130,7 @@ const Profile = () => {
               )}
             </JobsDone>
           </StyleBody>
-          <MediaFooter>
           <Footer />
-          </MediaFooter>
         </>
       )}
     </Container>

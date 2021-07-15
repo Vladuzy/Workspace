@@ -133,6 +133,8 @@ export const StyledNoInfo = styled.div`
 `;
 
 export const JobsDone = styled.div`
+  margin-top: 45px;
+
   .JobsDoneHeader {
     justify-content: space-between;
     h3 {
