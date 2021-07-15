@@ -25,6 +25,7 @@ import { useParams, useHistory, Redirect } from "react-router-dom";
 import { useAuth } from "../../providers/AuthProvider";
 import imgEdit from "../../assets/img/Edit.svg";
 import Loading from "../../components/Loading";
+import RatingWork from "../../components/RatingWork/index";
 
 interface Params {
   id: string;
@@ -89,6 +90,8 @@ const WorksDescription = () => {
 
   const [loadingUserAppliedJob, setLoadingUserAppliedJob] = useState(true);
   const [loadingUserAcceptedJob, setLoadingUserAcceptedJob] = useState(true);
+
+  const [showRating, setShowRating] = useState<boolean>(false);
 
   const [userWhoCreatedJob, setUserWhoCreatedJob] = useState<UserInfo>(
     {} as UserInfo
@@ -356,7 +359,9 @@ const WorksDescription = () => {
     if (!loadingEmployerCompleteJob) {
       getASpecificJob(id, setLoadingCurrentJob);
       getUserLoggedInfo(setLoadingUserLoggedInfo);
-      history.go(0);
+      // <Redirect to={`works/rating/${currentJob.id}`} />;
+      history.push(`/rating/${currentJob.id}`);
+      // setShowRating(true);
     }
   }, [loadingEmployerCompleteJob]);
 
@@ -499,7 +504,7 @@ const WorksDescription = () => {
                   <Button
                     text="Recusar"
                     width="230px"
-                    maxWidth="230px"
+                    max-Width="230px"
                     heigth="40px"
                     borderRadius="20px"
                     border="1px solid var(--roxo-tema-principal)"
@@ -517,7 +522,7 @@ const WorksDescription = () => {
                   <Button
                     text="Aceitar"
                     width="230px"
-                    maxWidth="230px"
+                    max-Width="230px"
                     heigth="40px"
                     borderRadius="20px"
                     backColor="var(--roxo-tema-principal)"
@@ -539,16 +544,22 @@ const WorksDescription = () => {
               userLoggedInfo.type === "worker" ? (
                 <StatusWork activeWork>Trabalho Ativo</StatusWork>
               ) : (
-                <Button
-                  text="Concluir"
-                  width="230px"
-                  heigth="40px"
-                  borderRadius="20px"
-                  handleClick={() => {
-                    userEmployerCompleteJob(id, setLoadingEmployerCompleteJob);
-                  }}
-                  backColor="var(--roxo-tema-principal)"
-                />
+                <>
+                  <Button
+                    text="Concluir"
+                    width="230px"
+                    heigth="40px"
+                    borderRadius="20px"
+                    handleClick={() => {
+                      userEmployerCompleteJob(
+                        id,
+                        setLoadingEmployerCompleteJob
+                      );
+                    }}
+                    backColor="var(--roxo-tema-principal)"
+                  />
+                  {/* <RatingWork id={currentJob.id} showModal={showRating} /> */}
+                </>
               )
             ) : (
               <StatusWork completedWork>Concluído</StatusWork>
