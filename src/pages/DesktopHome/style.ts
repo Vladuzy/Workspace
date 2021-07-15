@@ -5,14 +5,13 @@ export const ContainerMain = styled.main`
   align-items: flex-end;
   max-width: 100vw;
   max-height: 100vh;
-
-  h1 {
-    color: var(--roxo-tema-principal);
-    margin-left: 5rem;
-    margin-bottom: 10px;
-    font-weight: normal;
-    font-size: 2em;
-  }
+`;
+export const Title = styled.h1`
+  color: var(--roxo-tema-principal);
+  margin-left: 5rem;
+  margin-bottom: 10px;
+  font-weight: normal;
+  font-size: 2em;
 `;
 
 export const Content = styled.div`
@@ -26,6 +25,7 @@ export const ListsContainer = styled.div`
 
 export const ListContainer = styled.div`
   max-height: 34vh;
+  height: 34vh;
   border-radius: 15px;
   background-color: var(--cinza-ultra-claro-main);
   overflow-y: scroll;

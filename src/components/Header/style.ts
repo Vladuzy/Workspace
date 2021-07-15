@@ -30,6 +30,7 @@ export const HandleContainer = styled.div`
 export const ImgHandleContainer = styled.img`
   width: 24px;
   height: 24px;
+  cursor: pointer;
 
   @media only screen and (min-width: 769px) {
     :first-child {
