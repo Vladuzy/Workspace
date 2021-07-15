@@ -30,6 +30,12 @@ export const HandleContainer = styled.div`
 export const ImgHandleContainer = styled.img`
   width: 24px;
   height: 24px;
+
+  @media only screen and (min-width: 769px) {
+    :first-child {
+      display: none;
+    }
+  }
 `;
 
 export const HeaderContainer = styled.header`
