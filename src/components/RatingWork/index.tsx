@@ -1,27 +1,23 @@
 import Rating from "@material-ui/lab/Rating";
-import { useHistory, useParams } from "react-router-dom";
-import React, { useEffect, useState, ChangeEvent } from "react";
-import { Container, Button } from "./style";
+import { useHistory } from "react-router-dom";
+import React, { Dispatch } from "react";
+import { BackgroundContainer, RatingContainer, Button } from "./style";
 import api from "../../service/api";
 import { useAuth } from "../../providers/AuthProvider";
+import { SetStateAction } from "react";
 
-interface RatingWorkParams {
+interface RatingWorkProps {
   id: string;
-  showModal: boolean;
+  setShowRating: Dispatch<SetStateAction<boolean>>;
 }
 
-interface Params {
-  id: string;
-}
-const RatingWork = () => {
+const RatingWork = ({ setShowRating, id }: RatingWorkProps) => {
   const [value, setValue] = React.useState<number | null>(0);
 
   const { token } = useAuth();
-  const { id } = useParams() as Params;
   const history = useHistory();
 
   const handleData = (id: string, value: number | null) => {
-    console.log(value);
     api
       .patch(
         `/jobs/${id}`,
@@ -33,27 +29,28 @@ const RatingWork = () => {
         }
       )
       .then((response) => {
-        console.log(response);
-
+        setShowRating(false)
         //Show Toast
       })
       .catch((err) => console.log(err));
     history.goBack();
   };
   return (
-    <Container>
-      <h2>Avalie o trabalho feito!</h2>
-      <Rating
-        name="simple-controlled"
-        value={value}
-        onChange={(event, newValue) => {
-          setValue(newValue);
-        }}
-      />
-      <Button onClick={() => handleData(id, value)} type="button">
-        Avaliar
-      </Button>
-    </Container>
+    <BackgroundContainer>
+      <RatingContainer>
+        <h2>Avalie o trabalho feito!</h2>
+        <Rating
+          name="simple-controlled"
+          value={value}
+          onChange={(event, newValue) => {
+            setValue(newValue);
+          }}
+        />
+        <Button onClick={() => handleData(id, value)} type="button">
+          Avaliar
+        </Button>
+      </RatingContainer>
+    </BackgroundContainer>
   );
 };
 export default RatingWork;

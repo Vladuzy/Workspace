@@ -59,9 +59,9 @@ const Routes = () => {
       <Route path="/works/:id">
         <WorksDescription />
       </Route>
-      <Route path="/rating/:id">
+      {/* <Route path="/rating/:id">
         <RatingWork />
-      </Route>
+      </Route> */}
       <Route path="/createWork">
         <CreateWork />
       </Route>
