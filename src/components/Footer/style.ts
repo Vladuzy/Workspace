@@ -16,6 +16,10 @@ export const Nav = styled.nav<NavProps>`
   left: 0;
   right: 0;
   z-index: 1;
+
+  @media only screen and (min-width: 769px) {
+    display: none;
+  }
 `;
 
 export const NavMenu = styled.div`
