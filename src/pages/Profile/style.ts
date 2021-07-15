@@ -24,7 +24,6 @@ export const StyleMain = styled.main`
 
 export const StyledMoreInfo = styled.div`
   margin-top: 20px;
-
   display: flex;
   justify-content: space-between;
 
@@ -32,6 +31,7 @@ export const StyledMoreInfo = styled.div`
     display: block;
   }
 `;
+
 export const SectionExp = styled.section`
   margin: 10px auto;
   div {
@@ -71,7 +71,8 @@ export const StyledNoInfo = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 44vh;
+  height: 25vh;
+
   div {
     text-align: center;
     margin: 1rem auto;
@@ -98,14 +99,33 @@ export const JobsDone = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+
     div {
       margin-top: 1rem;
       width: 200px;
     }
   }
 `;
+
 export const ListJobs = styled.ul`
-  list-style: none;
+  @media only screen and (min-width: 769px) {
+    overflow-y: scroll;
+    max-height: 40vh;
+
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 5px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--preto-cafe);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      border-radius: 30px;
+      background: var(--roxo-tema-principal);
+    }
+  }
 `;
 
 export const MediaFooter = styled.div`
