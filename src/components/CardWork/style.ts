@@ -48,7 +48,7 @@ export const CardFooter = styled.div`
   font-size: 15px;
 
   div {
-    margin: 10px 0;
+    margin: 10px 0 0 10px;
     display: flex;
     align-items: center;
 
