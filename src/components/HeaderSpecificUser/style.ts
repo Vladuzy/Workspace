@@ -8,18 +8,19 @@ export const Container = styled.div`
   border-radius: 0px 0px 20px 20px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
   height: 94px;
-
-  @media only screen and (min-width: 769px) {
-    border-radius: 10px;
-    max-width: 95%;
-    margin: 0 auto;
-  }
 `;
 
 export const TitleContainer = styled.h3`
   color: var(--roxo-tema-principal);
   margin-left: 3px;
 `;
+export const ImageHeader = styled.img`
+background-size: cover;
+width: 50px;
+height: 50px;
+margin-right: 5vw;
+margin-top: 20px;
+`
 
 export const HandleContainer = styled.div`
   display: flex;
@@ -30,13 +31,6 @@ export const HandleContainer = styled.div`
 export const ImgHandleContainer = styled.img`
   width: 24px;
   height: 24px;
-  cursor: pointer;
-
-  @media only screen and (min-width: 769px) {
-    :first-child {
-      display: none;
-    }
-  }
 `;
 
 export const HeaderContainer = styled.header`

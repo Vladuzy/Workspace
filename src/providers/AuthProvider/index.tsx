@@ -10,7 +10,6 @@ import {
   useState,
 } from "react";
 
-import { History } from "history";
 import { toast } from "react-hot-toast";
 import api from "../../service/api";
 interface UserDataRegister {
@@ -96,7 +95,10 @@ interface AuthProviderData {
   setUserLoggedId: Dispatch<SetStateAction<string>>;
   getUserLoggedInfo: (setLoading: Dispatch<SetStateAction<boolean>>) => void;
   userLoggedInfo: UserLoggedInfo;
-  getInfoFromASpecificUser: (userWantedId: string) => void;
+  getInfoFromASpecificUser: (
+    userWantedId: string,
+    setLoading: Dispatch<SetStateAction<boolean>>
+  ) => void;
   userWantedInfo: UserWantedInfo;
   addMoreInfoUserEmployer: (userDataMoreInfo: UserEmployerDataMoreInfo) => void;
   addMoreInfoUserWorker: (
@@ -167,7 +169,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       .catch((err) => console.log(err));
   };
 
-  const getInfoFromASpecificUser = (userWantedId: string) => {
+  const getInfoFromASpecificUser = (
+    userWantedId: string,
+    setLoading: Dispatch<SetStateAction<boolean>>
+  ) => {
     api
       .get(`/users/${userWantedId}`, {
         headers: {
@@ -181,6 +186,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
           "@WorkSpace:userWantedInfo",
           JSON.stringify(response.data)
         );
+        setLoading(false);
         console.log(userWantedInfo);
         //Show Toast
       })

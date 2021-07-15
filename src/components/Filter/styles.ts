@@ -10,6 +10,13 @@ export const BackgroundContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media (min-width: 1266px) {
+    top: 0;
+    left: 50%;
+
+    transform: translateX(-50%);
+  }
 `
 
 export const FilterContainer = styled.main`
