@@ -38,7 +38,6 @@ const DesktopHome = () => {
 
   const { setInHome, setInProfile, setInWorks } = useMenuFooter();
   const [loadingUserLoggedInfo, setLoadingUserLoggedInfo] = useState(true);
-  console.log(listCompletedJobs);
 
   useEffect(() => {
     getUserLoggedInfo(setLoadingUserLoggedInfo);
