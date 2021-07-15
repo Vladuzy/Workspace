@@ -9,6 +9,8 @@ import {
 } from "react";
 
 import api from "../../service/api";
+import toast from "react-hot-toast";
+import { useHistory } from "react-router";
 
 import { useAuth } from "../AuthProvider/index";
 
@@ -208,7 +210,7 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
       })
       .then((response) => {
         console.log(response);
-        //Show Toast
+        toast.success("Trabalho Criado com sucesso!!");
       })
       .catch((err) => console.log(err));
   };
