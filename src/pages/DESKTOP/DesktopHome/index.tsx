@@ -38,12 +38,6 @@ const DesktopHome = () => {
 
   const { setInHome, setInProfile, setInWorks } = useMenuFooter();
   const [loadingUserLoggedInfo, setLoadingUserLoggedInfo] = useState(true);
-  console.log(listCompletedJobs);
-  const totalGains =
-    type === "worker" &&
-    listCompletedJobs
-      .reduce((acc, acumulater) => acumulater.valueOffered + acc, 0)
-      .toFixed(2);
 
   useEffect(() => {
     getUserLoggedInfo(setLoadingUserLoggedInfo);
