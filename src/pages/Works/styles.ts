@@ -48,6 +48,7 @@ export const IconContainer = styled.div`
     width: 130px;
     border-radius: 20px;
     justify-content: space-evenly;
+    cursor: pointer;
 
     h3 {
       font-size: 20px;
@@ -90,7 +91,6 @@ export const MainContainer = styled.main`
     margin: 20px 0;
     gap: 10px;
     height: 65vh;
-
     &::-webkit-scrollbar {
       width: 10px;
       height: 10px;
