@@ -24,7 +24,7 @@ const Routes = () => {
   } = useViewport();
   console.log(width);
 
-  return width < 769 ? (
+  return width < 1266 ? (
     <Switch>
       <Route exact path="/">
         <LandingPage />

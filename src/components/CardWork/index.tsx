@@ -8,6 +8,7 @@ import { useHistory } from "react-router-dom";
 import { useViewport } from "../../providers/GetViewport";
 import { useState } from "react";
 import { useAuth } from "../../providers/AuthProvider";
+import WorksDescriptionDesktop from "../DESKTOP/WorkDescriptionDesktop";
 
 interface CardWorkProps {
   job: {
@@ -44,41 +45,53 @@ const CardWork = ({ job }: CardWorkProps) => {
   } = job;
   const { userLoggedInfo } = useAuth();
 
-  return (
-    <CardContainer onClick={() => history.push(`/works/${id}`)}>
-      <div>
-        <CardHeader>
-          <FaUserCircle />
-          <div>
-            <h2>{title}</h2>
-            <CategoryTag
-              category={Array.isArray(category) ? category[0] : category}
-            />
-          </div>
-        </CardHeader>
+  const handleOpenDescription = () => {
+    if (width > 1266) {
+      setPopUp(true);
+    } else {
+      history.push(`/works/${id}`);
+    }
+  };
 
-        <CardFooter>
-          <div>
-            <GiPositionMarker />
-            <span>{location}</span>
-          </div>
-          <div>
-            <FaDollarSign />
-            <span>{valueOffered}</span>
-          </div>
-          <div>
-            {userLoggedInfo.type === "employer" &&
-              status === "isWaiting" &&
-              (appliedCandidateId === "Sem Candidatos" ? (
-                <span>Sem Candidato </span>
-              ) : (
-                <span>Com Candidato</span>
-              ))}
-          </div>
-        </CardFooter>
-      </div>
-      {/* <IoIosArrowForward onClick={() => history.push(`/works/${id}`)}/> */}
-    </CardContainer>
+  return (
+    <>
+      {popUp && <WorksDescriptionDesktop setPopUp={setPopUp} id={id} />}
+      <CardContainer onClick={handleOpenDescription}>
+        <div>
+          <CardHeader>
+            <FaUserCircle />
+            <div>
+              <h2>{title}</h2>
+              <CategoryTag
+                category={Array.isArray(category) ? category[0] : category}
+              />
+            </div>
+          </CardHeader>
+
+          <CardFooter>
+            <div>
+              <GiPositionMarker />
+              <span>{location}</span>
+            </div>
+            <div>
+              <FaDollarSign />
+              <span>{valueOffered}</span>
+            </div>
+          </CardFooter>
+        </div>
+        {/* <IoIosArrowForward onClick={() => history.push(`/works/${id}`)}/> */}
+
+        <div>
+          {userLoggedInfo.type === "employer" &&
+            status === "isWaiting" &&
+            (appliedCandidateId === "Sem Candidatos" ? (
+              <span>Sem Candidato </span>
+            ) : (
+              <span>Com Candidato</span>
+            ))}
+        </div>
+      </CardContainer>
+    </>
   );
 };
 
