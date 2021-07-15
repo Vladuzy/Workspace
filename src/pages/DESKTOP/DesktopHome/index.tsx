@@ -15,11 +15,14 @@ import {
   ColumnList,
   ProfileDesktop,
   ListContainer,
+  ButtonADD,
+  HeaderContainer
 } from "./style";
 import WorksDesktop from "../WorksDesktop";
 import Profile from "../../Profile";
 import CreateWorkDesktop from "../../../components/DESKTOP/CreateWorkDesktop";
 import { useLocation } from "react-router-dom";
+import { AiFillPlusCircle } from 'react-icons/ai'
 
 const DesktopHome = () => {
   let location = useLocation<string>();
@@ -79,7 +82,14 @@ const DesktopHome = () => {
           <Navbar />
           {location.pathname === "/home" ? (
             <Content>
-              <Title>Trabalhos</Title>
+              <HeaderContainer>
+                <Title>Trabalhos</Title>
+                {type === "employer" && (
+                  <ButtonADD onClick={() => setCreateWorkOpen(true)}>
+                    <AiFillPlusCircle className="Button"></AiFillPlusCircle>
+                  </ButtonADD>
+                )}
+              </HeaderContainer>
               <ListsContainer>
                 <ColumnList>
                   <Title>ATIVOS</Title>
@@ -118,11 +128,7 @@ const DesktopHome = () => {
                     </ColumnList>
                   )}
                 </>
-                {type === "employer" && (
-                  <ButtonAdd
-                    onClick={() => setCreateWorkOpen(true)}
-                  ></ButtonAdd>
-                )}
+                
               </ListsContainer>
               :
             </Content>

@@ -17,7 +17,7 @@ export const EditWorkForm = styled.form`
 `
 
 export const FooterButton = styled.button`
-  width: 303px;
+  width: 100%;
   height: 40px;
   background-color: var(--roxo-tema-principal);
   border-radius: 8px;
@@ -27,8 +27,8 @@ export const FooterButton = styled.button`
 `;
 
 export const InputContainer = styled.input`
-  width: 303px;
-  height: 40px;
+  width: 100%;
+  height: 30px;
   color: var(--cinza-claro);
   background-color: var(--cinza-input-color);
   border-radius: 10px;
@@ -40,24 +40,31 @@ export const TextAreaContainer = styled.textarea`
   background-color: var(--cinza-input-color);
   color: var(--cinza-claro);
   border-radius: 10px;
-  width: 297px;
+  width: 100%;
   height: 60px;
   padding: 7px;
   font-size: 15px;
+
+  &::placeholder {
+    font-family: 'Roboto Slab', sans-serif;
+  }
 `;
 
 export const InputFooter = styled.input`
-  width: 155px;
-  height: 40px;
+  width: 46%;
+  height: 30px;
+  font-size: 15px;
   color: var(--cinza-claro);
   background-color: var(--cinza-input-color);
   border-radius: 10px;
   border: none;
   padding: 10px;
 `;
+
 export const InputFooterHour = styled.input`
-  width: 137px;
-  height: 40px;
+  width: 46%;
+  height: 30px;
+  font-size: 15px;
   color: var(--cinza-claro);
   background-color: var(--cinza-input-color);
   border-radius: 10px;
@@ -79,39 +86,42 @@ export const HeaderContainer = styled.header`
 `;
 
 export const Container = styled.div`
+  width: 285PX;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  height: 393px;
-  justify-content: space-around;
+
+  gap: 8px;
 `;
 
 export const FooterContainer = styled.footer`
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
   width: 100%;
-  justify-content: space-evenly;
+
+  span:last-child {
+    margin-right: 15px;
+  }
 `;
 
 export const TitleContainer = styled.h1`
   color: var(--roxo-tema-principal);
+  font-size: 20px;
+  font-weight: 400;
+  margin-left: 20px;
+  margin-bottom: 20px;
 `;
 
 export const SpanFormContainer = styled.span`
-  color: var(--roxo-tema-principal);
-  font-size: 13px;
-  padding: 5px;
-  min-height: 25px;
-`;
-
-export const FooterContainerDiv = styled.div`
-  display: flex;
-  flex-direction: column;
+  color: var(--vermelho);
+  font-size: 12px;
+  display: inline-block;
+  height: 15px;
+  width: 40%;
+  margin-left: 10px;
 `;
 
 export const ContainerForm = styled.div`
-  text-align: center;
   height: 380px;
-  display: flex;
-  flex-direction: column;
 `;

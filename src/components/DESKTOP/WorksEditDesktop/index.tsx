@@ -2,7 +2,6 @@ import {
   FooterButton,
   InputContainer,
   ImageHeader,
-  FooterContainerDiv,
   ContainerForm,
   TextAreaContainer,
   SpanFormContainer,
@@ -73,7 +72,7 @@ const WorksEditDesktop = ({ id, setEditWorkOpen } :Params) => {
   return (
     <BackgroundContainer>
     <EditWorkForm onSubmit={handleSubmit(handleEdit)}>
-      <ContainerForm>
+    <ContainerForm>
         <HeaderContainer>
           <ImageHeader
             onClick={() => setEditWorkOpen(false)}
@@ -82,38 +81,35 @@ const WorksEditDesktop = ({ id, setEditWorkOpen } :Params) => {
           />
         </HeaderContainer>
         <Container>
-          <TitleContainer>Edição de trabalho</TitleContainer>
-          <SpanFormContainer>{errors.title?.message}</SpanFormContainer>
-          <InputContainer
-            placeholder="Nome do trabalho"
-            {...register("title")}
-          ></InputContainer>
-          <SpanFormContainer>{errors.description?.message}</SpanFormContainer>
-          <TextAreaContainer
-            placeholder="Descrição do trabalho"
-            {...register("description")}
-          ></TextAreaContainer>
-          <SpanFormContainer>{errors.valueOffered?.message}</SpanFormContainer>
-          <InputContainer
-            placeholder="Valor oferecido"
-            {...register("valueOffered")}
-          ></InputContainer>
+          <div>
+            <TitleContainer>Edição de trabalho</TitleContainer>
+          </div>
+          <div>
+            <InputContainer
+              placeholder="Nome do trabalho"
+              {...register("title")}
+            ></InputContainer>
+            <SpanFormContainer>{errors.title?.message}</SpanFormContainer>
+          </div>
+          
+          <div>
+            <TextAreaContainer
+              placeholder="Descrição do trabalho"
+              {...register("description")}
+            ></TextAreaContainer>
+            <SpanFormContainer>{errors.description?.message}</SpanFormContainer>
+          </div>
           <FooterContainer>
-            <FooterContainerDiv>
-              <SpanFormContainer>{errors.date?.message}</SpanFormContainer>
               <InputFooter
-                type="date"
-                placeholder="Dia"
-                {...register("date")}
+                placeholder="Valor oferecido"
+                {...register("valueOffered")}
               ></InputFooter>
-            </FooterContainerDiv>
-            <FooterContainerDiv>
-              <SpanFormContainer>{errors.date?.message}</SpanFormContainer>
               <InputFooterHour
                 placeholder="Horário"
                 {...register("date")}
               ></InputFooterHour>
-            </FooterContainerDiv>
+              <SpanFormContainer>{errors.valueOffered?.message}</SpanFormContainer>
+              <SpanFormContainer>{errors.date?.message}</SpanFormContainer>
           </FooterContainer>
           <FooterButton>Editar</FooterButton>
         </Container>
