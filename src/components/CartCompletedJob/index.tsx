@@ -42,7 +42,7 @@ interface CartCompletedJobProps {
   pageType: string;
 }
 
-const CardCompletedJob = ({
+const CartCompletedJob = ({
   title,
   userId,
   acceptedCandidateId,
@@ -92,9 +92,8 @@ const CardCompletedJob = ({
       getListUserWorkerCompletedJobs();
     }
   }, []);
-  
   return (
-    <Container  onClick={handleClick} >
+    <Container>
       <FaUserCircle className="Avatar-Container" />
       <InfoContainer>
         <InfoContainerTitle>{title}</InfoContainerTitle>
@@ -108,8 +107,9 @@ const CardCompletedJob = ({
           readOnly
         />
       </InfoContainer>
+      <img onClick={handleClick} src={imgMoreInfo} alt="Icone more_info" />
     </Container>
   );
 };
 
-export default CardCompletedJob;
+export default CartCompletedJob;

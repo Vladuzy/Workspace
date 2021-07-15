@@ -13,6 +13,7 @@ import WorksEdit from "../pages/WorksEdit";
 import CreateWork from "../pages/CreateWork";
 import DesktopHome from "../pages/DesktopHome";
 
+import ProfileSpecificUser from "../pages/ProfileSpecificUser/index";
 import RatingWork from "../components/RatingWork/index";
 import WorksDesktop from "../pages/WorksDesktop";
 import EditInfoProfile from "../pages/EditInfoProfile";
@@ -37,6 +38,9 @@ const Routes = () => {
       </Route>
       <Route path="/profile">
         <Profile />
+      </Route>
+      <Route path="/profileUser/:id">
+        <ProfileSpecificUser />
       </Route>
       <Route path="/moreInfoProfile">
         <MoreInfoProfile />

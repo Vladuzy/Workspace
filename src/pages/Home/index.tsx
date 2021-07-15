@@ -95,7 +95,7 @@ const Home = () => {
               </TabStyle>
               {type === "worker" ? (
                 <TabStyle
-                  id="ativos"
+                  id="aplicados"
                   current={current}
                   onClick={() => {
                     setCurrent("aplicados");
@@ -105,7 +105,7 @@ const Home = () => {
                     );
                   }}
                 >
-                  ATIVOS
+                  Aplicados
                 </TabStyle>
               ) : (
                 <TabStyle

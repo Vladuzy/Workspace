@@ -7,6 +7,9 @@ import {
   ImageEdit,
   StatusWork,
   SpanCandidates,
+  InfoWorker,
+  ContainerCard,
+  InfoContainerSubTitleCard,
   ContainerButton,
 } from "./styles";
 import CategoryTag from "../../components/CategoryTag";
@@ -419,24 +422,44 @@ const WorksDescription = () => {
                 <span>{location}</span>
               </div>
               {currentJob.acceptedCandidateId !== "" ? (
-                <>
+                <InfoWorker
+                  onClick={() =>
+                    history.push(
+                      `/profileUser/${currentJob.acceptedCandidateId}`
+                    )
+                  }
+                >
                   <h2>Freelancer Contratado</h2>
-                  <p>
-                    {loadingUserAcceptedJob
-                      ? "Carregando..."
-                      : userAcceptedJob.name}
-                  </p>
-                </>
+                  <ContainerCard>
+                    <FaUserCircle className="Avatar-Container" />
+                    <InfoContainerSubTitleCard>
+                      {loadingUserAcceptedJob
+                        ? "Carregando..."
+                        : userAcceptedJob.name}
+                    </InfoContainerSubTitleCard>
+                  </ContainerCard>
+                  ;
+                </InfoWorker>
               ) : (
                 currentJob.appliedCandidateId !== "Sem Candidatos" && (
-                  <>
+                  <InfoWorker
+                    onClick={() =>
+                      history.push(
+                        `/profileUser/${currentJob.appliedCandidateId}`
+                      )
+                    }
+                  >
                     <h2>Candidato</h2>
-                    <p>
-                      {loadingUserAppliedJob
-                        ? "Carregando..."
-                        : userAppliedJob.name}
-                    </p>
-                  </>
+                    <ContainerCard>
+                      <FaUserCircle className="Avatar-Container" />
+                      <InfoContainerSubTitleCard>
+                        {loadingUserAppliedJob
+                          ? "Carregando..."
+                          : userAppliedJob.name}
+                      </InfoContainerSubTitleCard>
+                    </ContainerCard>
+                    ;
+                  </InfoWorker>
                 )
               )}
             </DescriptionInfoContainer>
