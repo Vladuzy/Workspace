@@ -58,6 +58,10 @@ export const NavMenuItens = styled.button`
     svg {
       color: var(--branco-fundo-body);
     }
+
+    &:hover {
+      box-shadow: 0px 0px 5px 2px var(--cinza-claro);
+    }
   }
 `;
 
