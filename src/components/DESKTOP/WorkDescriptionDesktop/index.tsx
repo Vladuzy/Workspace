@@ -18,6 +18,7 @@ import Button from "../../Button";
 import api from "../../../service/api";
 import { FaDollarSign, FaUserCircle } from "react-icons/fa";
 import { FiClock } from "react-icons/fi";
+import { IoMdClose } from 'react-icons/io'
 import { RiArrowLeftSLine } from "react-icons/ri";
 import { MdLocationOn } from "react-icons/md";
 
@@ -382,7 +383,7 @@ const WorksDescriptionDesktop = ({ id, setPopUp }: Params) => {
         <>
           {" "}
           <HeaderContainer>
-            <RiArrowLeftSLine onClick={() => setPopUp(false)} />
+            <IoMdClose onClick={() => setPopUp(false)} />
             <FaUserCircle />
           </HeaderContainer>
           <MainContainer>

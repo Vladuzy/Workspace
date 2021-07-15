@@ -26,6 +26,8 @@ export const HeaderContainer = styled.header`
   svg:nth-child(1) {
     color: var(--roxo-tema-principal);
     position: absolute;
+    right: 0;
+    top: 0;
     width: 50px;
     height: 50px;
   }
