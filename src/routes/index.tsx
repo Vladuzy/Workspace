@@ -7,6 +7,7 @@ import Home from "../pages/Home";
 import Works from "../pages/Works";
 import WorksDescription from "../pages/WorksDescription";
 import NotFound from "../pages/NotFound";
+import NotFoundDesk from "../pages/NotFoundDesk/NotFound";
 import MoreInfoProfile from "../pages/MoreInfoProfile/Index";
 import WorksEdit from "../pages/WorksEdit";
 import CreateWork from "../pages/CreateWork";
@@ -74,6 +75,9 @@ const Routes = () => {
       </Route>
       <Route path="/home">
         <DesktopHome/>
+      </Route>
+      <Route path="*">
+        <NotFoundDesk />
       </Route>
     </Switch>
   );
