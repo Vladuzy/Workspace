@@ -19,13 +19,13 @@ import { string } from "yup/lib/locale";
 import Button from "../../components/Button";
 import CartCompletedJob from "../../components/CartCompletedJob";
 import Loading from "../../components/Loading/index";
-import CardWorkDone from "../../components/CardWorkDone"
 
 interface moreInfoUser {
   description: string;
   telephone: string;
   categories: string[];
 }
+
 
 const Profile = () => {
   const { token, getUserLoggedInfo, userLoggedInfo } = useAuth();
@@ -114,9 +114,7 @@ const Profile = () => {
                   </div>
                   <ListJobs>
                     {listCompletedJobs.map((job) => (
-                      <CartCompletedJob key={job.id}>
-                        {job.title}
-                      </CartCompletedJob>
+                      <CartCompletedJob title={job.title} rating={job.rating} id={job.id} userId={job.userId}  key={job.id}></CartCompletedJob>
                     ))}
                   </ListJobs>
                 </>
