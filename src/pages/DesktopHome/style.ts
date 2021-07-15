@@ -16,7 +16,7 @@ export const ContainerMain = styled.main`
 `;
 
 export const Content = styled.div`
-  width: 60vw;
+  width: 65vw;
 `;
 
 export const ListsContainer = styled.div`
