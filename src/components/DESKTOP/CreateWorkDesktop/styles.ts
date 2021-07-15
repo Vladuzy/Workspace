@@ -1,8 +1,4 @@
-import styled from "styled-components";
-
-interface Props {
-  type: string
-}
+import styled from 'styled-components'
 
 export const BackgroundContainer = styled.div`
   height: 100vh;
@@ -17,64 +13,54 @@ export const BackgroundContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+ 
 `
 
-export const MoreInfoAddContainer = styled.div<Props>`
+export const CreateContainer = styled.main`
   width: 340px;
-  height: ${({ type }) => type === 'worker' ? '520px' : '420px' };
-  border-radius: 15px;
+  height: 540px;
   background-color: var(--cinza-escuro);
+  border-radius: 10px;
+  position: relative;
   box-shadow: -1px 8px 14px -4px #31292E;
+
+  & > button {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+
+    transform: translateX(-50%);
+  }
 `
 
-export const HeaderStyled = styled.header `
+
+export const CreateWorkContainer = styled.main`
   width: 285px;
-  color: var(--roxo-tema-principal);
-  display: flex;
-  justify-content: flex-end;
   margin: 0 auto;
+  color: var(--roxo-tema-principal);
 
   & > svg {
     margin-top: 10px;
     width: 35px;
     height: 35px;
-    margin-left: calc(100% - 35px);
+    margin-left: calc(100% - 40px);
   }
-`
 
-export const MainStyled = styled.main `
-  width: 285px;
-  margin: 0 auto;
-  & > h2{
-    width: 100%;
+  & > h2 {
     font-family: 'Saira', sans-serif;
-    color: var(--roxo-tema-principal);
-    margin-bottom: 25px;
-    font-weight: 400;
+    margin: 0 0 15px 0;;
     font-size: 20px;
+    font-weight: 400;
   }
 `
 
-export const Container = styled.div `
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 25px;
-  p{
-    color: black;
-    margin-left: 0;
-    font-size: 1.2rem
-  }
-`
-
-export const ContentForms = styled.form `
-  width: 100%;
+export const FormContainer = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 25px;
+  gap: 5px;
 
   & > div {
-    span {
+    & > span {
       margin-left: 10px;
       font-size: 12px;
       color: var(--vermelho);
@@ -83,8 +69,13 @@ export const ContentForms = styled.form `
     }
   }
 
-  & > button {
-    margin-top: 30px;
+  & > div:last-of-type {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    & > span {
+      width: 46%;
+    }
   }
 `
 

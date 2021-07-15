@@ -48,7 +48,6 @@ export const IconContainer = styled.div`
     width: 130px;
     border-radius: 20px;
     justify-content: space-evenly;
-    cursor: pointer;
 
     h3 {
       font-size: 20px;
@@ -73,6 +72,7 @@ export const FilterTagsContainer = styled.div`
   @media (min-width: 1266px) {
     margin: 20px 0;
     gap: 10px;
+    cursor: pointer;
   }
 `;
 

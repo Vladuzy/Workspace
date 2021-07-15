@@ -23,9 +23,9 @@ const EditInfoProfile = () => {
   const { editUserWorker, editUserEmployer, userLoggedInfo: { type } } = useAuth()
   const [workCategories, setWorkCategories] = useState<string[]>([] as string[])
   const formSchema = yup.object().shape({
-    name: yup.string(),
-    email: yup.string(),
-    description: yup.string(),
+    name: yup.string().required('Campo obrigatório'),
+    email: yup.string().email('Email inválido.').required('Campo obrigatório'),
+    description: yup.string().required('Campo obrigatório'),
     telephone: yup.string().matches(/(\(\d{2}\))(\d{4,5}\-\d{4})/, 'Telefone invalido. Ex.: (xx)xxxx-xxxxx'),
   })
 
