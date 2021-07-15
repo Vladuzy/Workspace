@@ -24,7 +24,7 @@ const Routes = () => {
   } = useViewport();
   console.log(width);
 
-  return width < 769 ? (
+  return width < 1266 ? (
     <Switch>
       <Route exact path="/">
         <LandingPage />
@@ -59,9 +59,9 @@ const Routes = () => {
       <Route path="/works/:id">
         <WorksDescription />
       </Route>
-      <Route path="/rating/:id">
+      {/* <Route path="/rating/:id">
         <RatingWork />
-      </Route>
+      </Route> */}
       <Route path="/createWork">
         <CreateWork />
       </Route>

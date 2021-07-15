@@ -11,24 +11,27 @@ import {
   ContainerCard,
   InfoContainerSubTitleCard,
   ContainerButton,
+  BackgroundContainer
 } from "./styles";
-import CategoryTag from "../../components/CategoryTag";
-import Button from "../../components/Button";
-import api from "../../service/api";
+import CategoryTag from "../../CategoryTag";
+import Button from "../../Button";
+import api from "../../../service/api";
 import { FaDollarSign, FaUserCircle } from "react-icons/fa";
 import { FiClock } from "react-icons/fi";
+import { IoMdClose } from 'react-icons/io'
 import { RiArrowLeftSLine } from "react-icons/ri";
 import { MdLocationOn } from "react-icons/md";
 
 import { SetStateAction, useEffect, useState, Dispatch } from "react";
 import { useParams, useHistory, Redirect } from "react-router-dom";
-import { useAuth } from "../../providers/AuthProvider";
-import imgEdit from "../../assets/img/Edit.svg";
-import Loading from "../../components/Loading";
-import RatingWork from "../../components/RatingWork/index";
+import { useAuth } from "../../../providers/AuthProvider";
+import imgEdit from "../../../assets/img/Edit.svg";
+import Loading from "../../../components/Loading";
+import RatingWork from "../../RatingWork/index";
 
 interface Params {
   id: string;
+  setPopUp: Dispatch<SetStateAction<boolean>>
 }
 
 interface Job {
@@ -61,10 +64,10 @@ interface UserInfo {
   id: string;
 }
 
-const WorksDescription = () => {
+const WorksDescriptionDesktop = ({ id, setPopUp }: Params) => {
   const history = useHistory();
   const { token, userLoggedInfo, getUserLoggedInfo } = useAuth();
-  const { id } = useParams() as Params;
+  // const { id } = useParams() as Params;
 
   const [currentJob, setCurrentJob] = useState<Job>(
     (JSON.parse(localStorage.getItem("@WorkSpace:currentJob") as string) ||
@@ -73,23 +76,23 @@ const WorksDescription = () => {
   const { title, valueOffered, date, description, category, location } =
     currentJob;
 
-  const [loadingCurrentJob, setLoadingCurrentJob] = useState<boolean>(true as boolean);
-  const [loadingUserLoggedInfo, setLoadingUserLoggedInfo] = useState<boolean>(true as boolean);
-  const [loadingWorkerApplyToJob, setLoadingWorkerApplyToJob] = useState<boolean>(true as boolean);
+  const [loadingCurrentJob, setLoadingCurrentJob] = useState(true);
+  const [loadingUserLoggedInfo, setLoadingUserLoggedInfo] = useState(true);
+  const [loadingWorkerApplyToJob, setLoadingWorkerApplyToJob] = useState(true);
   const [loadingWorkerCancelApplyToJob, setLoadingWorkerCancelApplyToJob] =
-  useState<boolean>(true as boolean);
+    useState(true);
   const [loadingEmployerAcceptCandidate, setLoadingEmployerAcceptCandidate] =
-  useState<boolean>(true as boolean);
+    useState(true);
   const [loadingEmployerRejectCandidate, setLoadingEmployerRejectCandidate] =
-  useState<boolean>(true as boolean);
+    useState(true);
   const [loadingEmployerCompleteJob, setLoadingEmployerCompleteJob] =
-  useState<boolean>(true as boolean);
+    useState(true);
 
   const [loadingUserWhoCreatedJob, setLoadingUserWhoCreatedJob] =
-  useState<boolean>(true as boolean);
+    useState(true);
 
-  const [loadingUserAppliedJob, setLoadingUserAppliedJob] = useState<boolean>(true as boolean);
-  const [loadingUserAcceptedJob, setLoadingUserAcceptedJob] = useState<boolean>(true as boolean);
+  const [loadingUserAppliedJob, setLoadingUserAppliedJob] = useState(true);
+  const [loadingUserAcceptedJob, setLoadingUserAcceptedJob] = useState(true);
 
   const [showRating, setShowRating] = useState<boolean>(false);
 
@@ -370,7 +373,7 @@ const WorksDescription = () => {
   }
 
   return (
-    <>
+    <BackgroundContainer>
       {showRating && <RatingWork setShowRating={setShowRating} id={id}/>}
       {loadingCurrentJob &&
       loadingUserLoggedInfo &&
@@ -380,7 +383,7 @@ const WorksDescription = () => {
         <>
           {" "}
           <HeaderContainer>
-            <RiArrowLeftSLine onClick={() => history.goBack()} />
+            <IoMdClose onClick={() => setPopUp(false)} />
             <FaUserCircle />
           </HeaderContainer>
           <MainContainer>
@@ -568,8 +571,8 @@ const WorksDescription = () => {
           </MainContainer>
         </>
       )}
-    </>
+    </BackgroundContainer>
   );
 };
 
-export default WorksDescription;
+export default WorksDescriptionDesktop;
