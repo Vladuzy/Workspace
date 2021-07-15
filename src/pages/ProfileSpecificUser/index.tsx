@@ -1,6 +1,5 @@
-import { Redirect, useHistory } from "react-router-dom";
-import { useEffect, useState } from "react";
-import Header from "../../components/Header";
+import { Redirect, useHistory, useParams } from "react-router-dom";
+import { SetStateAction, useEffect, useState, Dispatch } from "react";
 import { useAuth } from "../../providers/AuthProvider";
 import { useMenuFooter } from "../../providers/MenuFooterProvider";
 import Footer from "../../components/Footer";
@@ -19,22 +18,78 @@ import {
   MediaFooter,
 } from "./style";
 import { useJobs } from "../../providers/Jobs";
-import Button from "../../components/Button";
-import CardCompletedJob from "../../components/CardCompletedJob";
+import CartCompletedJob from "../../components/CartCompletedJob";
 import Loading from "../../components/Loading/index";
 import CardCategoryProfile from "../../components/CardCategoryProfile";
+import HeaderSpecificUser from "../../components/HeaderSpecificUser/index";
+import api from "../../service/api";
+import { useWatch } from "react-hook-form";
 
-const Profile = () => {
-  const { token, getUserLoggedInfo, userLoggedInfo } = useAuth();
+interface Job {
+  title: string;
+  category: string;
+  description: string;
+  location: string;
+  status: string;
+  rating: string;
+  valueOffered: number;
+  date: string;
+  appliedCandidateId: string;
+  acceptedCandidateId: string;
+  rejectedCandidatesIds: string[];
+  userId: string;
+  id: string;
+}
+
+interface Params {
+  id: string;
+}
+
+const ProfileSpecificUser = () => {
+  const { token, getInfoFromASpecificUser, userWantedInfo } = useAuth();
   const { setInHome, setInWorks, setInProfile } = useMenuFooter();
   const [loading, setLoading] = useState(true);
+  const [listCompletedJobsSpecificUser, setListCompletedJobsSpecificUser] =
+    useState<Job[]>([] as Job[]);
 
-  const history = useHistory();
+  const { id } = useParams() as Params;
 
-  const { listCompletedJobs } = useJobs();
+  const getListUserEmployerCompletedJobs = (
+    id: string,
+    setListCompletedJobsSpecificUser: Dispatch<SetStateAction<Job[]>>
+  ) => {
+    api
+      .get(`jobs?userId=${id}&status=isCompleted`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        setListCompletedJobsSpecificUser(response.data);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const getListUserWorkerCompletedJobs = (
+    id: string,
+    setListCompletedJobsSpecificUser: Dispatch<SetStateAction<Job[]>>
+  ) => {
+    api
+      .get(`jobs?acceptedCandidateId=${id}&status=isCompleted`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        setListCompletedJobsSpecificUser(response.data);
+      })
+      .catch((err) => console.log(err));
+  };
 
   useEffect(() => {
-    getUserLoggedInfo(setLoading);
+    getInfoFromASpecificUser(id, setLoading);
     setInHome(false);
     setInWorks(false);
     setInProfile(true);
@@ -43,15 +98,21 @@ const Profile = () => {
     localStorage.setItem("@WorkSpace:inProfile", "true");
   }, []);
 
-  const { email, moreInfo } = userLoggedInfo;
+  useEffect(() => {
+    if (!loading) {
+      if (userWantedInfo.type === "employer") {
+        getListUserEmployerCompletedJobs(id, setListCompletedJobsSpecificUser);
+      } else if (userWantedInfo.type === "worker") {
+        getListUserWorkerCompletedJobs(id, setListCompletedJobsSpecificUser);
+      }
+    }
+  }, [loading]);
+
+  const { email, moreInfo } = userWantedInfo;
   console.log(moreInfo);
   if (!token) {
     return <Redirect to="/" />;
   }
-
-  const handleEdit = () => {
-    history.push("/moreInfoProfile");
-  };
 
   return (
     <Container>
@@ -59,12 +120,18 @@ const Profile = () => {
         <Loading />
       ) : (
         <>
-          <Header />
+          <HeaderSpecificUser
+            id={userWantedInfo.id}
+            type={userWantedInfo.type}
+            name={userWantedInfo.name}
+            rating={userWantedInfo.rating}
+            listCompletedJobsSpecificUser={listCompletedJobsSpecificUser}
+          />
           <StyleBody>
             {moreInfo.telephone !== "" && moreInfo.description !== "" ? (
               <StyleMain>
                 <StyledMoreInfo>
-                  {userLoggedInfo.type === "worker" && (
+                  {userWantedInfo.type === "worker" && (
                     <SectionCategories>
                       <h3>Categorias</h3>
                       <CategoriesContainer>
@@ -76,7 +143,7 @@ const Profile = () => {
                     </SectionCategories>
                   )}
 
-                  <SectionContact type={userLoggedInfo.type}>
+                  <SectionContact type={userWantedInfo.type}>
                     <h3>Contato</h3>
                     <div>
                       <p>{email}</p>
@@ -91,34 +158,27 @@ const Profile = () => {
               </StyleMain>
             ) : (
               <StyledNoInfo>
-                <div>Adicione o restante de suas informações!</div>
-                <Button
-                  text="Adicionar"
-                  width="150px"
-                  heigth="40px"
-                  borderRadius="20px"
-                  handleClick={handleEdit}
-                />
+                <div>Sem informações adicionais!</div>
               </StyledNoInfo>
             )}
 
             <JobsDone>
-              {listCompletedJobs.length > 0 ? (
+              {listCompletedJobsSpecificUser.length > 0 ? (
                 <>
                   <div className="JobsDoneHeader">
                     <h3>Trabalhos Concluídos</h3>
                   </div>
                   <ListJobs>
-                    {listCompletedJobs.map((job) => (
-                      <CardCompletedJob
+                    {listCompletedJobsSpecificUser.map((job) => (
+                      <CartCompletedJob
                         title={job.title}
                         rating={job.rating}
                         acceptedCandidateId={job.acceptedCandidateId}
                         id={job.id}
                         userId={job.userId}
                         key={job.id}
-                        pageType={userLoggedInfo.type}
-                      ></CardCompletedJob>
+                        pageType={userWantedInfo.type}
+                      ></CartCompletedJob>
                     ))}
                   </ListJobs>
                 </>
@@ -128,11 +188,7 @@ const Profile = () => {
                     <h3>Trabalhos Concluídos</h3>
                   </div>
                   <div>
-                    <div>
-                      {userLoggedInfo.type === "worker"
-                        ? "Parece que você não possui nenhum trabalho feito ainda... "
-                        : "Parece que nenhum dos seus trabalhos foi concluído ainda..."}
-                    </div>
+                    <div>Ainda não possui nenhum trabalho feito...</div>
                   </div>
                 </>
               )}
@@ -147,4 +203,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default ProfileSpecificUser;
