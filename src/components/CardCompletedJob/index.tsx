@@ -40,7 +40,7 @@ const CartCompletedJob = ({ title, userId, rating, id }: Job) => {
     }
   }, []);
   return (
-    <Container>
+    <Container onClick={handleClick}>
       <FaUserCircle className="Avatar-Container" />
       <InfoContainer>
         <InfoContainerTitle>{title}</InfoContainerTitle>
@@ -52,7 +52,6 @@ const CartCompletedJob = ({ title, userId, rating, id }: Job) => {
           readOnly
         />
       </InfoContainer>
-      <img onClick={handleClick} src={imgMoreInfo} alt="Icone more_info" />
     </Container>
   );
 };

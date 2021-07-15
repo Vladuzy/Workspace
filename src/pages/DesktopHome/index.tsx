@@ -8,6 +8,7 @@ import { useMenuFooter } from "../../providers/MenuFooterProvider";
 import {
   ContainerMain,
   Content,
+  Title,
   ListsContainer,
   ColumnList,
   ProfileDesktop,
@@ -77,11 +78,11 @@ const DesktopHome = () => {
         <Loading />
       ) : (
         <Content>
-          <h1>Trabalhos</h1>
+          <Title>Trabalhos</Title>
 
           <ListsContainer>
             <ColumnList>
-              <h1>ATIVOS</h1>
+              <Title>ATIVOS</Title>
               {type === "worker" ? (
                 <ListContainer>
                   {listUserWorkerActiveJobs.map((job) => (
@@ -99,7 +100,7 @@ const DesktopHome = () => {
             <>
               {type === "worker" ? (
                 <ColumnList>
-                  <h1>APLICADOS</h1>
+                  <Title>APLICADOS</Title>
                   <ListContainer>
                     {listUserWorkerAppliedJobs.map((job) => (
                       <CardWork job={job} key={job.id} />
@@ -108,7 +109,7 @@ const DesktopHome = () => {
                 </ColumnList>
               ) : (
                 <ColumnList>
-                  <h1>ATUAIS</h1>
+                  <Title>ATUAIS</Title>
                   <ListContainer>
                     {listUserEmployerCurrentJobs.map((job) => (
                       <CardWork job={job} key={job.id} />
