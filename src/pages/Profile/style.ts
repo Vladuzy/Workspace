@@ -71,8 +71,7 @@ export const StyledNoInfo = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 50px;
-
+  height: 44vh;
   div {
     text-align: center;
     margin: 1rem auto;
