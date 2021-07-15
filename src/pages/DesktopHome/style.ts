@@ -25,6 +25,7 @@ export const ListsContainer = styled.div`
 
 export const ListContainer = styled.div`
   max-height: 34vh;
+  height: 34vh;
   border-radius: 15px;
   background-color: var(--cinza-ultra-claro-main);
   overflow-y: scroll;
