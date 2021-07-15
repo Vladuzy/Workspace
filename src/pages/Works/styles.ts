@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
 export const HeaderContainer = styled.header`
-  height: 15vh;
+  min-height: 15vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 `;
