@@ -64,7 +64,9 @@ interface UserInfo {
 
 const WorksDescription = () => {
   const history = useHistory();
-  const { viewport: { width } } = useViewport()
+  const {
+    viewport: { width },
+  } = useViewport();
   const { token, userLoggedInfo, getUserLoggedInfo } = useAuth();
   const { id } = useParams() as Params;
 
@@ -75,23 +77,32 @@ const WorksDescription = () => {
   const { title, valueOffered, date, description, category, location } =
     currentJob;
 
-  const [loadingCurrentJob, setLoadingCurrentJob] = useState<boolean>(true as boolean);
-  const [loadingUserLoggedInfo, setLoadingUserLoggedInfo] = useState<boolean>(true as boolean);
-  const [loadingWorkerApplyToJob, setLoadingWorkerApplyToJob] = useState<boolean>(true as boolean);
+  const [loadingCurrentJob, setLoadingCurrentJob] = useState<boolean>(
+    true as boolean
+  );
+  const [loadingUserLoggedInfo, setLoadingUserLoggedInfo] = useState<boolean>(
+    true as boolean
+  );
+  const [loadingWorkerApplyToJob, setLoadingWorkerApplyToJob] =
+    useState<boolean>(true as boolean);
   const [loadingWorkerCancelApplyToJob, setLoadingWorkerCancelApplyToJob] =
-  useState<boolean>(true as boolean);
+    useState<boolean>(true as boolean);
   const [loadingEmployerAcceptCandidate, setLoadingEmployerAcceptCandidate] =
-  useState<boolean>(true as boolean);
+    useState<boolean>(true as boolean);
   const [loadingEmployerRejectCandidate, setLoadingEmployerRejectCandidate] =
-  useState<boolean>(true as boolean);
+    useState<boolean>(true as boolean);
   const [loadingEmployerCompleteJob, setLoadingEmployerCompleteJob] =
-  useState<boolean>(true as boolean);
+    useState<boolean>(true as boolean);
 
   const [loadingUserWhoCreatedJob, setLoadingUserWhoCreatedJob] =
-  useState<boolean>(true as boolean);
+    useState<boolean>(true as boolean);
 
-  const [loadingUserAppliedJob, setLoadingUserAppliedJob] = useState<boolean>(true as boolean);
-  const [loadingUserAcceptedJob, setLoadingUserAcceptedJob] = useState<boolean>(true as boolean);
+  const [loadingUserAppliedJob, setLoadingUserAppliedJob] = useState<boolean>(
+    true as boolean
+  );
+  const [loadingUserAcceptedJob, setLoadingUserAcceptedJob] = useState<boolean>(
+    true as boolean
+  );
 
   const [showRating, setShowRating] = useState<boolean>(false);
 
@@ -373,7 +384,7 @@ const WorksDescription = () => {
 
   return (
     <>
-      {showRating && <RatingWork setShowRating={setShowRating} id={id}/>}
+      {showRating && <RatingWork setShowRating={setShowRating} id={id} />}
       {loadingCurrentJob &&
       loadingUserLoggedInfo &&
       loadingUserWhoCreatedJob ? (
@@ -505,7 +516,7 @@ const WorksDescription = () => {
                   <Button
                     text="Recusar"
                     width="230px"
-                    max-Width="230px"
+                    maxWidth="230px"
                     heigth="40px"
                     borderRadius="20px"
                     border="1px solid var(--roxo-tema-principal)"
@@ -523,7 +534,7 @@ const WorksDescription = () => {
                   <Button
                     text="Aceitar"
                     width="230px"
-                    max-Width="230px"
+                    maxWidth="230px"
                     heigth="40px"
                     borderRadius="20px"
                     backColor="var(--roxo-tema-principal)"
