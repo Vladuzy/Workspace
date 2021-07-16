@@ -82,7 +82,6 @@ const Register = () => {
     api
       .post("/register", userDataRegister)
       .then((response) => {
-        console.log(response);
         toast.success("Usuário cadastrado com Sucesso!");
         history.push("/login");
         reset();

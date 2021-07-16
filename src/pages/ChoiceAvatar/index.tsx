@@ -32,7 +32,6 @@ const ChoiceAvatar = () => {
       .catch((err) => console.log(err));
     history.push("/profile");
   };
-  console.log(userLoggedInfo);
   return (
     <Container>
       <ImgContainer

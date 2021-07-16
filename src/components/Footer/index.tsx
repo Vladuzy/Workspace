@@ -1,5 +1,4 @@
 import { Nav, NavLink, NavMenu } from "./style";
-// import { CgWorkAlt } from "react-icons/cg";
 import {
   IoBriefcase,
   IoBriefcaseOutline,
@@ -8,11 +7,9 @@ import {
   IoPerson,
   IoPersonOutline,
 } from "react-icons/io5";
-// import { FaRegUser } from "react-icons/fa";
-// import { IoAppsOutline } from "react-icons/io5";
+
 import { useAuth } from "../../providers/AuthProvider";
 import { useMenuFooter } from "../../providers/MenuFooterProvider";
-// import { useState } from "react";
 
 //NÃO PODE APARECER NA TELA DE DESCRIÇÃO DE TRABALHO
 import { useLocation } from "react-router-dom";
@@ -52,40 +49,9 @@ const Footer = ({
     handleIsDescriptionPage();
   }, [pathname]);
 
-  console.log(isDescriptionPage);
-
   const { isAuthenticated } = useAuth();
   const { inHome, setInHome, inWorks, setInWorks, inProfile, setInProfile } =
     useMenuFooter();
-
-  console.log(inHome);
-
-  // const handleSwitchToHome = () => {
-  //   setInHome(true);
-  //   setInWorks(false);
-  //   setInProfile(false);
-  //   localStorage.setItem("@WorkSpace:inHome", "true");
-  //   localStorage.setItem("@WorkSpace:inWorks", "false");
-  //   localStorage.setItem("@WorkSpace:inProfile", "false");
-  // };
-
-  // const handleSwitchToWorks = () => {
-  //   setInHome(false);
-  //   setInWorks(true);
-  //   setInProfile(false);
-  //   localStorage.setItem("@WorkSpace:inHome", "false");
-  //   localStorage.setItem("@WorkSpace:inWorks", "true");
-  //   localStorage.setItem("@WorkSpace:inProfile", "false");
-  // };
-
-  // const handleSwitchToProfile = () => {
-  //   setInHome(false);
-  //   setInWorks(false);
-  //   setInProfile(true);
-  //   localStorage.setItem("@WorkSpace:inHome", "false");
-  //   localStorage.setItem("@WorkSpace:inWorks", "false");
-  //   localStorage.setItem("@WorkSpace:inProfile", "true");
-  // };
 
   return (
     <>

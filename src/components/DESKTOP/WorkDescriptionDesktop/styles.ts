@@ -145,11 +145,16 @@ export const ImageEdit = styled.img`
 export const ContainerButton = styled.div`
   display: flex;
   justify-content: center;
-  position: absolute;
+  align-items: center;
+  height: 130px;
   bottom: 30px;
   width: 100%;
 
   > button {
+    position: initial;
+    bottom: initial;
+    transform: initial;
+    right: initial;
     width: 50%;
     margin: 0 10px;
   }

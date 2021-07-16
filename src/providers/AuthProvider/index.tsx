@@ -1,5 +1,3 @@
-// Os imports de Dispatch e SeStateAction, podem deixar, pois talvez iremos
-// precisar mais para frente quando for setar os states.
 import {
   createContext,
   Dispatch,
@@ -159,14 +157,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         },
       })
       .then((response) => {
-        console.log(response.data);
         localStorage.setItem(
           "@WorkSpace:userLoggedInfo",
           JSON.stringify(response.data)
         );
         setUserLoggedInfo(response.data);
         setLoading(false);
-        //Show Toast
       })
       .catch((err) => console.log(err));
   };
@@ -182,15 +178,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         },
       })
       .then((response) => {
-        console.log(response.data);
         setUserWantedInfo(response.data);
         localStorage.setItem(
           "@WorkSpace:userWantedInfo",
           JSON.stringify(response.data)
         );
         setLoading(false);
-        console.log(userWantedInfo);
-        //Show Toast
       })
       .catch((err) => console.log(err));
   };
@@ -205,9 +198,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         },
       })
       .then((response) => {
-        console.log(response);
         toast.success("Informações adicionadas com sucesso!!");
-        //Show Toast
       })
       .catch((err) => console.log(err));
   };
@@ -222,9 +213,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         },
       })
       .then((response) => {
-        console.log(response);
         toast.success("Informações adicionadas com sucesso!!");
-        //Show Toast
       })
       .catch((err) => console.log(err));
   };
@@ -237,9 +226,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         },
       })
       .then((response) => {
-        console.log(response);
         toast.success("Perfil editado com sucesso!!");
-        //Show Toast
       })
       .catch((err) => console.log(err));
   };
@@ -252,9 +239,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         },
       })
       .then((response) => {
-        console.log(response);
         toast.success("Perfil editado com sucesso!!");
-        //Show Toast
       })
       .catch((err) => console.log(err));
   };

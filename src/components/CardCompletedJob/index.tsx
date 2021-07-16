@@ -84,11 +84,9 @@ const CardCompletedJob = ({
         },
       })
       .then((response) => {
-        console.log(response.data);
         setUserCurrentInfo(response.data);
 
         setLoading(false);
-        //Show Toast
       })
       .catch((err) => console.log(err));
   };

@@ -28,7 +28,6 @@ const Routes = () => {
 
   useEffect(() => {
     setViewport(getWindowDimension());
-    console.log("USE EFFECT DO ROUTES");
   }, []);
 
   return width < 1266 ? (

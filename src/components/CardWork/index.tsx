@@ -84,10 +84,6 @@ const CardWork = ({ job }: CardWorkProps) => {
       })
       .then((response) => {
         setUserWhoCreatedJob(response.data);
-        // localStorage.setItem(
-        //   "@WorkSpace:userWhoCreatedJob",
-        //   JSON.stringify(response.data)
-        // );
         setLoadingUserWhoCreatedJob(false);
       })
       .catch((err) => console.log(err));
