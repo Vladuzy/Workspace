@@ -1,7 +1,14 @@
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import imgLogo from "../../assets/img/Logo.svg";
-import { Container, ContainerInput, Content, LinkStyle } from "./style";
+import {
+  FullContainer,
+  Container,
+  ContainerCategory,
+  ContainerInput,
+  Content,
+  LinkStyle,
+} from "./style";
 
 import { Redirect } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -14,6 +21,12 @@ import jwt_decode from "jwt-decode";
 
 import { useAuth } from "../../providers/AuthProvider";
 import { toast } from "react-hot-toast";
+
+import imgEletricista from "../../assets/img/Category/Eletricista.png";
+import imgEncanador from "../../assets/img/Category/Encanador.png";
+import imgGerais from "../../assets/img/Category/Gerais.png";
+import imgLimpeza from "../../assets/img/Category/Limpeza.png";
+import imgPintura from "../../assets/img/Category/Pintura.png";
 
 interface UserDataLogin {
   email: string;
@@ -68,41 +81,89 @@ const Login = () => {
   }
 
   return (
-    <Container>
-      <img
-        src={imgLogo}
-        alt="Logo da workspace"
-        onClick={() => history.push("/")}
-      />
-      <form onSubmit={handleSubmit(handleLogin)}>
-        <Content>
-          <ContainerInput>
-            <Input
-              type="email"
-              placeholder="E-mail"
-              name="email"
-              register={register}
-            />
-            <span> {errors && errors.email?.message}</span>
-          </ContainerInput>
-          <ContainerInput>
-            <Input
-              type="password"
-              placeholder="Senha"
-              name="password"
-              register={register}
-            />
-            <span>{errors && errors.password?.message}</span>
-          </ContainerInput>
-        </Content>
+    <FullContainer>
+      <Container>
+        <ContainerCategory eletricista>
+          <img src={imgEletricista} alt="imgEletricista" />
+          <p>
+            Se o assunto for elétrica, conte com nossos freelancers! São
+            extremamente qualificados e podem ajudar você com as suas pendências
+            ou projetos!
+          </p>
+        </ContainerCategory>
+        <ContainerCategory encanador>
+          <img src={imgEncanador} alt="imgEncanador" />
 
-        <Button text="Entrar" type="submit" />
-      </form>
-      <div>
-        Ainda não possui uma conta?{" "}
-        <LinkStyle to="/register">Cadastra-se</LinkStyle>
-      </div>
-    </Container>
+          <p>
+            Conhecido por muitos como o bombeiro hidráulico. Nosso freelancer
+            promete reparar, montar, instalar e ajustar as tubulações, condutos
+            e encanamentos das residências. Garantia de qualidade através das
+            avaliações.
+          </p>
+        </ContainerCategory>
+        <ContainerCategory limpeza>
+          <img src={imgLimpeza} alt="imgLimpeza" />
+
+          <p>
+            Nossos freelancers vão além. Não sabe como limpar caixa d’água ou
+            precisa de um bom profissional para a manutenção do seu ambiente
+            familiar? Você está no lugar certo.
+          </p>
+        </ContainerCategory>
+        <ContainerCategory pintura>
+          <img src={imgPintura} alt="imgPintura" />
+
+          <p>
+            Milhares de profissionais avaliados por clientes, permitindo você
+            negociar apenas com os melhores. E também escolher os melhores
+            empregadores!
+          </p>
+        </ContainerCategory>
+        <ContainerCategory gerais>
+          <img src={imgGerais} alt="imgGerais" />
+
+          <p>
+            Nenhuma categoria acima te serviu? Lance a sua proposta e espere
+            pela chuva de candidatos!
+          </p>
+        </ContainerCategory>
+      </Container>
+      <Container>
+        <img
+          src={imgLogo}
+          alt="Logo da workspace"
+          onClick={() => history.push("/")}
+        />
+        <form onSubmit={handleSubmit(handleLogin)}>
+          <Content>
+            <ContainerInput>
+              <Input
+                type="email"
+                placeholder="E-mail"
+                name="email"
+                register={register}
+              />
+              <span> {errors && errors.email?.message}</span>
+            </ContainerInput>
+            <ContainerInput>
+              <Input
+                type="password"
+                placeholder="Senha"
+                name="password"
+                register={register}
+              />
+              <span>{errors && errors.password?.message}</span>
+            </ContainerInput>
+          </Content>
+
+          <Button text="Entrar" type="submit" />
+        </form>
+        <div>
+          Ainda não possui uma conta?{" "}
+          <LinkStyle to="/register">Cadastra-se</LinkStyle>
+        </div>
+      </Container>
+    </FullContainer>
   );
 };
 

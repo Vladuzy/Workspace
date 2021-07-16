@@ -68,7 +68,9 @@ interface UserInfo {
 
 const WorksDescription = () => {
   const history = useHistory();
-  const { viewport: { width } } = useViewport()
+  const {
+    viewport: { width },
+  } = useViewport();
   const { token, userLoggedInfo, getUserLoggedInfo } = useAuth();
   const { id } = useParams() as Params;
 
@@ -537,7 +539,7 @@ const WorksDescription = () => {
                   <Button
                     text="Recusar"
                     width="230px"
-                    max-Width="230px"
+                    maxWidth="230px"
                     heigth="40px"
                     borderRadius="20px"
                     border="1px solid var(--roxo-tema-principal)"
@@ -555,7 +557,7 @@ const WorksDescription = () => {
                   <Button
                     text="Aceitar"
                     width="230px"
-                    max-Width="230px"
+                    maxWidth="230px"
                     heigth="40px"
                     borderRadius="20px"
                     backColor="var(--roxo-tema-principal)"
