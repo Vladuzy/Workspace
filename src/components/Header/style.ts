@@ -58,3 +58,30 @@ export const ImgStarHeaderContainer = styled.img`
   width: 100px;
   height: 20px;
 `;
+
+export const ImageContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const SubTitleHeader = styled.h1`
+  font-size: 1rem;
+  color: var(--roxo-tema-principal);
+`;
+
+export const ImageContainerHeader = styled.img`
+  width: 55px;
+  height: 55px;
+`;
+
+export const ImgHandleContainerBlue = styled.img`
+  width: 20px;
+  height: 20px;
+`;
+
+export const ContainerHeader = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+`;

@@ -13,10 +13,10 @@ import WorksEdit from "../pages/WorksEdit";
 import CreateWork from "../pages/CreateWork";
 import DesktopHome from "../pages/DESKTOP/DesktopHome";
 import ProfileSpecificUser from "../pages/ProfileSpecificUser/index";
-import RatingWork from "../components/RatingWork/index";
 import WorksDesktop from "../pages/DESKTOP/WorksDesktop";
 import EditInfoProfile from "../pages/EditInfoProfile";
 import { useViewport } from "../providers/GetViewport";
+import ChoiceAvatar from "../pages/ChoiceAvatar";
 import { useEffect } from "react";
 
 const Routes = () => {
@@ -25,11 +25,11 @@ const Routes = () => {
     getWindowDimension,
     viewport: { width },
   } = useViewport();
-  
+
   useEffect(() => {
-    setViewport(getWindowDimension())
-    console.log('USE EFFECT DO ROUTES')
-  }, [])
+    setViewport(getWindowDimension());
+    console.log("USE EFFECT DO ROUTES");
+  }, []);
 
   return width < 1266 ? (
     <Switch>
@@ -65,6 +65,9 @@ const Routes = () => {
       </Route>
       <Route path="/works/:id">
         <WorksDescription />
+      </Route>
+      <Route path="/avatar">
+        <ChoiceAvatar />
       </Route>
       <Route path="/createWork">
         <CreateWork />

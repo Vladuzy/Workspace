@@ -66,3 +66,14 @@ export const CardFooter = styled.div`
     margin-left: 10px;
   }
 `;
+
+export const ImageContainerHeader = styled.img`
+  width: 55px;
+  height: 55px;
+`;
+
+export const PContainer = styled.p`
+  color: var(--roxo-tema-principal);
+  height: 55px;
+  width: 55px;
+`;

@@ -210,3 +210,14 @@ export const InfoWorker = styled.section`
     }
   }
 `;
+
+export const ImageContainer = styled.img`
+  width: 55px;
+  height: 55px;
+`;
+
+export const ImageContainerHeader = styled.img`
+  margin: 0 auto;
+  width: 55px;
+  height: 55px;
+`;
