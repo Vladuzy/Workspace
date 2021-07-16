@@ -8,9 +8,11 @@ import { useMenuFooter } from "../../providers/MenuFooterProvider";
 import { Redirect, useHistory } from "react-router-dom";
 import ButtonAdd from "../../components/ButtonAdd";
 import Loading from "../../components/Loading/index";
+import { useViewport } from "../../providers/GetViewport";
 
 const Home = () => {
   const history = useHistory(); 
+  const { viewport: { width } } = useViewport()
   const { token, userLoggedInfo, getUserLoggedInfo } = useAuth();
   const { type } = userLoggedInfo;
   const [current, setCurrent] = useState<string>(
