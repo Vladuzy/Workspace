@@ -14,6 +14,10 @@ export const ListContainer = styled.div`
   height: 100%;
   overflow-y: scroll;
   background-color: var(--cinza-ultra-claro-main);
+
+  & > div:last-child {
+    margin-bottom: 5px;
+  }
 `;
 
 export const TabStyle = styled.button<TabProps>`

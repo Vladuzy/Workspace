@@ -90,7 +90,6 @@ const CategorySelect = ({ children, setSelected, selected, limit, color = 'var(-
   }, [isPintura, isLimpeza, isEletricista, isEncanador, isGerais])
 
   useEffect(() => {
-    console.log(selected)
     if (limit !== undefined && selected.length === limit) {
       setLimitError(true)
     } else {

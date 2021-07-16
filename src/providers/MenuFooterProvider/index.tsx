@@ -31,7 +31,6 @@ export const MenuFooterProvider = ({ children }: MenuFooterProviderProps) => {
       : true
   );
 
-  console.log(inHome);
   const [inWorks, setInWorks] = useState(
     localStorage.getItem("@WorkSpace:inWorks")
       ? JSON.parse(localStorage.getItem("@WorkSpace:inWorks") as string)

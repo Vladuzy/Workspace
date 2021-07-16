@@ -65,7 +65,6 @@ const ProfileSpecificUser = () => {
         },
       })
       .then((response) => {
-        console.log(response);
         setListCompletedJobsSpecificUser(response.data);
       })
       .catch((err) => console.log(err));
@@ -82,7 +81,6 @@ const ProfileSpecificUser = () => {
         },
       })
       .then((response) => {
-        console.log(response);
         setListCompletedJobsSpecificUser(response.data);
       })
       .catch((err) => console.log(err));
@@ -109,7 +107,6 @@ const ProfileSpecificUser = () => {
   }, [loading]);
 
   const { email, moreInfo } = userWantedInfo;
-  console.log(moreInfo);
   if (!token) {
     return <Redirect to="/" />;
   }
@@ -122,6 +119,7 @@ const ProfileSpecificUser = () => {
         <>
           <HeaderSpecificUser
             id={userWantedInfo.id}
+            img={userWantedInfo.img}
             type={userWantedInfo.type}
             name={userWantedInfo.name}
             rating={userWantedInfo.rating}

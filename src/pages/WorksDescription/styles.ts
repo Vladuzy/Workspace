@@ -133,11 +133,16 @@ export const ImageEdit = styled.img`
 export const ContainerButton = styled.div`
   display: flex;
   justify-content: center;
-  position: absolute;
+  align-items: center;
+  height: 220px;
   bottom: 30px;
   width: 100%;
 
   > button {
+    position: initial;
+    bottom: initial;
+    transform: initial;
+    right: initial;
     width: 50%;
     margin: 0 10px;
   }
@@ -209,4 +214,15 @@ export const InfoWorker = styled.section`
       margin-left: 15px;
     }
   }
+`;
+
+export const ImageContainer = styled.img`
+  width: 55px;
+  height: 55px;
+`;
+
+export const ImageContainerHeader = styled.img`
+  margin: 0 auto;
+  width: 55px;
+  height: 55px;
 `;

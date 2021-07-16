@@ -36,8 +36,7 @@ const CreateWorkDesktop = ({ setCreateWorkOpen }: CreateWorkDesktopProps) => {
   });
 
   const onSubmitData = (data: JobCreationData) => {
-    const newData = { ...data, category };
-    console.log(newData);
+    const newData = { ...data, category};
     userEmployerCreateJob(newData);
     setCreateWorkOpen(false)
   };

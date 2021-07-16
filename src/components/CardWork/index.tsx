@@ -1,14 +1,36 @@
 import { GiPositionMarker } from "react-icons/gi";
 import { FaDollarSign } from "react-icons/fa";
-import { IoIosArrowForward } from "react-icons/io";
-import { FaUserCircle } from "react-icons/fa";
-import { CardContainer, CardHeader, CardFooter } from "./style";
+import {
+  CardContainer,
+  CardHeader,
+  CardFooter,
+  ImageContainerHeader,
+  PContainer,
+  ContainerTitle,
+} from "./style";
 import CategoryTag from "../CategoryTag";
 import { useHistory } from "react-router-dom";
 import { useViewport } from "../../providers/GetViewport";
-import { useState } from "react";
+import { useState, Dispatch, SetStateAction, useEffect } from "react";
 import { useAuth } from "../../providers/AuthProvider";
 import WorksDescriptionDesktop from "../DESKTOP/WorkDescriptionDesktop";
+import api from "../../service/api";
+import imgAvatar from "../../assets/img/Avatar.svg";
+
+interface UserInfo {
+  name: string;
+  type: string;
+  img: string;
+  email: string;
+  password: string;
+  rating: string;
+  moreInfo: {
+    categories: string[];
+    description: string;
+    telephone: string;
+  };
+  id: string;
+}
 
 interface CardWorkProps {
   job: {
@@ -43,7 +65,34 @@ const CardWork = ({ job }: CardWorkProps) => {
     appliedCandidateId,
     status,
   } = job;
-  const { userLoggedInfo } = useAuth();
+  const { userLoggedInfo, token } = useAuth();
+
+  const [userWhoCreatedJob, setUserWhoCreatedJob] = useState<UserInfo>(
+    {} as UserInfo
+  );
+
+  const [loading, setLoading] = useState(true);
+
+  const getUserWhoCreatedJob = (
+    userEmployerId: string,
+    setLoadingUserWhoCreatedJob: Dispatch<SetStateAction<boolean>>
+  ) => {
+    api
+      .get(`/users/${userEmployerId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setUserWhoCreatedJob(response.data);
+        setLoadingUserWhoCreatedJob(false);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    getUserWhoCreatedJob(job.userId, setLoading);
+  }, []);
 
   const handleOpenDescription = () => {
     if (width > 1266) {
@@ -59,13 +108,24 @@ const CardWork = ({ job }: CardWorkProps) => {
       <CardContainer onClick={handleOpenDescription}>
         <div>
           <CardHeader>
-            <FaUserCircle />
-            <div>
-              <h2>{title}</h2>
+            {loading ? (
+              <PContainer>...</PContainer>
+            ) : (
+              <ImageContainerHeader
+                src={
+                  userWhoCreatedJob.img === ""
+                    ? imgAvatar
+                    : userWhoCreatedJob.img
+                }
+                alt="Icone Avatar"
+              />
+            )}
+            <ContainerTitle>
+              <h2>{title.length < 23 ? title : title.substr(0, 16) + "..."}</h2>
               <CategoryTag
                 category={Array.isArray(category) ? category[0] : category}
               />
-            </div>
+            </ContainerTitle>
           </CardHeader>
 
           <CardFooter>

@@ -29,8 +29,10 @@ import { useViewport } from "../../providers/GetViewport";
 import MoreInfoProfileDesktop from "../../components/DESKTOP/MoreInfoProfileDesktop";
 
 const Profile = () => {
-  const { viewport: { width } } = useViewport()
-  const [addInfoOpen, setAddInfoOpen] = useState<boolean>(false as boolean)
+  const {
+    viewport: { width },
+  } = useViewport();
+  const [addInfoOpen, setAddInfoOpen] = useState<boolean>(false as boolean);
 
   const { token, getUserLoggedInfo, userLoggedInfo } = useAuth();
   const { setInHome, setInWorks, setInProfile } = useMenuFooter();
@@ -51,14 +53,13 @@ const Profile = () => {
   }, []);
 
   const { email, moreInfo } = userLoggedInfo;
-  console.log(moreInfo);
   if (!token) {
     return <Redirect to="/" />;
   }
 
   const handleAddInfo = () => {
     if (width > 1266) {
-      setAddInfoOpen(true)
+      setAddInfoOpen(true);
     } else {
       history.push("/moreInfoProfile");
     }
@@ -66,7 +67,9 @@ const Profile = () => {
 
   return (
     <>
-      {addInfoOpen && <MoreInfoProfileDesktop setAddInfoOpen={setAddInfoOpen}/>}
+      {addInfoOpen && (
+        <MoreInfoProfileDesktop setAddInfoOpen={setAddInfoOpen} />
+      )}
       <Container>
         {loading ? (
           <Loading />

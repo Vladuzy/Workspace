@@ -8,14 +8,24 @@ import { useMenuFooter } from "../../providers/MenuFooterProvider";
 import { Redirect, useHistory } from "react-router-dom";
 import ButtonAdd from "../../components/ButtonAdd";
 import Loading from "../../components/Loading/index";
+import { useViewport } from "../../providers/GetViewport";
 
 const Home = () => {
-  const history = useHistory(); 
+  const history = useHistory();
+  const {
+    viewport: { width },
+    setViewport,
+    getWindowDimension,
+  } = useViewport();
   const { token, userLoggedInfo, getUserLoggedInfo } = useAuth();
   const { type } = userLoggedInfo;
   const [current, setCurrent] = useState<string>(
     () => localStorage.getItem("@WorkSpace:currenSection") || "ativos"
   );
+
+  useEffect(() => {
+    setViewport(getWindowDimension());
+  }, []);
 
   const {
     getListUserWorkerAppliedJobs,
@@ -31,17 +41,15 @@ const Home = () => {
 
   const { setInHome, setInProfile, setInWorks } = useMenuFooter();
   const [loadingUserLoggedInfo, setLoadingUserLoggedInfo] = useState(true);
-  
-  const getTotalGains =()=>{
-    if(type === "worker"){
-      
-      return listCompletedJobs
-      .reduce((acc, acumulater) => Number(acumulater.valueOffered) + acc, 0).toFixed(2)
-      
-    }
-  } 
-  const totalGains=getTotalGains()
 
+  const getTotalGains = () => {
+    if (type === "worker") {
+      return listCompletedJobs
+        .reduce((acc, acumulater) => Number(acumulater.valueOffered) + acc, 0)
+        .toFixed(2);
+    }
+  };
+  const totalGains = getTotalGains();
 
   useEffect(() => {
     getUserLoggedInfo(setLoadingUserLoggedInfo);

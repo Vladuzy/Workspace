@@ -3,8 +3,8 @@ import styled from "styled-components";
 export const CardContainer = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  width: 100%;
+  justify-content: space-around;
+  min-width: 100%;
   cursor: pointer;
 
   & > svg {
@@ -17,8 +17,12 @@ export const CardContainer = styled.div`
   border-bottom: 1px solid var(--roxo-tema-principal);
 
   @media only screen and (min-width: 769px) {
-    height: 125px;
+    min-height: 125px;
   }
+`;
+
+export const ContainerTitle = styled.div`
+  min-width: 165px;
 `;
 
 export const CardHeader = styled.div`
@@ -65,4 +69,15 @@ export const CardFooter = styled.div`
   & div:nth-child(2) {
     margin-left: 10px;
   }
+`;
+
+export const ImageContainerHeader = styled.img`
+  width: 55px;
+  height: 55px;
+`;
+
+export const PContainer = styled.p`
+  color: var(--roxo-tema-principal);
+  height: 55px;
+  width: 55px;
 `;

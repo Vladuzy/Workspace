@@ -11,14 +11,18 @@ import {
   ContainerCard,
   InfoContainerSubTitleCard,
   ContainerButton,
+  ImageContainer,
+  ImageContainerHeader,
 } from "./styles";
 import CategoryTag from "../../components/CategoryTag";
+import imgAvatar from "../../assets/img/Avatar.svg";
 import Button from "../../components/Button";
 import api from "../../service/api";
-import { FaDollarSign, FaUserCircle } from "react-icons/fa";
+import { FaDollarSign } from "react-icons/fa";
 import { FiClock } from "react-icons/fi";
 import { RiArrowLeftSLine } from "react-icons/ri";
 import { MdLocationOn } from "react-icons/md";
+import { useViewport } from "../../providers/GetViewport";
 
 import { SetStateAction, useEffect, useState, Dispatch } from "react";
 import { useParams, useHistory, Redirect } from "react-router-dom";
@@ -50,6 +54,7 @@ interface Job {
 interface UserInfo {
   name: string;
   type: string;
+  img: string;
   email: string;
   password: string;
   rating: string;
@@ -63,6 +68,9 @@ interface UserInfo {
 
 const WorksDescription = () => {
   const history = useHistory();
+  const {
+    viewport: { width },
+  } = useViewport();
   const { token, userLoggedInfo, getUserLoggedInfo } = useAuth();
   const { id } = useParams() as Params;
 
@@ -73,23 +81,32 @@ const WorksDescription = () => {
   const { title, valueOffered, date, description, category, location } =
     currentJob;
 
-  const [loadingCurrentJob, setLoadingCurrentJob] = useState<boolean>(true as boolean);
-  const [loadingUserLoggedInfo, setLoadingUserLoggedInfo] = useState<boolean>(true as boolean);
-  const [loadingWorkerApplyToJob, setLoadingWorkerApplyToJob] = useState<boolean>(true as boolean);
+  const [loadingCurrentJob, setLoadingCurrentJob] = useState<boolean>(
+    true as boolean
+  );
+  const [loadingUserLoggedInfo, setLoadingUserLoggedInfo] = useState<boolean>(
+    true as boolean
+  );
+  const [loadingWorkerApplyToJob, setLoadingWorkerApplyToJob] =
+    useState<boolean>(true as boolean);
   const [loadingWorkerCancelApplyToJob, setLoadingWorkerCancelApplyToJob] =
-  useState<boolean>(true as boolean);
+    useState<boolean>(true as boolean);
   const [loadingEmployerAcceptCandidate, setLoadingEmployerAcceptCandidate] =
-  useState<boolean>(true as boolean);
+    useState<boolean>(true as boolean);
   const [loadingEmployerRejectCandidate, setLoadingEmployerRejectCandidate] =
-  useState<boolean>(true as boolean);
+    useState<boolean>(true as boolean);
   const [loadingEmployerCompleteJob, setLoadingEmployerCompleteJob] =
-  useState<boolean>(true as boolean);
+    useState<boolean>(true as boolean);
 
   const [loadingUserWhoCreatedJob, setLoadingUserWhoCreatedJob] =
-  useState<boolean>(true as boolean);
+    useState<boolean>(true as boolean);
 
-  const [loadingUserAppliedJob, setLoadingUserAppliedJob] = useState<boolean>(true as boolean);
-  const [loadingUserAcceptedJob, setLoadingUserAcceptedJob] = useState<boolean>(true as boolean);
+  const [loadingUserAppliedJob, setLoadingUserAppliedJob] = useState<boolean>(
+    true as boolean
+  );
+  const [loadingUserAcceptedJob, setLoadingUserAcceptedJob] = useState<boolean>(
+    true as boolean
+  );
 
   const [showRating, setShowRating] = useState<boolean>(false);
 
@@ -119,9 +136,7 @@ const WorksDescription = () => {
           "@WorkSpace:currentJob",
           JSON.stringify(response.data)
         );
-        console.log(response);
         setLoadingCurrentJob(false);
-        //Show Toast
       })
       .catch((err) => console.log(err));
   };
@@ -142,7 +157,6 @@ const WorksDescription = () => {
       })
       .then((response) => {
         setLoadingWorkerApplyToJob(false);
-        //Show Toast
       })
       .catch((err) => console.log(err));
   };
@@ -163,7 +177,6 @@ const WorksDescription = () => {
       })
       .then((response) => {
         setLoadingWorkerCancelApplyToJob(false);
-        //Show Toast
       })
       .catch((err) => console.log(err));
   };
@@ -186,9 +199,7 @@ const WorksDescription = () => {
         },
       })
       .then((response) => {
-        // console.log(response);
         setLoadingEmployerAcceptCandidate(false);
-        //Show Toast
       })
       .catch((err) => console.log(err));
   };
@@ -235,9 +246,7 @@ const WorksDescription = () => {
         },
       })
       .then((response) => {
-        console.log(response);
         setLoadingEmployerCompleteJob(false);
-        //Show Toast
       })
       .catch((err) => console.log(err));
   };
@@ -254,10 +263,6 @@ const WorksDescription = () => {
       })
       .then((response) => {
         setUserWhoCreatedJob(response.data);
-        // localStorage.setItem(
-        //   "@WorkSpace:userWhoCreatedJob",
-        //   JSON.stringify(response.data)
-        // );
         setLoadingUserWhoCreatedJob(false);
       })
       .catch((err) => console.log(err));
@@ -274,7 +279,6 @@ const WorksDescription = () => {
         },
       })
       .then((response) => {
-        console.log(response);
         setUserAppliedJob(response.data);
         setLoadingUserAppliedJob(false);
       })
@@ -292,7 +296,6 @@ const WorksDescription = () => {
         },
       })
       .then((response) => {
-        console.log(response);
         setUserAcceptedJob(response.data);
         setLoadingUserAcceptedJob(false);
       })
@@ -371,7 +374,7 @@ const WorksDescription = () => {
 
   return (
     <>
-      {showRating && <RatingWork setShowRating={setShowRating} id={id}/>}
+      {showRating && <RatingWork setShowRating={setShowRating} id={id} />}
       {loadingCurrentJob &&
       loadingUserLoggedInfo &&
       loadingUserWhoCreatedJob ? (
@@ -381,13 +384,18 @@ const WorksDescription = () => {
           {" "}
           <HeaderContainer>
             <RiArrowLeftSLine onClick={() => history.goBack()} />
-            <FaUserCircle />
+            <ImageContainerHeader
+              src={
+                userWhoCreatedJob.img === "" ? imgAvatar : userWhoCreatedJob.img
+              }
+              alt="Icone Avatar"
+            />
           </HeaderContainer>
           <MainContainer>
             <JobInfoContainer>
               <h2>{title}</h2>
               {/* Foi necessário deixar == para comparar string e number */}
-              {currentJob.userId === userLoggedInfo.id &&
+              {currentJob.userId == userLoggedInfo.id &&
                 currentJob.status === "isWaiting" &&
                 currentJob.appliedCandidateId === "Sem Candidatos" && (
                   <ImageEdit
@@ -432,14 +440,20 @@ const WorksDescription = () => {
                 >
                   <h2>Freelancer Contratado</h2>
                   <ContainerCard>
-                    <FaUserCircle className="Avatar-Container" />
+                    <ImageContainer
+                      src={
+                        userAcceptedJob.img === ""
+                          ? imgAvatar
+                          : userAcceptedJob.img
+                      }
+                      alt="Icone Avatar"
+                    />
                     <InfoContainerSubTitleCard>
                       {loadingUserAcceptedJob
                         ? "Carregando..."
                         : userAcceptedJob.name}
                     </InfoContainerSubTitleCard>
                   </ContainerCard>
-                  ;
                 </InfoWorker>
               ) : (
                 currentJob.appliedCandidateId !== "Sem Candidatos" && (
@@ -452,14 +466,20 @@ const WorksDescription = () => {
                   >
                     <h2>Candidato</h2>
                     <ContainerCard>
-                      <FaUserCircle className="Avatar-Container" />
+                      <ImageContainer
+                        src={
+                          userAppliedJob.img === ""
+                            ? imgAvatar
+                            : userAppliedJob.img
+                        }
+                        alt="Icone Avatar"
+                      />
                       <InfoContainerSubTitleCard>
                         {loadingUserAppliedJob
                           ? "Carregando..."
                           : userAppliedJob.name}
                       </InfoContainerSubTitleCard>
                     </ContainerCard>
-                    ;
                   </InfoWorker>
                 )
               )}
@@ -505,7 +525,7 @@ const WorksDescription = () => {
                   <Button
                     text="Recusar"
                     width="230px"
-                    max-Width="230px"
+                    maxWidth="230px"
                     heigth="40px"
                     borderRadius="20px"
                     border="1px solid var(--roxo-tema-principal)"
@@ -523,7 +543,7 @@ const WorksDescription = () => {
                   <Button
                     text="Aceitar"
                     width="230px"
-                    max-Width="230px"
+                    maxWidth="230px"
                     heigth="40px"
                     borderRadius="20px"
                     backColor="var(--roxo-tema-principal)"

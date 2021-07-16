@@ -47,14 +47,6 @@ const Works = () => {
   const { setInHome, setInProfile, setInWorks } = useMenuFooter();
   const [loading, setLoading] = useState(true);
 
-  const [filteredByFilterArr, setFilteredByFilterArr] = useState<Job[]>(
-    [] as Job[]
-  );
-
-  const [filteredBySearchArr, setFilteredBySearchArr] = useState<Job[]>(
-    [] as Job[]
-  );
-
   //MUDA ENTRE MOSTRAR/NÃO MOSTRAR POP-UP DOS FILTROS
   const [showFilter, setShowFilter] = useState<boolean>(false as boolean);
 
@@ -94,17 +86,6 @@ const Works = () => {
           )
       : filterByCategoriesByInput;
 
-  // ACABA AQUI O FILTRO
-
-  //FAZ O FILTRO COM BASE NO VALOR DO INPUT, SETA O MESMO VALOR
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value.toLocaleLowerCase());
-    setFilteredBySearchArr(
-      listWaitingJobsWithoutCandidates.filter((elem) =>
-        elem.title.toLocaleLowerCase().includes(inputValue)
-      )
-    );
-  };
 
   //MUDA O ESTADO PARA MOSTRAR OU NÃO POP UP DOS FILTROS
   const handleShowFilter = (value: boolean) => {
@@ -116,18 +97,6 @@ const Works = () => {
     setFilters(filters.filter((_, index) => index !== ind));
   };
 
-  const GlobalFilter = () => {
-    if (filters.length > 0) {
-      setFilteredByFilterArr(
-        listWaitingJobsWithoutCandidates.filter((elem) =>
-          filters.includes(elem.category)
-        )
-      );
-    } else {
-      setFilteredByFilterArr([]);
-    }
-  };
-
   useEffect(() => {
     setInHome(false);
     setInWorks(true);
@@ -137,10 +106,6 @@ const Works = () => {
     localStorage.setItem("@WorkSpace:inProfile", "false");
     getListWaitingJobsWithoutCandidates(setLoading);
   }, []);
-
-  useEffect(() => {
-    GlobalFilter();
-  }, [filters]);
 
   if (!token) {
     return <Redirect to="/" />;
@@ -163,7 +128,7 @@ const Works = () => {
           <HeaderContainer>
             <FilterContainer>
               <InputContainer>
-                <Input placeholder="Pesquisar..." onChange={handleSearch} />
+                <Input placeholder="Pesquisar..." onChange={(e) => setInputValue(e.target.value.toLocaleLowerCase())} />
                 <HiSearch />
               </InputContainer>
               <IconContainer onClick={() => handleShowFilter(true)}>

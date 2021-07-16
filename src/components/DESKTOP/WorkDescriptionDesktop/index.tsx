@@ -11,12 +11,15 @@ import {
   ContainerCard,
   InfoContainerSubTitleCard,
   ContainerButton,
+  ImageContainer,
+  ImageContainerHeader,
   BackgroundContainer,
 } from "./styles";
 import CategoryTag from "../../CategoryTag";
+import imgAvatar from "../../../assets/img/Avatar.svg";
 import Button from "../../Button";
 import api from "../../../service/api";
-import { FaDollarSign, FaUserCircle } from "react-icons/fa";
+import { FaDollarSign } from "react-icons/fa";
 import { FiClock } from "react-icons/fi";
 import { IoMdClose } from "react-icons/io";
 import { RiArrowLeftSLine } from "react-icons/ri";
@@ -28,7 +31,7 @@ import { useAuth } from "../../../providers/AuthProvider";
 import imgEdit from "../../../assets/img/Edit.svg";
 import Loading from "../../../components/Loading";
 import RatingWork from "../../RatingWork/index";
-import WorksEditDesktop from '../WorksEditDesktop'
+import WorksEditDesktop from "../WorksEditDesktop";
 
 interface Params {
   id: string;
@@ -53,6 +56,7 @@ interface Job {
 
 interface UserInfo {
   name: string;
+  img: string;
   type: string;
   email: string;
   password: string;
@@ -68,7 +72,7 @@ interface UserInfo {
 const WorksDescriptionDesktop = ({ id, setPopUp }: Params) => {
   const history = useHistory();
   const { token, userLoggedInfo, getUserLoggedInfo } = useAuth();
-  const [editWorkOpen, setEditWorkOpen] = useState<boolean>(false as boolean)
+  const [editWorkOpen, setEditWorkOpen] = useState<boolean>(false as boolean);
 
   const [currentJob, setCurrentJob] = useState<Job>(
     (JSON.parse(localStorage.getItem("@WorkSpace:currentJob") as string) ||
@@ -123,9 +127,7 @@ const WorksDescriptionDesktop = ({ id, setPopUp }: Params) => {
           "@WorkSpace:currentJob",
           JSON.stringify(response.data)
         );
-        console.log(response);
         setLoadingCurrentJob(false);
-        //Show Toast
       })
       .catch((err) => console.log(err));
   };
@@ -146,7 +148,6 @@ const WorksDescriptionDesktop = ({ id, setPopUp }: Params) => {
       })
       .then((response) => {
         setLoadingWorkerApplyToJob(false);
-        //Show Toast
       })
       .catch((err) => console.log(err));
   };
@@ -167,7 +168,6 @@ const WorksDescriptionDesktop = ({ id, setPopUp }: Params) => {
       })
       .then((response) => {
         setLoadingWorkerCancelApplyToJob(false);
-        //Show Toast
       })
       .catch((err) => console.log(err));
   };
@@ -190,9 +190,7 @@ const WorksDescriptionDesktop = ({ id, setPopUp }: Params) => {
         },
       })
       .then((response) => {
-        // console.log(response);
         setLoadingEmployerAcceptCandidate(false);
-        //Show Toast
       })
       .catch((err) => console.log(err));
   };
@@ -239,9 +237,7 @@ const WorksDescriptionDesktop = ({ id, setPopUp }: Params) => {
         },
       })
       .then((response) => {
-        console.log(response);
         setLoadingEmployerCompleteJob(false);
-        //Show Toast
       })
       .catch((err) => console.log(err));
   };
@@ -258,10 +254,7 @@ const WorksDescriptionDesktop = ({ id, setPopUp }: Params) => {
       })
       .then((response) => {
         setUserWhoCreatedJob(response.data);
-        // localStorage.setItem(
-        //   "@WorkSpace:userWhoCreatedJob",
-        //   JSON.stringify(response.data)
-        // );
+
         setLoadingUserWhoCreatedJob(false);
       })
       .catch((err) => console.log(err));
@@ -278,7 +271,6 @@ const WorksDescriptionDesktop = ({ id, setPopUp }: Params) => {
         },
       })
       .then((response) => {
-        console.log(response);
         setUserAppliedJob(response.data);
         setLoadingUserAppliedJob(false);
       })
@@ -296,7 +288,6 @@ const WorksDescriptionDesktop = ({ id, setPopUp }: Params) => {
         },
       })
       .then((response) => {
-        console.log(response);
         setUserAcceptedJob(response.data);
         setLoadingUserAcceptedJob(false);
       })
@@ -375,204 +366,227 @@ const WorksDescriptionDesktop = ({ id, setPopUp }: Params) => {
 
   return (
     <>
-    {editWorkOpen && <WorksEditDesktop setEditWorkOpen={setEditWorkOpen} id={id}/>}
-    <BackgroundContainer>
-      {showRating && <RatingWork setShowRating={setShowRating} id={id} />}
-      {loadingCurrentJob &&
-      loadingUserLoggedInfo &&
-      loadingUserWhoCreatedJob ? (
-        <Loading />
-      ) : (
-        <>
-          {" "}
-          <HeaderContainer>
-            <IoMdClose onClick={() => setPopUp(false)} />
-            <FaUserCircle />
-          </HeaderContainer>
-          <MainContainer>
-            <JobInfoContainer>
-              <h2>{title}</h2>
-              {/* Foi necessário deixar == para comparar string e number */}
-              {currentJob.userId === userLoggedInfo.id &&
-                currentJob.status === "isWaiting" &&
-                currentJob.appliedCandidateId === "Sem Candidatos" && (
-                  <ImageEdit
-                    onClick={() => setEditWorkOpen(true)}
-                    src={imgEdit}
-                    alt=""
-                  />
+      {editWorkOpen && (
+        <WorksEditDesktop setEditWorkOpen={setEditWorkOpen} id={id} />
+      )}
+      <BackgroundContainer>
+        {showRating && <RatingWork setShowRating={setShowRating} id={id} />}
+        {loadingCurrentJob &&
+        loadingUserLoggedInfo &&
+        loadingUserWhoCreatedJob ? (
+          <Loading />
+        ) : (
+          <>
+            {" "}
+            <HeaderContainer>
+              <IoMdClose onClick={() => setPopUp(false)} />
+              <ImageContainerHeader
+                src={
+                  userWhoCreatedJob.img === ""
+                    ? imgAvatar
+                    : userWhoCreatedJob.img
+                }
+                alt="Icone Avatar"
+              />
+            </HeaderContainer>
+            <MainContainer>
+              <JobInfoContainer>
+                <h2>{title}</h2>
+                {/* Foi necessário deixar == para comparar string e number */}
+                {currentJob.userId == userLoggedInfo.id &&
+                  currentJob.status === "isWaiting" &&
+                  currentJob.appliedCandidateId === "Sem Candidatos" && (
+                    <ImageEdit
+                      onClick={() => setEditWorkOpen(true)}
+                      src={imgEdit}
+                      alt=""
+                    />
+                  )}
+
+                {loadingUserWhoCreatedJob ? (
+                  <h3>Carregando...</h3>
+                ) : (
+                  <h3>{userWhoCreatedJob.name}</h3>
                 )}
 
-              {loadingUserWhoCreatedJob ? (
-                <h3>Carregando...</h3>
-              ) : (
-                <h3>{userWhoCreatedJob.name}</h3>
-              )}
-
-              <SpecialInfoContainer>
+                <SpecialInfoContainer>
+                  <div>
+                    <FaDollarSign />
+                    <span>{valueOffered}</span>
+                  </div>
+                  <div>
+                    <FiClock />
+                    <span>{date}</span>
+                  </div>
+                </SpecialInfoContainer>
+              </JobInfoContainer>
+              <DescriptionInfoContainer>
+                <h2>Descrição do Trabalho</h2>
+                <CategoryTag category={category} />
+                <p>{description}</p>
                 <div>
-                  <FaDollarSign />
-                  <span>{valueOffered}</span>
+                  <MdLocationOn />
+                  <span>{location}</span>
                 </div>
-                <div>
-                  <FiClock />
-                  <span>{date}</span>
-                </div>
-              </SpecialInfoContainer>
-            </JobInfoContainer>
-            <DescriptionInfoContainer>
-              <h2>Descrição do Trabalho</h2>
-              <CategoryTag category={category} />
-              <p>{description}</p>
-              <div>
-                <MdLocationOn />
-                <span>{location}</span>
-              </div>
-              {currentJob.acceptedCandidateId !== "" ? (
-                <InfoWorker
-                  onClick={() =>
-                    history.push(
-                      `/profileUser/${currentJob.acceptedCandidateId}`
-                    )
-                  }
-                >
-                  <h2>Freelancer Contratado</h2>
-                  <ContainerCard>
-                    <FaUserCircle className="Avatar-Container" />
-                    <InfoContainerSubTitleCard>
-                      {loadingUserAcceptedJob
-                        ? "Carregando..."
-                        : userAcceptedJob.name}
-                    </InfoContainerSubTitleCard>
-                  </ContainerCard>
-                </InfoWorker>
-              ) : (
-                currentJob.appliedCandidateId !== "Sem Candidatos" && (
+                {currentJob.acceptedCandidateId !== "" ? (
                   <InfoWorker
                     onClick={() =>
                       history.push(
-                        `/profileUser/${currentJob.appliedCandidateId}`
+                        `/profileUser/${currentJob.acceptedCandidateId}`
                       )
                     }
                   >
-                    <h2>Candidato</h2>
+                    <h2>Freelancer Contratado</h2>
                     <ContainerCard>
-                      <FaUserCircle className="Avatar-Container" />
+                      <ImageContainer
+                        src={
+                          userAcceptedJob.img === ""
+                            ? imgAvatar
+                            : userAcceptedJob.img
+                        }
+                        alt="Icone Avatar"
+                      />
                       <InfoContainerSubTitleCard>
-                        {loadingUserAppliedJob
+                        {loadingUserAcceptedJob
                           ? "Carregando..."
-                          : userAppliedJob.name}
+                          : userAcceptedJob.name}
                       </InfoContainerSubTitleCard>
                     </ContainerCard>
                   </InfoWorker>
-                )
-              )}
-            </DescriptionInfoContainer>
-            {currentJob.status === "isWaiting" ? (
-              userLoggedInfo.type === "worker" ? (
-                !currentJob.rejectedCandidatesIds.includes(
-                  userLoggedInfo.id
-                ) ? (
-                  // Worker verificando se está aplicado
-                  currentJob.appliedCandidateId === userLoggedInfo.id ? (
+                ) : (
+                  currentJob.appliedCandidateId !== "Sem Candidatos" && (
+                    <InfoWorker
+                      onClick={() =>
+                        history.push(
+                          `/profileUser/${currentJob.appliedCandidateId}`
+                        )
+                      }
+                    >
+                      <h2>Candidato</h2>
+                      <ContainerCard>
+                        <ImageContainer
+                          src={
+                            userAppliedJob.img === ""
+                              ? imgAvatar
+                              : userAppliedJob.img
+                          }
+                          alt="Icone Avatar"
+                        />
+                        <InfoContainerSubTitleCard>
+                          {loadingUserAppliedJob
+                            ? "Carregando..."
+                            : userAppliedJob.name}
+                        </InfoContainerSubTitleCard>
+                      </ContainerCard>
+                    </InfoWorker>
+                  )
+                )}
+              </DescriptionInfoContainer>
+              {currentJob.status === "isWaiting" ? (
+                userLoggedInfo.type === "worker" ? (
+                  !currentJob.rejectedCandidatesIds.includes(
+                    userLoggedInfo.id
+                  ) ? (
+                    // Worker verificando se está aplicado
+                    currentJob.appliedCandidateId === userLoggedInfo.id ? (
+                      <Button
+                        text="Cancelar Aplicação"
+                        width="230px"
+                        heigth="40px"
+                        borderRadius="20px"
+                        handleClick={() => {
+                          userWorkerCancelApplyToJob(
+                            id,
+                            setLoadingWorkerCancelApplyToJob
+                          );
+                        }}
+                        backColor="var(--roxo-tema-principal)"
+                      />
+                    ) : (
+                      <Button
+                        text="Aplicar"
+                        width="230px"
+                        heigth="40px"
+                        borderRadius="20px"
+                        handleClick={() => {
+                          userWorkerApplyToJob(id, setLoadingWorkerApplyToJob);
+                        }}
+                        backColor="var(--roxo-tema-principal)"
+                      />
+                    )
+                  ) : (
+                    <StatusWork applyRejected>Não pode se aplicar</StatusWork>
+                  )
+                ) : //Employer Verificando se tem candidatos aplicados
+                currentJob.appliedCandidateId !== "Sem Candidatos" ? (
+                  <ContainerButton>
                     <Button
-                      text="Cancelar Aplicação"
+                      text="Recusar"
+                      width="230px"
+                      max-Width="230px"
+                      heigth="40px"
+                      borderRadius="20px"
+                      border="1px solid var(--roxo-tema-principal)"
+                      color="var(--roxo-tema-principal)"
+                      backColor="var(--cinza-ultra-claro-main)"
+                      handleClick={() => {
+                        userEmployerRejectCandidate(
+                          currentJob.appliedCandidateId,
+                          currentJob.rejectedCandidatesIds,
+                          id,
+                          setLoadingEmployerRejectCandidate
+                        );
+                      }}
+                    />
+                    <Button
+                      text="Aceitar"
+                      width="230px"
+                      max-Width="230px"
+                      heigth="40px"
+                      borderRadius="20px"
+                      backColor="var(--roxo-tema-principal)"
+                      handleClick={() => {
+                        userEmployerAcceptCandidate(
+                          currentJob.appliedCandidateId,
+                          id,
+                          setLoadingEmployerAcceptCandidate
+                        );
+                      }}
+                    />
+                  </ContainerButton>
+                ) : (
+                  <SpanCandidates>
+                    Este trabalho não possui nenhum candidato ainda...
+                  </SpanCandidates>
+                )
+              ) : currentJob.status === "inProgress" ? (
+                userLoggedInfo.type === "worker" ? (
+                  <StatusWork activeWork>Trabalho Ativo</StatusWork>
+                ) : (
+                  <>
+                    <Button
+                      text="Concluir"
                       width="230px"
                       heigth="40px"
                       borderRadius="20px"
                       handleClick={() => {
-                        userWorkerCancelApplyToJob(
+                        userEmployerCompleteJob(
                           id,
-                          setLoadingWorkerCancelApplyToJob
+                          setLoadingEmployerCompleteJob
                         );
                       }}
                       backColor="var(--roxo-tema-principal)"
                     />
-                  ) : (
-                    <Button
-                      text="Aplicar"
-                      width="230px"
-                      heigth="40px"
-                      borderRadius="20px"
-                      handleClick={() => {
-                        userWorkerApplyToJob(id, setLoadingWorkerApplyToJob);
-                      }}
-                      backColor="var(--roxo-tema-principal)"
-                    />
-                  )
-                ) : (
-                  <StatusWork applyRejected>Não pode se aplicar</StatusWork>
+                    {/* <RatingWork id={currentJob.id} showModal={showRating} /> */}
+                  </>
                 )
-              ) : //Employer Verificando se tem candidatos aplicados
-              currentJob.appliedCandidateId !== "Sem Candidatos" ? (
-                <ContainerButton>
-                  <Button
-                    text="Recusar"
-                    width="230px"
-                    max-Width="230px"
-                    heigth="40px"
-                    borderRadius="20px"
-                    border="1px solid var(--roxo-tema-principal)"
-                    color="var(--roxo-tema-principal)"
-                    backColor="var(--cinza-ultra-claro-main)"
-                    handleClick={() => {
-                      userEmployerRejectCandidate(
-                        currentJob.appliedCandidateId,
-                        currentJob.rejectedCandidatesIds,
-                        id,
-                        setLoadingEmployerRejectCandidate
-                      );
-                    }}
-                  />
-                  <Button
-                    text="Aceitar"
-                    width="230px"
-                    max-Width="230px"
-                    heigth="40px"
-                    borderRadius="20px"
-                    backColor="var(--roxo-tema-principal)"
-                    handleClick={() => {
-                      userEmployerAcceptCandidate(
-                        currentJob.appliedCandidateId,
-                        id,
-                        setLoadingEmployerAcceptCandidate
-                      );
-                    }}
-                  />
-                </ContainerButton>
               ) : (
-                <SpanCandidates>
-                  Este trabalho não possui nenhum candidato ainda...
-                </SpanCandidates>
-              )
-            ) : currentJob.status === "inProgress" ? (
-              userLoggedInfo.type === "worker" ? (
-                <StatusWork activeWork>Trabalho Ativo</StatusWork>
-              ) : (
-                <>
-                  <Button
-                    text="Concluir"
-                    width="230px"
-                    heigth="40px"
-                    borderRadius="20px"
-                    handleClick={() => {
-                      userEmployerCompleteJob(
-                        id,
-                        setLoadingEmployerCompleteJob
-                      );
-                    }}
-                    backColor="var(--roxo-tema-principal)"
-                  />
-                  {/* <RatingWork id={currentJob.id} showModal={showRating} /> */}
-                </>
-              )
-            ) : (
-              <StatusWork completedWork>Concluído</StatusWork>
-            )}
-          </MainContainer>
-        </>
-      )}
-    </BackgroundContainer>
+                <StatusWork completedWork>Concluído</StatusWork>
+              )}
+            </MainContainer>
+          </>
+        )}
+      </BackgroundContainer>
     </>
   );
 };
