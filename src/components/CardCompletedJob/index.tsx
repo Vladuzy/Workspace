@@ -15,9 +15,12 @@ import {
   InfoContainer,
   InfoContainerTitle,
   InfoContainerSubTitle,
+  PopUpContainer
 } from "./style";
 import { useHistory } from "react-router-dom";
 import api from "../../service/api";
+import WorkDescriptionDesktop from '../DESKTOP/WorkDescriptionDesktop'
+import { useViewport } from '../../providers/GetViewport'
 
 interface UserCurrenInfo {
   name: string;
@@ -50,6 +53,8 @@ const CardCompletedJob = ({
   id,
   pageType,
 }: CartCompletedJobProps) => {
+  const [completedOpen, setCompletedOpen] = useState<boolean>(false as boolean)
+  const { viewport: { width } } = useViewport()
   const { getListUserEmployerCompletedJobs, getListUserWorkerCompletedJobs } =
     useJobs();
   const { userLoggedInfo, token } = useAuth();
@@ -57,7 +62,11 @@ const CardCompletedJob = ({
   const [userCurrentInfo, setUserCurrentInfo] = useState({} as UserCurrenInfo);
   const history = useHistory();
   const handleClick = () => {
-    history.push(`/works/${id}`);
+    if (width > 1266) {
+      setCompletedOpen(true)
+    } else {
+      history.push(`/works/${id}`);
+    }
   };
 
   const getInfoCurrentUser = (
@@ -94,6 +103,8 @@ const CardCompletedJob = ({
   }, []);
 
   return (
+    <>
+    {completedOpen && (<PopUpContainer> <WorkDescriptionDesktop setPopUp={setCompletedOpen} id={id}/> </PopUpContainer>)}
     <Container onClick={handleClick}>
       <FaUserCircle className="Avatar-Container" />
       <InfoContainer>
@@ -111,6 +122,7 @@ const CardCompletedJob = ({
         />
       </InfoContainer>
     </Container>
+    </>
   );
 };
 

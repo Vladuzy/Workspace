@@ -32,7 +32,6 @@ const CreateWork = () => {
 
   const onSubmitData = (data: JobCreationData) => {
     const newData = { ...data, category };
-    console.log(newData);
     userEmployerCreateJob(newData);
     history.push("/home");
   };
