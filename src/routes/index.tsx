@@ -93,7 +93,7 @@ const Routes = () => {
         <DesktopHome />
       </Route>
       <Route path="*">
-        <NotFoundDesk />
+        <NotFound />
       </Route>
     </Switch>
   );
