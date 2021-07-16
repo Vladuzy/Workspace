@@ -8,6 +8,7 @@ import {
   HeaderInternContainer,
   ImageHeader,
   HeaderContainer,
+  ImageContainer,
   TitleContainer,
 } from "./style";
 import { useEffect, useState } from "react";
@@ -30,6 +31,7 @@ interface Job {
 
 interface HeaderSpecificUserProps {
   name: string;
+  img: string;
   type: string;
   rating: string;
   id: string;
@@ -39,6 +41,7 @@ interface HeaderSpecificUserProps {
 const HeaderSpecificUser = ({
   name,
   type,
+  img,
   rating,
   id,
   listCompletedJobsSpecificUser,
@@ -62,7 +65,7 @@ const HeaderSpecificUser = ({
   return (
     <Container>
       <HeaderContainer>
-        <img src={imgAvatar} alt="Icone Avatar" />
+        <ImageContainer src={img === "" ? imgAvatar : img} alt="Icone Avatar" />
         <HeaderInternContainer>
           <TitleContainer>{name}</TitleContainer>
           {type === "worker" &&

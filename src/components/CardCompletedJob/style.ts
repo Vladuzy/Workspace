@@ -29,3 +29,8 @@ export const InfoContainerSubTitle = styled.h2`
   color: var(--roxo-tema-principal);
   font-size: 0.8rem;
 `;
+
+export const ImageContainer = styled.img`
+  width: 55px;
+  height: 55px;
+`;

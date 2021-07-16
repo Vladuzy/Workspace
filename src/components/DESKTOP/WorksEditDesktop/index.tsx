@@ -11,14 +11,16 @@ import {
   Container,
   FooterContainer,
   TitleContainer,
-} from "./style";
-import close from "../../assets/img/close.svg";
+  BackgroundContainer,
+  EditWorkForm
+} from "./styles";
+import close from "../../../assets/img/close.svg";
 import { useHistory, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useJobs } from "../../providers/Jobs";
-import { useEffect } from "react";
+import { useJobs } from "../../../providers/Jobs";
+import { Dispatch, SetStateAction, useEffect } from "react";
 
 interface Data {
   title: string;
@@ -29,10 +31,10 @@ interface Data {
 
 interface Params {
   id: string;
+  setEditWorkOpen: Dispatch<SetStateAction<boolean>>
 }
 
-const WorksEdit = () => {
-  const { id } = useParams() as Params;
+const WorksEditDesktop = ({ id, setEditWorkOpen } :Params) => {
   const { userEmployerEditJob, currentJob, getASpecificJob } = useJobs();
 
   useEffect(() => {
@@ -63,18 +65,17 @@ const WorksEdit = () => {
 
   const handleEdit = (data: Data) => {
     userEmployerEditJob(data, currentJob.id);
-    history.goBack();
-  };
-  const handleExitApplication = () => {
-    history.goBack();
+    setEditWorkOpen(false)
   };
 
+
   return (
-    <form onSubmit={handleSubmit(handleEdit)}>
-      <ContainerForm>
+    <BackgroundContainer>
+    <EditWorkForm onSubmit={handleSubmit(handleEdit)}>
+    <ContainerForm>
         <HeaderContainer>
           <ImageHeader
-            onClick={handleExitApplication}
+            onClick={() => setEditWorkOpen(false)}
             src={close}
             alt="Icone de fechar"
           />
@@ -113,8 +114,9 @@ const WorksEdit = () => {
           <FooterButton>Editar</FooterButton>
         </Container>
       </ContainerForm>
-    </form>
+    </EditWorkForm>
+    </BackgroundContainer>
   );
 };
 
-export default WorksEdit;
+export default WorksEditDesktop;

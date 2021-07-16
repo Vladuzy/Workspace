@@ -13,7 +13,12 @@ import {
   ImgHandleContainer,
   HeaderContainer,
   ImgStarHeaderContainer,
+  SubTitleHeader,
+  ImageContainerHeader,
+  ImageContainer,
+  ImgHandleContainerBlue,
   TitleContainer,
+  ContainerHeader,
 } from "./style";
 import { useEffect, useState } from "react";
 
@@ -78,7 +83,20 @@ const Header = () => {
       {editOpen && <EditInfoProfileDesktop setEditOpen={setEditOpen} />}
       <Container>
         <HeaderContainer>
-          <img src={imgAvatar} alt="Icone Avatar" />
+          <ImageContainer>
+            <ImageContainerHeader
+              src={userLoggedInfo.img === "" ? imgAvatar : userLoggedInfo.img}
+              alt="Icone Avatar"
+            />
+            <ContainerHeader onClick={() => history.push("/avatar")}>
+              <SubTitleHeader>Avatar</SubTitleHeader>
+              <ImgHandleContainerBlue
+                onClick={handleEdit}
+                src={imgEdit}
+                alt="Icone Edit"
+              />
+            </ContainerHeader>
+          </ImageContainer>
           <HeaderInternContainer>
             <TitleContainer>{userLoggedInfo.name}</TitleContainer>
             {type === "worker" &&

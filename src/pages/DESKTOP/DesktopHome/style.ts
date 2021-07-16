@@ -14,6 +14,13 @@ export const Title = styled.h1`
   font-size: 2em;
 `;
 
+export const HeaderContainer = styled.header`
+  width: 280px;
+
+  display: flex;
+  justify-content: space-between;
+`
+
 export const Content = styled.div`
   width: 65vw;
 `;
@@ -65,7 +72,6 @@ export const ColumnList = styled.div`
   h1 {
     font-size: 1.5em;
     font-weight: normal;
-    margin: 5px 1rem;
   }
 `;
 
@@ -74,4 +80,16 @@ export const ProfileDesktop = styled.div`
   max-width: 250px;
   max-height: 100vh;
   border-left: 1px solid var(--roxo-tema-principal);
+`;
+
+export const ButtonADD = styled.button`
+  background-color: transparent;
+  border: none;
+  width: 35px;
+  height: 35px;
+  .Button {
+    color: var(--roxo-tema-principal);
+    width: 35px;
+    height: 35px;
+  }
 `;

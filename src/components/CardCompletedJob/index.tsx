@@ -5,7 +5,6 @@ import {
   Dispatch,
   SetStateAction,
 } from "react";
-import { FaUserCircle } from "react-icons/fa";
 import { useAuth } from "../../providers/AuthProvider";
 import { useJobs } from "../../providers/Jobs";
 import imgMoreInfo from "../../assets/img/more_Info.svg";
@@ -15,13 +14,16 @@ import {
   InfoContainer,
   InfoContainerTitle,
   InfoContainerSubTitle,
+  ImageContainer,
 } from "./style";
+import imgAvatar from "../../assets/img/Avatar.svg";
 import { useHistory } from "react-router-dom";
 import api from "../../service/api";
 
 interface UserCurrenInfo {
   name: string;
   type: string;
+  img: string;
   email: string;
   password: string;
   rating: string;
@@ -92,12 +94,17 @@ const CardCompletedJob = ({
       getListUserWorkerCompletedJobs();
     }
   }, []);
-  
+
   return (
-    <Container  onClick={handleClick} >
-      <FaUserCircle className="Avatar-Container" />
+    <Container onClick={handleClick}>
+      <ImageContainer
+        src={userCurrentInfo.img === "" ? imgAvatar : userCurrentInfo.img}
+        alt="Icone Avatar"
+      />
       <InfoContainer>
-        <InfoContainerTitle>{title}</InfoContainerTitle>
+        <InfoContainerTitle>
+          {title.length < 12 ? title : `${title.substring(0, 16)}...`}
+        </InfoContainerTitle>
         <InfoContainerSubTitle>
           {loading ? "Carregando..." : userCurrentInfo.name}
         </InfoContainerSubTitle>

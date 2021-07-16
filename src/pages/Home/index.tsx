@@ -10,7 +10,7 @@ import ButtonAdd from "../../components/ButtonAdd";
 import Loading from "../../components/Loading/index";
 
 const Home = () => {
-  const history = useHistory();
+  const history = useHistory(); 
   const { token, userLoggedInfo, getUserLoggedInfo } = useAuth();
   const { type } = userLoggedInfo;
   const [current, setCurrent] = useState<string>(
@@ -31,12 +31,17 @@ const Home = () => {
 
   const { setInHome, setInProfile, setInWorks } = useMenuFooter();
   const [loadingUserLoggedInfo, setLoadingUserLoggedInfo] = useState(true);
-  console.log(listCompletedJobs);
-  const totalGains =
-    type === "worker" &&
-    listCompletedJobs
-      .reduce((acc, acumulater) => acumulater.valueOffered + acc, 0)
-      .toFixed(2);
+  
+  const getTotalGains =()=>{
+    if(type === "worker"){
+      
+      return listCompletedJobs
+      .reduce((acc, acumulater) => Number(acumulater.valueOffered) + acc, 0).toFixed(2)
+      
+    }
+  } 
+  const totalGains=getTotalGains()
+
 
   useEffect(() => {
     getUserLoggedInfo(setLoadingUserLoggedInfo);
@@ -105,7 +110,7 @@ const Home = () => {
                     );
                   }}
                 >
-                  Aplicados
+                  APLICADOS
                 </TabStyle>
               ) : (
                 <TabStyle

@@ -1,5 +1,21 @@
 import styled from "styled-components";
 
+export const BackgroundContainer = styled.div`
+  background-color: var(--cinza-escuro);
+  position: absolute;
+  z-index: 8; 
+  top: 50%;
+  left: 50%;
+
+  transform: translateX(-50%) translateY(-50%);
+`
+
+export const EditWorkForm = styled.form`
+  width: 320px;
+  height: 500px;
+  background-color: var(--cinza-escuro);
+`
+
 export const FooterButton = styled.button`
   width: 100%;
   height: 40px;

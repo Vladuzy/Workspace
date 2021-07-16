@@ -122,6 +122,7 @@ const ProfileSpecificUser = () => {
         <>
           <HeaderSpecificUser
             id={userWantedInfo.id}
+            img={userWantedInfo.img}
             type={userWantedInfo.type}
             name={userWantedInfo.name}
             rating={userWantedInfo.rating}

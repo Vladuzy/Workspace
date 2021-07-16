@@ -9,12 +9,12 @@ interface StatusWorksProps {
 export const BackgroundContainer = styled.div`
   background-color: var(--cinza-escuro);
   position: absolute;
-  z-index: 2; 
+  z-index: 2;
   top: 50%;
   left: 50%;
 
   transform: translateX(-50%) translateY(-50%);
-`
+`;
 
 export const HeaderContainer = styled.header`
   height: 13vh;
@@ -221,4 +221,15 @@ export const InfoWorker = styled.section`
       margin-left: 15px;
     }
   }
+`;
+
+export const ImageContainer = styled.img`
+  width: 55px;
+  height: 55px;
+`;
+
+export const ImageContainerHeader = styled.img`
+  margin: 0 auto;
+  width: 55px;
+  height: 55px;
 `;

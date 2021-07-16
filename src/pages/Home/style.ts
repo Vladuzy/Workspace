@@ -11,6 +11,7 @@ export const MainHomeContainer = styled.main`
 
 export const ListContainer = styled.div`
   max-height: 76vh;
+  height: 100%;
   overflow-y: scroll;
   background-color: var(--cinza-ultra-claro-main);
 `;

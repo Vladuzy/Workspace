@@ -1,19 +1,17 @@
-import Works from '../../Works'
-import { WorksMainContainer, PageContainer, WorksContentContainer } from './styles'
+import Works from "../../Works";
+import { PageContainer } from "./styles";
 
 const DesktopWorks = () => {
-  return(
+  return (
     <PageContainer>
-
-      <WorksMainContainer>
-        <WorksContentContainer>
-          <h3>Trabalhos</h3>
+      <main>
+        <section>
+          <h1>Trabalhos</h1>
           <Works />
-        </WorksContentContainer>
-      </WorksMainContainer>
-
+        </section>
+      </main>
     </PageContainer>
-  )
-}
+  );
+};
 
-export default DesktopWorks
+export default DesktopWorks;
