@@ -21,8 +21,10 @@ import { useViewport } from "../../providers/GetViewport";
 import EditInfoProfileDesktop from "../../components/DESKTOP/EditInfoProfileDesktop";
 
 const Header = () => {
-  const { viewport: { width } } = useViewport()
-  const [editOpen, setEditOpen] = useState<boolean>(false as boolean)
+  const {
+    viewport: { width },
+  } = useViewport();
+  const [editOpen, setEditOpen] = useState<boolean>(false as boolean);
   const {
     listCompletedJobs,
     getListUserWorkerCompletedJobs,
@@ -44,12 +46,12 @@ const Header = () => {
     setInProfile(false);
     history.push("/");
   };
-  
+
   const handleEdit = () => {
-    console.log('biri')
+    console.log("biri");
     if (width > 1266) {
-      console.log('biri12')
-      setEditOpen(true)
+      console.log("biri12");
+      setEditOpen(true);
     } else {
       history.push("/editInfoProfile");
     }
@@ -73,7 +75,7 @@ const Header = () => {
 
   return (
     <>
-      {editOpen && <EditInfoProfileDesktop setEditOpen={setEditOpen}/>}
+      {editOpen && <EditInfoProfileDesktop setEditOpen={setEditOpen} />}
       <Container>
         <HeaderContainer>
           <img src={imgAvatar} alt="Icone Avatar" />

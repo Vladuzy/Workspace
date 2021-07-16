@@ -59,7 +59,7 @@ const Routes = () => {
       <Route path="/works/:id">
         <WorksDescription />
       </Route>
-      <Route path="/teste">
+      <Route path="/avatar">
         <ChoiceAvatar />
       </Route>
       <Route path="/createWork">
