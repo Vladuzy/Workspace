@@ -11,11 +11,14 @@ import {
   ContainerCard,
   InfoContainerSubTitleCard,
   ContainerButton,
+  ImageContainer,
+  ImageContainerHeader,
 } from "./styles";
 import CategoryTag from "../../components/CategoryTag";
+import imgAvatar from "../../assets/img/Avatar.svg";
 import Button from "../../components/Button";
 import api from "../../service/api";
-import { FaDollarSign, FaUserCircle } from "react-icons/fa";
+import { FaDollarSign } from "react-icons/fa";
 import { FiClock } from "react-icons/fi";
 import { RiArrowLeftSLine } from "react-icons/ri";
 import { MdLocationOn } from "react-icons/md";
@@ -51,6 +54,7 @@ interface Job {
 interface UserInfo {
   name: string;
   type: string;
+  img: string;
   email: string;
   password: string;
   rating: string;
@@ -75,23 +79,32 @@ const WorksDescription = () => {
   const { title, valueOffered, date, description, category, location } =
     currentJob;
 
-  const [loadingCurrentJob, setLoadingCurrentJob] = useState<boolean>(true as boolean);
-  const [loadingUserLoggedInfo, setLoadingUserLoggedInfo] = useState<boolean>(true as boolean);
-  const [loadingWorkerApplyToJob, setLoadingWorkerApplyToJob] = useState<boolean>(true as boolean);
+  const [loadingCurrentJob, setLoadingCurrentJob] = useState<boolean>(
+    true as boolean
+  );
+  const [loadingUserLoggedInfo, setLoadingUserLoggedInfo] = useState<boolean>(
+    true as boolean
+  );
+  const [loadingWorkerApplyToJob, setLoadingWorkerApplyToJob] =
+    useState<boolean>(true as boolean);
   const [loadingWorkerCancelApplyToJob, setLoadingWorkerCancelApplyToJob] =
-  useState<boolean>(true as boolean);
+    useState<boolean>(true as boolean);
   const [loadingEmployerAcceptCandidate, setLoadingEmployerAcceptCandidate] =
-  useState<boolean>(true as boolean);
+    useState<boolean>(true as boolean);
   const [loadingEmployerRejectCandidate, setLoadingEmployerRejectCandidate] =
-  useState<boolean>(true as boolean);
+    useState<boolean>(true as boolean);
   const [loadingEmployerCompleteJob, setLoadingEmployerCompleteJob] =
-  useState<boolean>(true as boolean);
+    useState<boolean>(true as boolean);
 
   const [loadingUserWhoCreatedJob, setLoadingUserWhoCreatedJob] =
-  useState<boolean>(true as boolean);
+    useState<boolean>(true as boolean);
 
-  const [loadingUserAppliedJob, setLoadingUserAppliedJob] = useState<boolean>(true as boolean);
-  const [loadingUserAcceptedJob, setLoadingUserAcceptedJob] = useState<boolean>(true as boolean);
+  const [loadingUserAppliedJob, setLoadingUserAppliedJob] = useState<boolean>(
+    true as boolean
+  );
+  const [loadingUserAcceptedJob, setLoadingUserAcceptedJob] = useState<boolean>(
+    true as boolean
+  );
 
   const [showRating, setShowRating] = useState<boolean>(false);
 
@@ -373,7 +386,7 @@ const WorksDescription = () => {
 
   return (
     <>
-      {showRating && <RatingWork setShowRating={setShowRating} id={id}/>}
+      {showRating && <RatingWork setShowRating={setShowRating} id={id} />}
       {loadingCurrentJob &&
       loadingUserLoggedInfo &&
       loadingUserWhoCreatedJob ? (
@@ -383,7 +396,12 @@ const WorksDescription = () => {
           {" "}
           <HeaderContainer>
             <RiArrowLeftSLine onClick={() => history.goBack()} />
-            <FaUserCircle />
+            <ImageContainerHeader
+              src={
+                userWhoCreatedJob.img === "" ? imgAvatar : userWhoCreatedJob.img
+              }
+              alt="Icone Avatar"
+            />
           </HeaderContainer>
           <MainContainer>
             <JobInfoContainer>
@@ -434,7 +452,14 @@ const WorksDescription = () => {
                 >
                   <h2>Freelancer Contratado</h2>
                   <ContainerCard>
-                    <FaUserCircle className="Avatar-Container" />
+                    <ImageContainer
+                      src={
+                        userAcceptedJob.img === ""
+                          ? imgAvatar
+                          : userAcceptedJob.img
+                      }
+                      alt="Icone Avatar"
+                    />
                     <InfoContainerSubTitleCard>
                       {loadingUserAcceptedJob
                         ? "Carregando..."
@@ -453,7 +478,14 @@ const WorksDescription = () => {
                   >
                     <h2>Candidato</h2>
                     <ContainerCard>
-                      <FaUserCircle className="Avatar-Container" />
+                      <ImageContainer
+                        src={
+                          userAppliedJob.img === ""
+                            ? imgAvatar
+                            : userAppliedJob.img
+                        }
+                        alt="Icone Avatar"
+                      />
                       <InfoContainerSubTitleCard>
                         {loadingUserAppliedJob
                           ? "Carregando..."

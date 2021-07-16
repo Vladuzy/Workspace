@@ -5,7 +5,6 @@ import {
   Dispatch,
   SetStateAction,
 } from "react";
-import { FaUserCircle } from "react-icons/fa";
 import { useAuth } from "../../providers/AuthProvider";
 import { useJobs } from "../../providers/Jobs";
 import imgMoreInfo from "../../assets/img/more_Info.svg";
@@ -15,16 +14,19 @@ import {
   InfoContainer,
   InfoContainerTitle,
   InfoContainerSubTitle,
-  PopUpContainer
+  ImageContainer,
+  PopUpContainer,
 } from "./style";
+import imgAvatar from "../../assets/img/Avatar.svg";
 import { useHistory } from "react-router-dom";
 import api from "../../service/api";
-import WorkDescriptionDesktop from '../DESKTOP/WorkDescriptionDesktop'
-import { useViewport } from '../../providers/GetViewport'
+import WorkDescriptionDesktop from "../DESKTOP/WorkDescriptionDesktop";
+import { useViewport } from "../../providers/GetViewport";
 
 interface UserCurrenInfo {
   name: string;
   type: string;
+  img: string;
   email: string;
   password: string;
   rating: string;
@@ -53,8 +55,10 @@ const CardCompletedJob = ({
   id,
   pageType,
 }: CartCompletedJobProps) => {
-  const [completedOpen, setCompletedOpen] = useState<boolean>(false as boolean)
-  const { viewport: { width } } = useViewport()
+  const [completedOpen, setCompletedOpen] = useState<boolean>(false as boolean);
+  const {
+    viewport: { width },
+  } = useViewport();
   const { getListUserEmployerCompletedJobs, getListUserWorkerCompletedJobs } =
     useJobs();
   const { userLoggedInfo, token } = useAuth();
@@ -63,7 +67,7 @@ const CardCompletedJob = ({
   const history = useHistory();
   const handleClick = () => {
     if (width > 1266) {
-      setCompletedOpen(true)
+      setCompletedOpen(true);
     } else {
       history.push(`/works/${id}`);
     }
@@ -104,24 +108,32 @@ const CardCompletedJob = ({
 
   return (
     <>
-    {completedOpen && (<PopUpContainer> <WorkDescriptionDesktop setPopUp={setCompletedOpen} id={id}/> </PopUpContainer>)}
-    <Container onClick={handleClick}>
-      <FaUserCircle className="Avatar-Container" />
-      <InfoContainer>
-        <InfoContainerTitle>
-          {title.length < 12 ? title : `${title.substring(0, 16)}...`}
-        </InfoContainerTitle>
-        <InfoContainerSubTitle>
-          {loading ? "Carregando..." : userCurrentInfo.name}
-        </InfoContainerSubTitle>
-        <Rating
-          precision={0.5}
-          name="read-only"
-          value={Number(rating)}
-          readOnly
+      {completedOpen && (
+        <PopUpContainer>
+          {" "}
+          <WorkDescriptionDesktop setPopUp={setCompletedOpen} id={id} />{" "}
+        </PopUpContainer>
+      )}
+      <Container onClick={handleClick}>
+        <ImageContainer
+          src={userCurrentInfo.img === "" ? imgAvatar : userCurrentInfo.img}
+          alt="Icone Avatar"
         />
-      </InfoContainer>
-    </Container>
+        <InfoContainer>
+          <InfoContainerTitle>
+            {title.length < 12 ? title : `${title.substring(0, 16)}...`}
+          </InfoContainerTitle>
+          <InfoContainerSubTitle>
+            {loading ? "Carregando..." : userCurrentInfo.name}
+          </InfoContainerSubTitle>
+          <Rating
+            precision={0.5}
+            name="read-only"
+            value={Number(rating)}
+            readOnly
+          />
+        </InfoContainer>
+      </Container>
     </>
   );
 };

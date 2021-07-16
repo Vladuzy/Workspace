@@ -30,6 +30,10 @@ export const InfoContainerSubTitle = styled.h2`
   font-size: 0.8rem;
 `;
 
+export const ImageContainer = styled.img`
+  width: 55px;
+  height: 55px;
+`;
 export const PopUpContainer = styled.div`
   div:nth-child(1) {
     width: 320px;
@@ -44,4 +48,4 @@ export const PopUpContainer = styled.div`
       width: 100%;
     }
   }
-`
+`;

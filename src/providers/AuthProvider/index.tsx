@@ -28,6 +28,7 @@ interface UserDataRegister {
 interface UserLoggedInfo {
   name: string;
   type: string;
+  img: string;
   email: string;
   password: string;
   rating: string;
@@ -42,6 +43,7 @@ interface UserLoggedInfo {
 interface UserWantedInfo {
   name: string;
   type: string;
+  img: string;
   email: string;
   password: string;
   rating: string;

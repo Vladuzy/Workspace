@@ -89,7 +89,11 @@ const Register = () => {
 
   return (
     <Container>
-      <img src={imgLogo} alt="Icone da workspace" />
+      <img
+        src={imgLogo}
+        alt="Icone da workspace"
+        onClick={() => history.push("/")}
+      />
       <FormContainer onSubmit={handleSubmit(handleForm)}>
         <ContainerInputs>
           <Input

@@ -69,7 +69,11 @@ const Login = () => {
 
   return (
     <Container>
-      <img src={imgLogo} alt="Logo da workspace" />
+      <img
+        src={imgLogo}
+        alt="Logo da workspace"
+        onClick={() => history.push("/")}
+      />
       <form onSubmit={handleSubmit(handleLogin)}>
         <Content>
           <ContainerInput>
