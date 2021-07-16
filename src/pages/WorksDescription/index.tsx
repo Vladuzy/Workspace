@@ -22,6 +22,7 @@ import { FaDollarSign } from "react-icons/fa";
 import { FiClock } from "react-icons/fi";
 import { RiArrowLeftSLine } from "react-icons/ri";
 import { MdLocationOn } from "react-icons/md";
+import { useViewport } from "../../providers/GetViewport";
 
 import { SetStateAction, useEffect, useState, Dispatch } from "react";
 import { useParams, useHistory, Redirect } from "react-router-dom";
@@ -67,6 +68,7 @@ interface UserInfo {
 
 const WorksDescription = () => {
   const history = useHistory();
+  const { viewport: { width } } = useViewport()
   const { token, userLoggedInfo, getUserLoggedInfo } = useAuth();
   const { id } = useParams() as Params;
 
@@ -405,7 +407,7 @@ const WorksDescription = () => {
             <JobInfoContainer>
               <h2>{title}</h2>
               {/* Foi necessário deixar == para comparar string e number */}
-              {currentJob.userId === userLoggedInfo.id &&
+              {currentJob.userId == userLoggedInfo.id &&
                 currentJob.status === "isWaiting" &&
                 currentJob.appliedCandidateId === "Sem Candidatos" && (
                   <ImageEdit
@@ -464,7 +466,6 @@ const WorksDescription = () => {
                         : userAcceptedJob.name}
                     </InfoContainerSubTitleCard>
                   </ContainerCard>
-                  ;
                 </InfoWorker>
               ) : (
                 currentJob.appliedCandidateId !== "Sem Candidatos" && (
@@ -491,7 +492,6 @@ const WorksDescription = () => {
                           : userAppliedJob.name}
                       </InfoContainerSubTitleCard>
                     </ContainerCard>
-                    ;
                   </InfoWorker>
                 )
               )}

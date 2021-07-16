@@ -83,6 +83,10 @@ export const MainContainer = styled.main`
   background-color: var(--cinza-ultra-claro-main);
   overflow-y: scroll;
 
+  & > div:last-child {
+    margin-bottom: 5px;
+  }
+
   @media (min-width: 769px) {
     display: flex;
     flex-wrap: wrap;
@@ -109,7 +113,7 @@ export const MainContainer = styled.main`
       padding: 0px 10px;
       max-width: 350px;
       min-width: 235px;
-      width: 42%;
+      width: 48%;
       border: 1px solid var(--roxo-tema-principal);
       border-radius: 8px;
     }

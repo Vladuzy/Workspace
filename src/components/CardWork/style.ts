@@ -4,7 +4,7 @@ export const CardContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
+  min-width: 100%;
   cursor: pointer;
 
   & > svg {
@@ -17,7 +17,7 @@ export const CardContainer = styled.div`
   border-bottom: 1px solid var(--roxo-tema-principal);
 
   @media only screen and (min-width: 769px) {
-    height: 125px;
+    min-height: 125px;
   }
 `;
 

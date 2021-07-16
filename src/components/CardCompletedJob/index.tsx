@@ -15,10 +15,13 @@ import {
   InfoContainerTitle,
   InfoContainerSubTitle,
   ImageContainer,
+  PopUpContainer,
 } from "./style";
 import imgAvatar from "../../assets/img/Avatar.svg";
 import { useHistory } from "react-router-dom";
 import api from "../../service/api";
+import WorkDescriptionDesktop from "../DESKTOP/WorkDescriptionDesktop";
+import { useViewport } from "../../providers/GetViewport";
 
 interface UserCurrenInfo {
   name: string;
@@ -52,6 +55,10 @@ const CardCompletedJob = ({
   id,
   pageType,
 }: CartCompletedJobProps) => {
+  const [completedOpen, setCompletedOpen] = useState<boolean>(false as boolean);
+  const {
+    viewport: { width },
+  } = useViewport();
   const { getListUserEmployerCompletedJobs, getListUserWorkerCompletedJobs } =
     useJobs();
   const { userLoggedInfo, token } = useAuth();
@@ -59,7 +66,11 @@ const CardCompletedJob = ({
   const [userCurrentInfo, setUserCurrentInfo] = useState({} as UserCurrenInfo);
   const history = useHistory();
   const handleClick = () => {
-    history.push(`/works/${id}`);
+    if (width > 1266) {
+      setCompletedOpen(true);
+    } else {
+      history.push(`/works/${id}`);
+    }
   };
 
   const getInfoCurrentUser = (
@@ -96,26 +107,34 @@ const CardCompletedJob = ({
   }, []);
 
   return (
-    <Container onClick={handleClick}>
-      <ImageContainer
-        src={userCurrentInfo.img === "" ? imgAvatar : userCurrentInfo.img}
-        alt="Icone Avatar"
-      />
-      <InfoContainer>
-        <InfoContainerTitle>
-          {title.length < 12 ? title : `${title.substring(0, 16)}...`}
-        </InfoContainerTitle>
-        <InfoContainerSubTitle>
-          {loading ? "Carregando..." : userCurrentInfo.name}
-        </InfoContainerSubTitle>
-        <Rating
-          precision={0.5}
-          name="read-only"
-          value={Number(rating)}
-          readOnly
+    <>
+      {completedOpen && (
+        <PopUpContainer>
+          {" "}
+          <WorkDescriptionDesktop setPopUp={setCompletedOpen} id={id} />{" "}
+        </PopUpContainer>
+      )}
+      <Container onClick={handleClick}>
+        <ImageContainer
+          src={userCurrentInfo.img === "" ? imgAvatar : userCurrentInfo.img}
+          alt="Icone Avatar"
         />
-      </InfoContainer>
-    </Container>
+        <InfoContainer>
+          <InfoContainerTitle>
+            {title.length < 12 ? title : `${title.substring(0, 16)}...`}
+          </InfoContainerTitle>
+          <InfoContainerSubTitle>
+            {loading ? "Carregando..." : userCurrentInfo.name}
+          </InfoContainerSubTitle>
+          <Rating
+            precision={0.5}
+            name="read-only"
+            value={Number(rating)}
+            readOnly
+          />
+        </InfoContainer>
+      </Container>
+    </>
   );
 };
 

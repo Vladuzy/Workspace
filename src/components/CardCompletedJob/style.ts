@@ -34,3 +34,18 @@ export const ImageContainer = styled.img`
   width: 55px;
   height: 55px;
 `;
+export const PopUpContainer = styled.div`
+  div:nth-child(1) {
+    width: 320px;
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 15px;
+
+    header {
+      width: 100%;
+    }
+    main {
+      width: 100%;
+    }
+  }
+`;

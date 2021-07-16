@@ -17,12 +17,19 @@ import WorksDesktop from "../pages/DESKTOP/WorksDesktop";
 import EditInfoProfile from "../pages/EditInfoProfile";
 import { useViewport } from "../providers/GetViewport";
 import ChoiceAvatar from "../pages/ChoiceAvatar";
+import { useEffect } from "react";
 
 const Routes = () => {
   const {
+    setViewport,
+    getWindowDimension,
     viewport: { width },
   } = useViewport();
-  console.log(width);
+
+  useEffect(() => {
+    setViewport(getWindowDimension());
+    console.log("USE EFFECT DO ROUTES");
+  }, []);
 
   return width < 1266 ? (
     <Switch>
@@ -80,7 +87,7 @@ const Routes = () => {
       <Route path="/register">
         <Register />
       </Route>
-      <Route path="/works">
+      <Route exact path="/works">
         <DesktopHome />
       </Route>
       <Route path="/home">

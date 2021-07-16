@@ -406,7 +406,7 @@ const WorksDescriptionDesktop = ({ id, setPopUp }: Params) => {
               <JobInfoContainer>
                 <h2>{title}</h2>
                 {/* Foi necessário deixar == para comparar string e number */}
-                {currentJob.userId === userLoggedInfo.id &&
+                {currentJob.userId == userLoggedInfo.id &&
                   currentJob.status === "isWaiting" &&
                   currentJob.appliedCandidateId === "Sem Candidatos" && (
                     <ImageEdit
