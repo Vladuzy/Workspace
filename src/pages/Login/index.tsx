@@ -62,7 +62,6 @@ const Login = () => {
     api
       .post("/login", userDataLogin)
       .then((response) => {
-        console.log(response.data.accessToken);
         localStorage.setItem("@WorkSpace:token", response.data.accessToken);
         setToken(response.data.accessToken);
         const decodedToken: DecodedToken = jwt_decode(

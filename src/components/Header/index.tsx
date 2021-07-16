@@ -37,7 +37,6 @@ const Header = () => {
   } = useJobs();
   const { userLoggedInfo, setIsAuthenticated } = useAuth();
   const { setInHome, setInProfile, setInWorks } = useMenuFooter();
-  console.log(listCompletedJobs);
 
   const { type } = userLoggedInfo;
 
@@ -53,9 +52,7 @@ const Header = () => {
   };
 
   const handleEdit = () => {
-    console.log("biri");
     if (width > 1266) {
-      console.log("biri12");
       setEditOpen(true);
     } else {
       history.push("/editInfoProfile");

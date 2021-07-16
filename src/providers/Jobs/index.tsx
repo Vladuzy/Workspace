@@ -67,19 +67,9 @@ interface JobsProviderData {
   getASpecificJob: (jobId: string) => void;
   currentJob: CurrentJob;
   userEmployerEditJob: (jobEditData: JobEditData, jobId: string) => void;
-  // userEmployerAcceptCandidate: (
-  //   appliedCandidateId: string,
-  //   jobId: string
-  // ) => void;
-  // userEmployerRejectCandidate: (
-  //   appliedCandidateId: string,
-  //   rejectedCandidatesIds: string[],
-  //   jobId: string
-  // ) => void;
-  // userEmployerCompleteJob: (jobId: string) => void;
+
   userEmployerRatingJob: (ratingJob: string, jobId: string) => void;
-  // userWorkerApplyToJob: (jobId: string) => void;
-  // userWorkerCancelApplyToJob: (jobId: string) => void;
+
   getListAllJobs: () => void;
   listAllJobs: Job[];
   getListWaitingJobsWithoutCandidates: (
@@ -110,8 +100,6 @@ const JobsContext = createContext<JobsProviderData>({} as JobsProviderData);
 
 export const JobsProvider = ({ children }: JobsProviderProps) => {
   const { token, userLoggedId, userLoggedInfo } = useAuth();
-
-  // const [ currentJobId, setCurrentJobId ] = useState("");
 
   const [currentJob, setCurrentJob] = useState<CurrentJob>(
     (JSON.parse(localStorage.getItem("@WorkSpace:currentJob") as string) ||
@@ -201,7 +189,6 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
       rejectedCandidatesIds: [],
       userId: userLoggedId,
     };
-    console.log(token);
     api
       .post("/jobs", createJobCompleteData, {
         headers: {
@@ -209,7 +196,6 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
         },
       })
       .then((response) => {
-        console.log(response);
         toast.success("Trabalho Criado com sucesso!!");
       })
       .catch((err) => console.log(err));
@@ -228,8 +214,6 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
           "@WorkSpace:currentJob",
           JSON.stringify(response.data)
         );
-        console.log(response);
-        //Show Toast
       })
       .catch((err) => console.log(err));
   };
@@ -241,80 +225,9 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((response) => {
-        console.log(response);
-        //Show Toast
-      })
+      .then((response) => {})
       .catch((err) => console.log(err));
   };
-
-  // const userEmployerAcceptCandidate = (
-  //   appliedCandidateId: string,
-  //   jobId: string
-  // ) => {
-  //   const acceptCandidateData = {
-  //     status: "inProgress",
-  //     appliedCandidateId: "",
-  //     acceptedCandidateId: appliedCandidateId,
-  //   };
-
-  //   api
-  //     .patch(`/jobs/${jobId}`, acceptCandidateData, {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     })
-  //     .then((response) => {
-  //       console.log(response);
-  //       //Show Toast
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
-
-  // const userEmployerRejectCandidate = (
-  //   appliedCandidateId: string,
-  //   rejectedCandidatesIds: string[],
-  //   jobId: string
-  // ) => {
-  //   const rejectedCandidates = [...rejectedCandidatesIds, appliedCandidateId];
-
-  //   const rejectCandidateData = {
-  //     status: "isWaiting",
-  //     appliedCandidateId: "Sem Candidatos",
-  //     acceptedCandidateId: "",
-  //     rejectedCandidatesIds: [rejectedCandidates],
-  //   };
-
-  //   api
-  //     .patch(`/jobs/${jobId}`, rejectCandidateData, {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     })
-  //     .then((response) => {
-  //       console.log(response);
-  //       //Show Toast
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
-
-  // const userEmployerCompleteJob = (jobId: string) => {
-  //   const completeJobData = {
-  //     status: "isCompleted",
-  //   };
-
-  //   api
-  //     .patch(`/jobs/${jobId}`, completeJobData, {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     })
-  //     .then((response) => {
-  //       console.log(response);
-  //       //Show Toast
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
 
   const userEmployerRatingJob = (ratingJob: string, jobId: string) => {
     const ratingJobData = {
@@ -327,48 +240,9 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((response) => {
-        console.log(response);
-        //Show Toast
-      })
+      .then((response) => {})
       .catch((err) => console.log(err));
   };
-
-  // const userWorkerApplyToJob = (jobId: string) => {
-  //   const applyToJobData = {
-  //     appliedCandidateId: userLoggedId,
-  //   };
-
-  //   api
-  //     .patch(`/jobs/${jobId}`, applyToJobData, {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     })
-  //     .then((response) => {
-  //       console.log(response);
-  //       //Show Toast
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
-
-  // const userWorkerCancelApplyToJob = (jobId: string) => {
-  //   const applyToJobData = {
-  //     appliedCandidateId: "Sem Candidatos",
-  //   };
-
-  //   api
-  //     .patch(`/jobs/${jobId}`, applyToJobData, {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     })
-  //     .then((response) => {
-  //       console.log(response);
-  //       //Show Toast
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
 
   const getListAllJobs = () => {
     api
@@ -378,13 +252,11 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
         },
       })
       .then((response) => {
-        console.log(response);
         setListAllJobs(response.data);
         localStorage.setItem(
           "@WorkSpace:listAllJobs",
           JSON.stringify(response.data)
         );
-        //Show Toast
       })
       .catch((err) => console.log(err));
   };
@@ -405,7 +277,6 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
           JSON.stringify(response.data)
         );
         setLoading(false);
-        // console.log(response);
       })
       .catch((err) => console.log(err));
   };
@@ -423,7 +294,6 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
           "@WorkSpace:listUserJobs",
           JSON.stringify(response.data)
         );
-        console.log(response);
       })
       .catch((err) => console.log(err));
   };
@@ -441,7 +311,6 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
           "@WorkSpace:listUserJobs",
           JSON.stringify(response.data)
         );
-        console.log(response);
       })
       .catch((err) => console.log(err));
   };
@@ -454,13 +323,11 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
         },
       })
       .then((response) => {
-        console.log(response);
         setListCompletedJobs(response.data);
         localStorage.setItem(
           "@WorkSpace:listUserCompletedJobs",
           JSON.stringify(response.data)
         );
-        //Show Toast
       })
       .catch((err) => console.log(err));
   };
@@ -473,13 +340,11 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
         },
       })
       .then((response) => {
-        console.log(response);
         setListCompletedJobs(response.data);
         localStorage.setItem(
           "@WorkSpace:listUserCompletedJobs",
           JSON.stringify(response.data)
         );
-        //Show Toast
       })
       .catch((err) => console.log(err));
   };
@@ -492,13 +357,11 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
         },
       })
       .then((response) => {
-        console.log(response);
         setListUserEmployerCurrentJobs(response.data);
         localStorage.setItem(
           "@WorkSpace:listUserEmployerCurrentJobs",
           JSON.stringify(response.data)
         );
-        //Show Toast
       })
       .catch((err) => console.log(err));
   };
@@ -511,13 +374,11 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
         },
       })
       .then((response) => {
-        console.log(response);
         setListUserEmployerActiveJobs(response.data);
         localStorage.setItem(
           "@WorkSpace:listUserEmployerActiveJobs",
           JSON.stringify(response.data)
         );
-        //Show Toast
       })
       .catch((err) => console.log(err));
   };
@@ -530,13 +391,11 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
         },
       })
       .then((response) => {
-        console.log(response);
         setListUserWorkerAppliedJobs(response.data);
         localStorage.setItem(
           "@WorkSpace:listUserWorkerAppliedJobs",
           JSON.stringify(response.data)
         );
-        //Show Toast
       })
       .catch((err) => console.log(err));
   };
@@ -549,13 +408,11 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
         },
       })
       .then((response) => {
-        console.log(response);
         setListUserWorkerActiveJobs(response.data);
         localStorage.setItem(
           "@WorkSpace:listUserWorkerActiveJobs",
           JSON.stringify(response.data)
         );
-        //Show Toast
       })
       .catch((err) => console.log(err));
   };
@@ -567,12 +424,9 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
         getASpecificJob,
         currentJob,
         userEmployerEditJob,
-        // userEmployerAcceptCandidate,
-        // userEmployerRejectCandidate,
-        // userEmployerCompleteJob,
+
         userEmployerRatingJob,
-        // userWorkerApplyToJob,
-        // userWorkerCancelApplyToJob,
+
         getListAllJobs,
         listAllJobs,
         getListWaitingJobsWithoutCandidates,

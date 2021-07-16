@@ -127,9 +127,7 @@ const WorksDescriptionDesktop = ({ id, setPopUp }: Params) => {
           "@WorkSpace:currentJob",
           JSON.stringify(response.data)
         );
-        console.log(response);
         setLoadingCurrentJob(false);
-        //Show Toast
       })
       .catch((err) => console.log(err));
   };
@@ -150,7 +148,6 @@ const WorksDescriptionDesktop = ({ id, setPopUp }: Params) => {
       })
       .then((response) => {
         setLoadingWorkerApplyToJob(false);
-        //Show Toast
       })
       .catch((err) => console.log(err));
   };
@@ -171,7 +168,6 @@ const WorksDescriptionDesktop = ({ id, setPopUp }: Params) => {
       })
       .then((response) => {
         setLoadingWorkerCancelApplyToJob(false);
-        //Show Toast
       })
       .catch((err) => console.log(err));
   };
@@ -194,9 +190,7 @@ const WorksDescriptionDesktop = ({ id, setPopUp }: Params) => {
         },
       })
       .then((response) => {
-        // console.log(response);
         setLoadingEmployerAcceptCandidate(false);
-        //Show Toast
       })
       .catch((err) => console.log(err));
   };
@@ -243,9 +237,7 @@ const WorksDescriptionDesktop = ({ id, setPopUp }: Params) => {
         },
       })
       .then((response) => {
-        console.log(response);
         setLoadingEmployerCompleteJob(false);
-        //Show Toast
       })
       .catch((err) => console.log(err));
   };
@@ -262,10 +254,7 @@ const WorksDescriptionDesktop = ({ id, setPopUp }: Params) => {
       })
       .then((response) => {
         setUserWhoCreatedJob(response.data);
-        // localStorage.setItem(
-        //   "@WorkSpace:userWhoCreatedJob",
-        //   JSON.stringify(response.data)
-        // );
+
         setLoadingUserWhoCreatedJob(false);
       })
       .catch((err) => console.log(err));
@@ -282,7 +271,6 @@ const WorksDescriptionDesktop = ({ id, setPopUp }: Params) => {
         },
       })
       .then((response) => {
-        console.log(response);
         setUserAppliedJob(response.data);
         setLoadingUserAppliedJob(false);
       })
@@ -300,7 +288,6 @@ const WorksDescriptionDesktop = ({ id, setPopUp }: Params) => {
         },
       })
       .then((response) => {
-        console.log(response);
         setUserAcceptedJob(response.data);
         setLoadingUserAcceptedJob(false);
       })

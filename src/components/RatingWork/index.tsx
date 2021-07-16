@@ -29,8 +29,7 @@ const RatingWork = ({ setShowRating, id }: RatingWorkProps) => {
         }
       )
       .then((response) => {
-        setShowRating(false)
-        //Show Toast
+        setShowRating(false);
       })
       .catch((err) => console.log(err));
     history.goBack();
