@@ -14,6 +14,7 @@ interface FilterProps {
 const Filter = ({ close, setFilters, setOrder }: FilterProps) => {
   const [selected, setSelected] = useState<string[]>([] as string[])
   const [value, setValue] = useState<string>('' as string)
+  console.log(selected)
 
   const handleAddFilter = () => {
     setFilters(selected)

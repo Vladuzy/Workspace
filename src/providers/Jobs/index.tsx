@@ -189,7 +189,7 @@ export const JobsProvider = ({ children }: JobsProviderProps) => {
 
     const createJobCompleteData = {
       title,
-      category,
+      category: category[0],
       description,
       location,
       valueOffered,

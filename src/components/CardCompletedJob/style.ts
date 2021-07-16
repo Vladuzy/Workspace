@@ -29,3 +29,19 @@ export const InfoContainerSubTitle = styled.h2`
   color: var(--roxo-tema-principal);
   font-size: 0.8rem;
 `;
+
+export const PopUpContainer = styled.div`
+  div:nth-child(1) {
+    width: 320px;
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 15px;
+
+    header {
+      width: 100%;
+    }
+    main {
+      width: 100%;
+    }
+  }
+`

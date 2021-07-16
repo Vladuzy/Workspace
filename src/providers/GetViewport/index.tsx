@@ -1,4 +1,5 @@
-import { ReactNode } from "react";
+import { ReactNode, SetStateAction } from "react";
+import { Dispatch } from "react";
 import { useEffect } from "react";
 import { useContext, createContext, useState } from "react";
 
@@ -6,11 +7,18 @@ interface ViewportProviderProps {
   children: ReactNode;
 }
 
+interface Viewport {
+  width: number;
+  height: number;
+}
+
 interface ViewportProviderData {
   viewport: {
     width: number;
     height: number;
   };
+  setViewport: Dispatch<SetStateAction<Viewport>>;
+  getWindowDimension: () => Viewport
 }
 
 const ViewportContext = createContext<ViewportProviderData>(
@@ -18,9 +26,9 @@ const ViewportContext = createContext<ViewportProviderData>(
 );
 
 export const ViewportProvider = ({ children }: ViewportProviderProps) => {
-  const [viewport, setViewport] = useState(() => {
+  const [viewport, setViewport] = useState<Viewport>(() => {
     return (
-      JSON.parse(localStorage.getItem("@WorkSpace:viewport") as string) || {}
+      JSON.parse(localStorage.getItem("@WorkSpace:viewport") as string) || {} as Viewport
     );
   });
 
@@ -36,7 +44,7 @@ export const ViewportProvider = ({ children }: ViewportProviderProps) => {
     return { width, height };
   };
 
-  useEffect(() => {
+  const handleViewPort = () => {
     window.addEventListener("resize", () => {
       setViewport(getWindowDimension());
       localStorage.setItem(
@@ -44,10 +52,14 @@ export const ViewportProvider = ({ children }: ViewportProviderProps) => {
         JSON.stringify(getWindowDimension())
       );
     });
+  }
+
+  useEffect(() => {
+    handleViewPort()
   }, []);
 
   return (
-    <ViewportContext.Provider value={{ viewport }}>
+    <ViewportContext.Provider value={{ viewport, getWindowDimension, setViewport }}>
       {children}
     </ViewportContext.Provider>
   );

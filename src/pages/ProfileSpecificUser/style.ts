@@ -153,7 +153,7 @@ export const JobsDone = styled.div`
     align-items: center;
     div {
       margin-top: 1rem;
-      width: 200px;
+      min-width: 200px;
     }
   }
 `;

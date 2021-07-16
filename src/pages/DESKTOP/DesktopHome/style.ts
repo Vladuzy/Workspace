@@ -46,7 +46,7 @@ export const ListContainer = styled.div`
     padding: 0px 10px;
     max-width: 350px;
     min-width: 235px;
-    width: 42%;
+    width: 48%;
     border: 1px solid var(--roxo-tema-principal);
     border-radius: 8px;
   }
