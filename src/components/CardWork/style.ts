@@ -21,6 +21,10 @@ export const CardContainer = styled.div`
   }
 `;
 
+export const ContainerTitle = styled.div`
+  min-width: 165px;
+`;
+
 export const CardHeader = styled.div`
   display: flex;
   flex-direction: row;

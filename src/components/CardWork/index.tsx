@@ -6,6 +6,7 @@ import {
   CardFooter,
   ImageContainerHeader,
   PContainer,
+  ContainerTitle,
 } from "./style";
 import CategoryTag from "../CategoryTag";
 import { useHistory } from "react-router-dom";
@@ -119,12 +120,12 @@ const CardWork = ({ job }: CardWorkProps) => {
                 alt="Icone Avatar"
               />
             )}
-            <div>
-              <h2>{title}</h2>
+            <ContainerTitle>
+              <h2>{title.length < 23 ? title : title.substr(0, 16) + "..."}</h2>
               <CategoryTag
                 category={Array.isArray(category) ? category[0] : category}
               />
-            </div>
+            </ContainerTitle>
           </CardHeader>
 
           <CardFooter>
