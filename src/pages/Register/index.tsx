@@ -72,6 +72,7 @@ const Register = () => {
       name,
       type,
       rating: "",
+      img: "",
       moreInfo: {
         categories: [],
         description: "",

@@ -12,22 +12,36 @@ import {
   MenuBarsList,
   Logout,
 } from "./style";
-
+import { useState } from "react";
 const Navbar = () => {
-  const { inHome, setInHome, inWorks, setInWorks } = useMenuFooter();
+  // const { inHome, setInHome, inWorks, setInWorks } = useMenuFooter();
+  const [inHomeAside, setInHomeAside] = useState(
+    localStorage.getItem("@WorkSpace:inHomeAside")
+      ? JSON.parse(localStorage.getItem("@WorkSpace:inHomeAside") as string)
+      : true
+  );
+  const [inWorksAside, setInWorksAside] = useState(
+    localStorage.getItem("@WorkSpace:inWorksAside")
+      ? JSON.parse(localStorage.getItem("@WorkSpace:inWorksAside") as string)
+      : false
+  );
 
   const history = useHistory();
   const { setIsAuthenticated } = useAuth();
 
   const handleClick = (page: string) => {
     if (page === "inWorks") {
-      setInWorks(true);
-      setInHome(false);
+      setInWorksAside(true);
+      setInHomeAside(false);
+      localStorage.setItem("@WorkSpace:inHomeAside", "false");
+      localStorage.setItem("@WorkSpace:inWorksAside", "true");
       history.push("/works");
     }
     if (page === "inHome") {
-      setInWorks(false);
-      setInHome(true);
+      setInWorksAside(false);
+      setInHomeAside(true);
+      localStorage.setItem("@WorkSpace:inHomeAside", "true");
+      localStorage.setItem("@WorkSpace:inWorksAside", "false");
       history.push("/home");
     }
   };
@@ -35,8 +49,8 @@ const Navbar = () => {
   const handleLogout = () => {
     localStorage.clear();
     setIsAuthenticated(false);
-    setInHome(true);
-    setInWorks(false);
+    setInHomeAside(true);
+    setInWorksAside(false);
     history.push("/");
   };
 
@@ -51,14 +65,14 @@ const Navbar = () => {
         <NavMenuList>
           <NavMenuItens
             onClick={() => handleClick("inWorks")}
-            className={inWorks ? "isActive" : ""}
+            className={inWorksAside ? "isActive" : ""}
           >
             <IoBriefcase size={25} />
             <MenuBarsList>Trabalhos</MenuBarsList>
           </NavMenuItens>
           <NavMenuItens
             onClick={() => handleClick("inHome")}
-            className={inHome ? "isActive" : ""}
+            className={inHomeAside ? "isActive" : ""}
           >
             <IoApps size={25} />
             <MenuBarsList>Início</MenuBarsList>
